@@ -1,4 +1,4 @@
-#VK SDK for Dart.
+# VK SDK for Dart.
 
 VK SDK for Dart allows you to use the VK API easily.
 
