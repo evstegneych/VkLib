@@ -3,11 +3,9 @@ import 'package:vklib/src/params.dart';
 import '../api.dart';
 
 class Account {
-  late API _api;
+  late final API _api;
 
-  Account(API api) {
-    _api = api;
-  }
+  Account(this._api);
 
   Future<Params> ban([Map<String, dynamic>? params]) async {
     return _api.request('account.ban', {
