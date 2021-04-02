@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:vklib/src/methods/account.dart';
+import 'package:vklib/src/methods/friends.dart';
+import 'package:vklib/src/methods/messages.dart';
 import 'package:vklib/src/params.dart';
 
 import '../vklib.dart';
@@ -13,10 +15,14 @@ class API {
   late VkLib _vk;
 
   late Account account;
+  late Friends friends;
+  late Messages messages;
 
   API(VkLib vk) {
     _vk = vk;
     account = Account(this);
+    friends = Friends(this);
+    messages = Messages(this);
   }
 
   Future<Params> request(

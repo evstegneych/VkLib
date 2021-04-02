@@ -3,7 +3,7 @@ import 'package:vklib/src/params.dart';
 import '../api.dart';
 
 class Account {
-  late final API _api;
+  final API _api;
 
   Account(this._api);
 
