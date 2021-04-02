@@ -2,6 +2,8 @@
 
 VK SDK for Dart allows you to use the VK API easily.
 
+###### Inspired by [Dart-vkio](!https://github.com/nitreojs/dart-vkio) and [vk-io](https://github.com/negezor/vk-io)
+
 ## Install
 Add to your pubspec.yaml
 ```yaml
@@ -15,11 +17,11 @@ dependencies:
  
  - Methods
     - Account
-    - ~~Ads~~
-    - ~~Apps~~
-    - ~~Board~~
-    - ~~Database~~
-    - ~~Docs~~
+    - Ads
+    - Apps
+    - Board
+    - Database
+    - Docs
     - ~~Fave~~
     - Friends
     - ~~Gifts~~
