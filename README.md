@@ -22,7 +22,7 @@ dependencies:
     - Board
     - Database
     - Docs
-    - ~~Fave~~
+    - Fave
     - Friends
     - ~~Gifts~~
     - ~~Groups~~

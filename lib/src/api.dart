@@ -2,6 +2,12 @@ import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:vklib/src/methods/account.dart';
+import 'package:vklib/src/methods/ads.dart';
+import 'package:vklib/src/methods/apps.dart';
+import 'package:vklib/src/methods/board.dart';
+import 'package:vklib/src/methods/database.dart';
+import 'package:vklib/src/methods/docs.dart';
+import 'package:vklib/src/methods/fave.dart';
 import 'package:vklib/src/methods/friends.dart';
 import 'package:vklib/src/methods/messages.dart';
 import 'package:vklib/src/params.dart';
@@ -15,12 +21,25 @@ class API {
   late VkLib _vk;
 
   late Account account;
+  late Ads ads;
+  late Apps apps;
+  late Board board;
+  late Database database;
+  late Docs docs;
+  late Fave fave;
   late Friends friends;
   late Messages messages;
 
   API(VkLib vk) {
     _vk = vk;
+
     account = Account(this);
+    ads = Ads(this);
+    apps = Apps(this);
+    board = Board(this);
+    database = Database(this);
+    docs = Docs(this);
+    fave = Fave(this);
     friends = Friends(this);
     messages = Messages(this);
   }
