@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
+import 'package:vklib/src/methods/Streaming.dart';
 import 'package:vklib/src/methods/account.dart';
 import 'package:vklib/src/methods/ads.dart';
 import 'package:vklib/src/methods/apps.dart';
@@ -9,11 +10,35 @@ import 'package:vklib/src/methods/database.dart';
 import 'package:vklib/src/methods/docs.dart';
 import 'package:vklib/src/methods/fave.dart';
 import 'package:vklib/src/methods/friends.dart';
+import 'package:vklib/src/methods/gifts.dart';
+import 'package:vklib/src/methods/groups.dart';
+import 'package:vklib/src/methods/leads.dart';
+import 'package:vklib/src/methods/likes.dart';
+import 'package:vklib/src/methods/market.dart';
 import 'package:vklib/src/methods/messages.dart';
+import 'package:vklib/src/methods/newsfeed.dart';
+import 'package:vklib/src/methods/notes.dart';
+import 'package:vklib/src/methods/notifications.dart';
+import 'package:vklib/src/methods/orders.dart';
+import 'package:vklib/src/methods/pages.dart';
+import 'package:vklib/src/methods/photos.dart';
+import 'package:vklib/src/methods/polls.dart';
+import 'package:vklib/src/methods/prettyCards.dart';
+import 'package:vklib/src/methods/search.dart';
+import 'package:vklib/src/methods/secure.dart';
+import 'package:vklib/src/methods/stats.dart';
+import 'package:vklib/src/methods/status.dart';
+import 'package:vklib/src/methods/storage.dart';
+import 'package:vklib/src/methods/stories.dart';
+import 'package:vklib/src/methods/utils.dart';
+import 'package:vklib/src/methods/video.dart';
+import 'package:vklib/src/methods/wall.dart';
+import 'package:vklib/src/methods/widgets.dart';
 import 'package:vklib/src/params.dart';
 
 import '../vklib.dart';
 import 'exception.dart';
+import 'methods/users.dart';
 
 class API {
   final String _baseUrl = 'https://api.vk.com/method';
@@ -28,7 +53,32 @@ class API {
   late Docs docs;
   late Fave fave;
   late Friends friends;
+  late Gifts gifts;
+  late Groups groups;
+  late Leads leads;
+  late Likes likes;
+  late Market market;
   late Messages messages;
+  late Newsfeed newsfeed;
+  late Notes notes;
+  late Notifications notifications;
+  late Orders orders;
+  late Pages pages;
+  late Photos photos;
+  late Polls polls;
+  late PrettyCards prettyCards;
+  late Search search;
+  late Secure secure;
+  late Stats stats;
+  late Status status;
+  late Storage storage;
+  late Stories stories;
+  late Streaming streaming;
+  late Users users;
+  late Utils utils;
+  late Video video;
+  late Wall wall;
+  late Widgets widgets;
 
   API(VkLib vk) {
     _vk = vk;
@@ -41,7 +91,32 @@ class API {
     docs = Docs(this);
     fave = Fave(this);
     friends = Friends(this);
+    gifts = Gifts(this);
+    groups = Groups(this);
+    leads = Leads(this);
+    likes = Likes(this);
+    market = Market(this);
     messages = Messages(this);
+    newsfeed = Newsfeed(this);
+    notes = Notes(this);
+    notifications = Notifications(this);
+    orders = Orders(this);
+    pages = Pages(this);
+    photos = Photos(this);
+    polls = Polls(this);
+    prettyCards = PrettyCards(this);
+    search = Search(this);
+    secure = Secure(this);
+    stats = Stats(this);
+    status = Status(this);
+    storage = Storage(this);
+    stories = Stories(this);
+    streaming = Streaming(this);
+    users = Users(this);
+    utils = Utils(this);
+    video = Video(this);
+    wall = Wall(this);
+    widgets = Widgets(this);
   }
 
   Future<Params> request(
