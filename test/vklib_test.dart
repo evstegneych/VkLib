@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:test/test.dart';
 import 'package:vklib/src/params.dart';
@@ -10,14 +12,11 @@ void main() {
   load();
   token = env['token'] ?? 'ass';
 
-  group('Test VkLib class', () {
-    setUp(() {
-      vk = VkLib(
-        token: token,
-        v: v,
-      );
-    });
+  setUp(() {
+    vk = VkLib(token: token, v: v);
+  });
 
+  group('Test VkLib class', () {
     test('Version test', () {
       expect(vk.version, v);
     });
@@ -34,13 +33,6 @@ void main() {
   });
 
   group('Test API request', () {
-    setUp(() {
-      vk = VkLib(
-        token: token,
-        v: v,
-      );
-    });
-
     test('messages.send', () async {
       await vk.api.request(
         'messages.send',

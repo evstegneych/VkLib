@@ -130,14 +130,14 @@ class API {
       requests_params.add('random_id', Random().nextInt(4294967296));
     }
 
-    for (var item in requests_params.params.entries) {
-      requests_params.params[item.key] = item.value.toString();
+    for (var item in requests_params.data.entries) {
+      requests_params.data[item.key] = item.value.toString();
     }
 
     var url = Uri.parse(_baseUrl + '/$method');
     var response = await http.post(
       url,
-      body: requests_params.params,
+      body: requests_params.data,
     );
 
     if (response.statusCode != 200) {

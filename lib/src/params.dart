@@ -17,7 +17,7 @@ class Params {
   @override
   String toString() => json.encode(_params);
 
-  Map<String, dynamic> get params => _params;
+  Map<String, dynamic> get data => _params;
 
   void addAll(Map<String, dynamic> other) {
     _params.addAll(other);

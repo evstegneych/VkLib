@@ -1,9 +1,18 @@
+import 'package:dotenv/dotenv.dart';
+import 'package:vklib/src/longpool/bots_longpool.dart';
+import 'package:vklib/src/longpool/types/message_new.dart';
 import 'package:vklib/vklib.dart';
 
 void main() async {
-  var vk = VkLib(token: '<token>');
-  await vk.api.request(
-    'messages.send',
-    {'user_id': 1, 'message': 'Hello'},
-  );
+  load();
+  var token = env['token'] ?? 'ass';
+  var vk = VkLib(token: token);
+  var lp = BotsLongPool(vk)..groupId = 195607933;
+
+  lp.messageNew((MessageNewContext context) async {
+    print(
+        '${context.object!.message.fromId} - ${context.object!.message.text}');
+  });
+
+  lp.start();
 }
