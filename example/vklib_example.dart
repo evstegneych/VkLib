@@ -1,5 +1,4 @@
 import 'package:dotenv/dotenv.dart';
-import 'package:vklib/src/longpool/bots_longpool.dart';
 import 'package:vklib/src/longpool/types/message_new.dart';
 import 'package:vklib/vklib.dart';
 
