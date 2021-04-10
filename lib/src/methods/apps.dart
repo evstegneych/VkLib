@@ -1,4 +1,5 @@
 import '../api.dart';
+import '../params.dart';
 
 class Apps {
   final API _api;
@@ -8,7 +9,7 @@ class Apps {
   /// Deletes all request notifications from the current app.
   ///
   /// Params: none
-  Future<dynamic> deleteAppRequests([Map<String, dynamic>? params]) async {
+  Future<Params> deleteAppRequests([Map<String, dynamic>? params]) async {
     return _api.request('apps.deleteAppRequests', {
       ...?params,
     });
@@ -31,7 +32,7 @@ class Apps {
   /// `fields` *(array)* Profile fields to return. Sample values: 'nickname', 'screen_name', 'sex', 'bdate' (birthdate), 'city', 'country', 'timezone', 'photo', 'photo_medium', 'photo_big', 'has_mobile', 'contacts', 'education', 'online', 'counters', 'relation', 'last_seen', 'activity', 'can_write_private_message', 'can_see_all_posts', 'can_post', 'universities', (only if return_friends - 1)
   ///
   /// `name_case` *(string)* Case for declension of user name and surname: 'nom' — nominative (default),, 'gen' — genitive,, 'dat' — dative,, 'acc' — accusative,, 'ins' — instrumental,, 'abl' — prepositional. (only if 'return_friends' = '1')
-  Future<dynamic> get([Map<String, dynamic>? params]) async {
+  Future<Params> get([Map<String, dynamic>? params]) async {
     return _api.request('apps.get', {
       ...?params,
     });
@@ -62,7 +63,7 @@ class Apps {
   /// `genre_id` *(integer)*
   ///
   /// `filter` *(string)* 'installed' — to return list of installed apps (only for mobile platform).
-  Future<dynamic> getCatalog([Map<String, dynamic>? params]) async {
+  Future<Params> getCatalog([Map<String, dynamic>? params]) async {
     return _api.request('apps.getCatalog', {
       ...?params,
     });
@@ -81,7 +82,7 @@ class Apps {
   /// `type` *(string)* List type. Possible values: * 'invite' — available for invites (don't play the game),, * 'request' — available for request (play the game). By default: 'invite'., default: invite
   ///
   /// `fields` *(array)* Additional profile fields, see [description](https://vk.com/dev/fields).
-  Future<dynamic> getFriendsList([Map<String, dynamic>? params]) async {
+  Future<Params> getFriendsList([Map<String, dynamic>? params]) async {
     return _api.request('apps.getFriendsList', {
       ...?params,
     });
@@ -96,7 +97,7 @@ class Apps {
   /// `global` *(boolean)* Rating type. Possible values: *'1' — global rating among all players,, *'0' — rating among user friends., default: 1
   ///
   /// `extended` *(boolean)* 1 — to return additional info about users
-  Future<dynamic> getLeaderboard([Map<String, dynamic>? params]) async {
+  Future<Params> getLeaderboard([Map<String, dynamic>? params]) async {
     return _api.request('apps.getLeaderboard', {
       ...?params,
     });
@@ -107,7 +108,7 @@ class Apps {
   /// Params:
   ///
   /// `type` *(string)*, default: user
-  Future<dynamic> getScopes([Map<String, dynamic>? params]) async {
+  Future<Params> getScopes([Map<String, dynamic>? params]) async {
     return _api.request('apps.getScopes', {
       ...?params,
     });
@@ -118,7 +119,7 @@ class Apps {
   /// Params:
   ///
   /// `user_id` *(integer)*
-  Future<dynamic> getScore([Map<String, dynamic>? params]) async {
+  Future<Params> getScore([Map<String, dynamic>? params]) async {
     return _api.request('apps.getScore', {
       ...?params,
     });
@@ -139,7 +140,7 @@ class Apps {
   /// `key` *(string)* special string key to be sent with the request
   ///
   /// `separate` *(boolean)*
-  Future<dynamic> sendRequest([Map<String, dynamic>? params]) async {
+  Future<Params> sendRequest([Map<String, dynamic>? params]) async {
     return _api.request('apps.sendRequest', {
       ...?params,
     });

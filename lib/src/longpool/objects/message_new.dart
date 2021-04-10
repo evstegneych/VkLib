@@ -1,29 +1,29 @@
-class MessageNewContext {
+class MessageNewObject {
   static const String type = 'message_new';
   late final Map<String, dynamic> _messageNew;
 
-  MessageNewContext(this._messageNew);
+  MessageNewObject(this._messageNew);
 
-  MessageNewObject? get object => MessageNewObject(_messageNew['object']);
+  _MessageNewObject? get object => _MessageNewObject(_messageNew['object']);
 
-  @deprecated
-  Message? get message => Message(_messageNew);
+  @Deprecated('Use for version api < 5.80')
+  _Message? get message => _Message(_messageNew);
 }
 
-class MessageNewObject {
+class _MessageNewObject {
   late final Map<String, dynamic> _object;
 
-  MessageNewObject(this._object);
+  _MessageNewObject(this._object);
 
-  Message get message => Message(_object['message']);
+  _Message get message => _Message(_object['message']);
 
-  ClientInfo get clientInfo => ClientInfo(_object['client_info']);
+  _ClientInfo get clientInfo => _ClientInfo(_object['client_info']);
 }
 
-class ClientInfo {
+class _ClientInfo {
   late final Map<String, dynamic> _clientInfo;
 
-  ClientInfo(object);
+  _ClientInfo(object);
 
   List<String>? get buttonActions => _clientInfo['button_actions'];
 
@@ -36,10 +36,10 @@ class ClientInfo {
   int? get langId => _clientInfo['lang_id'];
 }
 
-class Message {
+class _Message {
   final Map<String, dynamic>? _message;
 
-  Message(this._message);
+  _Message(this._message);
 
   int? get date => _message!['date'];
 
@@ -55,10 +55,10 @@ class Message {
 
   int? get conversationMessageId => _message!['conversation_message_id'];
 
-  List<FwdMessage>? get fwdMessages {
-    var _fwdMessages = <FwdMessage>[];
+  List<_FwdMessage>? get fwdMessages {
+    var _fwdMessages = <_FwdMessage>[];
     for (var item in _message!['fwd_messages'] ?? []) {
-      _fwdMessages.add(FwdMessage(item));
+      _fwdMessages.add(_FwdMessage(item));
     }
     return _fwdMessages;
   }
@@ -80,10 +80,10 @@ class Message {
   dynamic get conversationKeyboard => _message!['conversation_keyboard'];
 }
 
-class FwdMessage {
+class _FwdMessage {
   final Map<String, dynamic>? _fwdMessage;
 
-  FwdMessage(this._fwdMessage);
+  _FwdMessage(this._fwdMessage);
 
   int? get date => _fwdMessage!['date'];
 
@@ -99,10 +99,10 @@ class FwdMessage {
     return _attachments;
   }
 
-  List<FwdMessage>? get fwdMessages {
-    var _fwdMessages = <FwdMessage>[];
+  List<_FwdMessage>? get fwdMessages {
+    var _fwdMessages = <_FwdMessage>[];
     for (var item in _fwdMessage!['fwd_messages'] ?? []) {
-      _fwdMessages.add(FwdMessage(item));
+      _fwdMessages.add(_FwdMessage(item));
     }
     return _fwdMessages;
   }

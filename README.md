@@ -15,13 +15,17 @@ dependencies:
 ## Features
  ```Художественный фильм "Спиздили"```
  
- - Methods
-    - ~~VK Donut~~
-    - ~~Podcasts~~
-    - ~~LeadForms~~
-    - ~~PrettyCards~~
-    - ~~Store~~
-    - ~~AppWidgets~~
+ - LongPool
+    - [x] Bots 
+    - [ ] User
+ 
+ - Not added Methods
+    - VK Donut
+    - Podcasts
+    - LeadForms
+    - PrettyCards
+    - Store
+    - AppWidgets
 ## Usage
 
 ```dart
