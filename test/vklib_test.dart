@@ -3,12 +3,12 @@ import 'dart:core';
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:test/test.dart';
 import 'package:vklib/src/params.dart';
-import 'package:vklib/vklib.dart';
+import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPool;
 
 void main() {
   late VkLib vk;
   var token;
-  final v = '5.130';
+  final v = 5.130;
   load();
   token = env['token'] ?? 'ass';
 
@@ -38,6 +38,20 @@ void main() {
         'messages.send',
         {'user_id': 229203735, 'message': 'Hello'},
       );
+    });
+  });
+  group('Test LP', () {
+    test('messages.send', () async {
+      var lp = BotsLongPool(vk)..groupId = 195607933;
+
+      await vk.api.account.setInfo();
+
+      lp.messageNew((MessageNewObject context) async {
+        print(
+            '${context.object!.message.fromId} - ${context.object!.message.text}');
+      });
+
+      lp.start();
     });
   });
 }

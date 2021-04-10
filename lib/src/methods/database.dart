@@ -1,4 +1,5 @@
 import '../api.dart';
+import '../params.dart';
 
 class Database {
   final API _api;
@@ -14,7 +15,7 @@ class Database {
   /// `offset` *(integer)* offset required to get a certain subset of chairs
   ///
   /// `count` *(integer)* amount of chairs to get, default: 100, max: 10000
-  Future<dynamic> getChairs([Map<String, dynamic>? params]) async {
+  Future<Params> getChairs([Map<String, dynamic>? params]) async {
     return _api.request('database.getChairs', {
       ...?params,
     });
@@ -35,7 +36,7 @@ class Database {
   /// `offset` *(integer)* Offset needed to return a specific subset of cities.
   ///
   /// `count` *(integer)* Number of cities to return., default: 100, max: 1000
-  Future<dynamic> getCities([Map<String, dynamic>? params]) async {
+  Future<Params> getCities([Map<String, dynamic>? params]) async {
     return _api.request('database.getCities', {
       ...?params,
     });
@@ -46,7 +47,7 @@ class Database {
   /// Params:
   ///
   /// `city_ids` *(array)* City IDs.
-  Future<dynamic> getCitiesById([Map<String, dynamic>? params]) async {
+  Future<Params> getCitiesById([Map<String, dynamic>? params]) async {
     return _api.request('database.getCitiesById', {
       ...?params,
     });
@@ -63,7 +64,7 @@ class Database {
   /// `offset` *(integer)* Offset needed to return a specific subset of countries.
   ///
   /// `count` *(integer)* Number of countries to return., default: 100, max: 1000
-  Future<dynamic> getCountries([Map<String, dynamic>? params]) async {
+  Future<Params> getCountries([Map<String, dynamic>? params]) async {
     return _api.request('database.getCountries', {
       ...?params,
     });
@@ -74,7 +75,7 @@ class Database {
   /// Params:
   ///
   /// `country_ids` *(array)* Country IDs.
-  Future<dynamic> getCountriesById([Map<String, dynamic>? params]) async {
+  Future<Params> getCountriesById([Map<String, dynamic>? params]) async {
     return _api.request('database.getCountriesById', {
       ...?params,
     });
@@ -89,7 +90,7 @@ class Database {
   /// `offset` *(integer)* Offset needed to return a specific subset of faculties.
   ///
   /// `count` *(integer)* Number of faculties to return., default: 100, max: 10000
-  Future<dynamic> getFaculties([Map<String, dynamic>? params]) async {
+  Future<Params> getFaculties([Map<String, dynamic>? params]) async {
     return _api.request('database.getFaculties', {
       ...?params,
     });
@@ -106,7 +107,7 @@ class Database {
   /// `count` *(integer)*, default: 100, max: 500
   ///
   /// `extended` *(boolean)*
-  Future<dynamic> getMetroStations([Map<String, dynamic>? params]) async {
+  Future<Params> getMetroStations([Map<String, dynamic>? params]) async {
     return _api.request('database.getMetroStations', {
       ...?params,
     });
@@ -117,7 +118,7 @@ class Database {
   /// Params:
   ///
   /// `station_ids` *(array)*
-  Future<dynamic> getMetroStationsById([Map<String, dynamic>? params]) async {
+  Future<Params> getMetroStationsById([Map<String, dynamic>? params]) async {
     return _api.request('database.getMetroStationsById', {
       ...?params,
     });
@@ -134,7 +135,7 @@ class Database {
   /// `offset` *(integer)* Offset needed to return specific subset of regions.
   ///
   /// `count` *(integer)* Number of regions to return., default: 100, max: 1000
-  Future<dynamic> getRegions([Map<String, dynamic>? params]) async {
+  Future<Params> getRegions([Map<String, dynamic>? params]) async {
     return _api.request('database.getRegions', {
       ...?params,
     });
@@ -145,7 +146,7 @@ class Database {
   /// Params:
   ///
   /// `country_id` *(integer)* Country ID.
-  Future<dynamic> getSchoolClasses([Map<String, dynamic>? params]) async {
+  Future<Params> getSchoolClasses([Map<String, dynamic>? params]) async {
     return _api.request('database.getSchoolClasses', {
       ...?params,
     });
@@ -162,7 +163,7 @@ class Database {
   /// `offset` *(integer)* Offset needed to return a specific subset of schools.
   ///
   /// `count` *(integer)* Number of schools to return., default: 100, max: 10000
-  Future<dynamic> getSchools([Map<String, dynamic>? params]) async {
+  Future<Params> getSchools([Map<String, dynamic>? params]) async {
     return _api.request('database.getSchools', {
       ...?params,
     });
@@ -181,7 +182,7 @@ class Database {
   /// `offset` *(integer)* Offset needed to return a specific subset of universities.
   ///
   /// `count` *(integer)* Number of universities to return., default: 100, max: 10000
-  Future<dynamic> getUniversities([Map<String, dynamic>? params]) async {
+  Future<Params> getUniversities([Map<String, dynamic>? params]) async {
     return _api.request('database.getUniversities', {
       ...?params,
     });

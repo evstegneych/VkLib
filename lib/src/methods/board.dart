@@ -1,4 +1,5 @@
 import '../api.dart';
+import '../params.dart';
 
 class Board {
   final API _api;
@@ -18,7 +19,7 @@ class Board {
   /// `from_group` *(boolean)* For a community: '1' — to post the topic as by the community, '0' — to post the topic as by the user (default)
   ///
   /// `attachments` *(array)* List of media objects attached to the topic, in the following format: "<owner_id>_<media_id>,<owner_id>_<media_id>", '' — Type of media object: 'photo' — photo, 'video' — video, 'audio' — audio, 'doc' — document, '<owner_id>' — ID of the media owner. '<media_id>' — Media ID. Example: "photo100172_166443618,photo66748_265827614", , "NOTE: If you try to attach more than one reference, an error will be thrown.",
-  Future<dynamic> addTopic([Map<String, dynamic>? params]) async {
+  Future<Params> addTopic([Map<String, dynamic>? params]) async {
     return _api.request('board.addTopic', {
       ...?params,
     });
@@ -31,7 +32,7 @@ class Board {
   /// `group_id` *(integer)* ID of the community that owns the discussion board.
   ///
   /// `topic_id` *(integer)* Topic ID.
-  Future<dynamic> closeTopic([Map<String, dynamic>? params]) async {
+  Future<Params> closeTopic([Map<String, dynamic>? params]) async {
     return _api.request('board.closeTopic', {
       ...?params,
     });
@@ -54,7 +55,7 @@ class Board {
   /// `sticker_id` *(integer)* Sticker ID.
   ///
   /// `guid` *(string)* Unique identifier to avoid repeated comments.
-  Future<dynamic> createComment([Map<String, dynamic>? params]) async {
+  Future<Params> createComment([Map<String, dynamic>? params]) async {
     return _api.request('board.createComment', {
       ...?params,
     });
@@ -69,7 +70,7 @@ class Board {
   /// `topic_id` *(integer)* Topic ID.
   ///
   /// `comment_id` *(integer)* Comment ID.
-  Future<dynamic> deleteComment([Map<String, dynamic>? params]) async {
+  Future<Params> deleteComment([Map<String, dynamic>? params]) async {
     return _api.request('board.deleteComment', {
       ...?params,
     });
@@ -82,7 +83,7 @@ class Board {
   /// `group_id` *(integer)* ID of the community that owns the discussion board.
   ///
   /// `topic_id` *(integer)* Topic ID.
-  Future<dynamic> deleteTopic([Map<String, dynamic>? params]) async {
+  Future<Params> deleteTopic([Map<String, dynamic>? params]) async {
     return _api.request('board.deleteTopic', {
       ...?params,
     });
@@ -101,7 +102,7 @@ class Board {
   /// `message` *(string)* (Required if 'attachments' is not set). New comment text.
   ///
   /// `attachments` *(array)* (Required if 'message' is not set.) List of media objects attached to the comment, in the following format: "<owner_id>_<media_id>,<owner_id>_<media_id>", '' — Type of media object: 'photo' — photo, 'video' — video, 'audio' — audio, 'doc' — document, '<owner_id>' — ID of the media owner. '<media_id>' — Media ID. Example: "photo100172_166443618,photo66748_265827614"
-  Future<dynamic> editComment([Map<String, dynamic>? params]) async {
+  Future<Params> editComment([Map<String, dynamic>? params]) async {
     return _api.request('board.editComment', {
       ...?params,
     });
@@ -116,7 +117,7 @@ class Board {
   /// `topic_id` *(integer)* Topic ID.
   ///
   /// `title` *(string)* New title of the topic.
-  Future<dynamic> editTopic([Map<String, dynamic>? params]) async {
+  Future<Params> editTopic([Map<String, dynamic>? params]) async {
     return _api.request('board.editTopic', {
       ...?params,
     });
@@ -129,7 +130,7 @@ class Board {
   /// `group_id` *(integer)* ID of the community that owns the discussion board.
   ///
   /// `topic_id` *(integer)* Topic ID.
-  Future<dynamic> fixTopic([Map<String, dynamic>? params]) async {
+  Future<Params> fixTopic([Map<String, dynamic>? params]) async {
     return _api.request('board.fixTopic', {
       ...?params,
     });
@@ -154,7 +155,7 @@ class Board {
   /// `extended` *(boolean)* '1' — to return information about users who posted comments, '0' — to return no additional fields (default)
   ///
   /// `sort` *(string)* Sort order: 'asc' — by creation date in chronological order, 'desc' — by creation date in reverse chronological order,
-  Future<dynamic> getComments([Map<String, dynamic>? params]) async {
+  Future<Params> getComments([Map<String, dynamic>? params]) async {
     return _api.request('board.getComments', {
       ...?params,
     });
@@ -179,7 +180,7 @@ class Board {
   /// `preview` *(integer)* '1' — to return the first comment in each topic,, '2' — to return the last comment in each topic,, '0' — to return no comments. By default: '0'.
   ///
   /// `preview_length` *(integer)* Number of characters after which to truncate the previewed comment. To preview the full comment, specify '0'., default: 90
-  Future<dynamic> getTopics([Map<String, dynamic>? params]) async {
+  Future<Params> getTopics([Map<String, dynamic>? params]) async {
     return _api.request('board.getTopics', {
       ...?params,
     });
@@ -192,7 +193,7 @@ class Board {
   /// `group_id` *(integer)* ID of the community that owns the discussion board.
   ///
   /// `topic_id` *(integer)* Topic ID.
-  Future<dynamic> openTopic([Map<String, dynamic>? params]) async {
+  Future<Params> openTopic([Map<String, dynamic>? params]) async {
     return _api.request('board.openTopic', {
       ...?params,
     });
@@ -207,7 +208,7 @@ class Board {
   /// `topic_id` *(integer)* Topic ID.
   ///
   /// `comment_id` *(integer)* Comment ID.
-  Future<dynamic> restoreComment([Map<String, dynamic>? params]) async {
+  Future<Params> restoreComment([Map<String, dynamic>? params]) async {
     return _api.request('board.restoreComment', {
       ...?params,
     });
@@ -220,7 +221,7 @@ class Board {
   /// `group_id` *(integer)* ID of the community that owns the discussion board.
   ///
   /// `topic_id` *(integer)* Topic ID.
-  Future<dynamic> unfixTopic([Map<String, dynamic>? params]) async {
+  Future<Params> unfixTopic([Map<String, dynamic>? params]) async {
     return _api.request('board.unfixTopic', {
       ...?params,
     });

@@ -1,4 +1,5 @@
 import '../api.dart';
+import '../params.dart';
 
 class Friends {
   final API _api;
@@ -14,7 +15,7 @@ class Friends {
   /// `text` *(string)* Text of the message (up to 500 characters) for the friend request, if any.
   ///
   /// `follow` *(boolean)* '1' to pass an incoming request to followers list.
-  Future<dynamic> add([Map<String, dynamic>? params]) async {
+  Future<Params> add([Map<String, dynamic>? params]) async {
     return _api.request('friends.add', {
       ...?params,
     });
@@ -27,7 +28,7 @@ class Friends {
   /// `name` *(string)* Name of the friend list.
   ///
   /// `user_ids` *(array)* IDs of users to be added to the friend list.
-  Future<dynamic> addList([Map<String, dynamic>? params]) async {
+  Future<Params> addList([Map<String, dynamic>? params]) async {
     return _api.request('friends.addList', {
       ...?params,
     });
@@ -40,7 +41,7 @@ class Friends {
   /// `user_ids` *(array)* IDs of the users whose friendship status to check.
   ///
   /// `need_sign` *(boolean)* '1' — to return 'sign' field. 'sign' is md5("{id}_{user_id}_{friends_status}_{application_secret}"), where id is current user ID. This field allows to check that data has not been modified by the client. By default: '0'.
-  Future<dynamic> areFriends([Map<String, dynamic>? params]) async {
+  Future<Params> areFriends([Map<String, dynamic>? params]) async {
     return _api.request('friends.areFriends', {
       ...?params,
     });
@@ -51,7 +52,7 @@ class Friends {
   /// Params:
   ///
   /// `user_id` *(integer)* ID of the user whose friend request is to be declined or who is to be deleted from the current user's friend list.
-  Future<dynamic> delete([Map<String, dynamic>? params]) async {
+  Future<Params> delete([Map<String, dynamic>? params]) async {
     return _api.request('friends.delete', {
       ...?params,
     });
@@ -60,7 +61,7 @@ class Friends {
   /// Marks all incoming friend requests as viewed.
   ///
   /// Params: none
-  Future<dynamic> deleteAllRequests([Map<String, dynamic>? params]) async {
+  Future<Params> deleteAllRequests([Map<String, dynamic>? params]) async {
     return _api.request('friends.deleteAllRequests', {
       ...?params,
     });
@@ -71,7 +72,7 @@ class Friends {
   /// Params:
   ///
   /// `list_id` *(integer)* ID of the friend list to delete., max: 24
-  Future<dynamic> deleteList([Map<String, dynamic>? params]) async {
+  Future<Params> deleteList([Map<String, dynamic>? params]) async {
     return _api.request('friends.deleteList', {
       ...?params,
     });
@@ -84,7 +85,7 @@ class Friends {
   /// `user_id` *(integer)* ID of the user whose friend list is to be edited.
   ///
   /// `list_ids` *(array)* IDs of the friend lists to which to add the user.
-  Future<dynamic> edit([Map<String, dynamic>? params]) async {
+  Future<Params> edit([Map<String, dynamic>? params]) async {
     return _api.request('friends.edit', {
       ...?params,
     });
@@ -103,7 +104,7 @@ class Friends {
   /// `add_user_ids` *(array)* (Applies if 'user_ids' parameter is not set.), User IDs to add to the friend list.
   ///
   /// `delete_user_ids` *(array)* (Applies if 'user_ids' parameter is not set.), User IDs to delete from the friend list.
-  Future<dynamic> editList([Map<String, dynamic>? params]) async {
+  Future<Params> editList([Map<String, dynamic>? params]) async {
     return _api.request('friends.editList', {
       ...?params,
     });
@@ -126,7 +127,7 @@ class Friends {
   /// `fields` *(array)* Profile fields to return. Sample values: 'uid', 'first_name', 'last_name', 'nickname', 'sex', 'bdate' (birthdate), 'city', 'country', 'timezone', 'photo', 'photo_medium', 'photo_big', 'domain', 'has_mobile', 'rate', 'contacts', 'education'.
   ///
   /// `name_case` *(string)* Case for declension of user name and surname: , 'nom' — nominative (default) , 'gen' — genitive , 'dat' — dative , 'acc' — accusative , 'ins' — instrumental , 'abl' — prepositional
-  Future<dynamic> get([Map<String, dynamic>? params]) async {
+  Future<Params> get([Map<String, dynamic>? params]) async {
     return _api.request('friends.get', {
       ...?params,
     });
@@ -135,7 +136,7 @@ class Friends {
   /// Returns a list of IDs of the current user's friends who installed the application.
   ///
   /// Params: none
-  Future<dynamic> getAppUsers([Map<String, dynamic>? params]) async {
+  Future<Params> getAppUsers([Map<String, dynamic>? params]) async {
     return _api.request('friends.getAppUsers', {
       ...?params,
     });
@@ -148,7 +149,7 @@ class Friends {
   /// `phones` *(array)* List of phone numbers in MSISDN format (maximum 1000). Example: "+79219876543,+79111234567"
   ///
   /// `fields` *(array)* Profile fields to return. Sample values: 'nickname', 'screen_name', 'sex', 'bdate' (birthdate), 'city', 'country', 'timezone', 'photo', 'photo_medium', 'photo_big', 'has_mobile', 'rate', 'contacts', 'education', 'online, counters'.
-  Future<dynamic> getByPhones([Map<String, dynamic>? params]) async {
+  Future<Params> getByPhones([Map<String, dynamic>? params]) async {
     return _api.request('friends.getByPhones', {
       ...?params,
     });
@@ -161,7 +162,7 @@ class Friends {
   /// `user_id` *(integer)* User ID.
   ///
   /// `return_system` *(boolean)* '1' — to return system friend lists. By default: '0'.
-  Future<dynamic> getLists([Map<String, dynamic>? params]) async {
+  Future<Params> getLists([Map<String, dynamic>? params]) async {
     return _api.request('friends.getLists', {
       ...?params,
     });
@@ -182,7 +183,7 @@ class Friends {
   /// `count` *(integer)* Number of mutual friends to return.
   ///
   /// `offset` *(integer)* Offset needed to return a specific subset of mutual friends.
-  Future<dynamic> getMutual([Map<String, dynamic>? params]) async {
+  Future<Params> getMutual([Map<String, dynamic>? params]) async {
     return _api.request('friends.getMutual', {
       ...?params,
     });
@@ -203,7 +204,7 @@ class Friends {
   /// `count` *(integer)* Number of friends to return.
   ///
   /// `offset` *(integer)* Offset needed to return a specific subset of friends.
-  Future<dynamic> getOnline([Map<String, dynamic>? params]) async {
+  Future<Params> getOnline([Map<String, dynamic>? params]) async {
     return _api.request('friends.getOnline', {
       ...?params,
     });
@@ -214,7 +215,7 @@ class Friends {
   /// Params:
   ///
   /// `count` *(integer)* Number of recently added friends to return., default: 100, max: 1000
-  Future<dynamic> getRecent([Map<String, dynamic>? params]) async {
+  Future<Params> getRecent([Map<String, dynamic>? params]) async {
     return _api.request('friends.getRecent', {
       ...?params,
     });
@@ -239,7 +240,7 @@ class Friends {
   /// `need_viewed` *(boolean)*
   ///
   /// `suggested` *(boolean)* '1' — to return a list of suggested friends, '0' — to return friend requests (default)
-  Future<dynamic> getRequests([Map<String, dynamic>? params]) async {
+  Future<Params> getRequests([Map<String, dynamic>? params]) async {
     return _api.request('friends.getRequests', {
       ...?params,
     });
@@ -258,7 +259,7 @@ class Friends {
   /// `fields` *(array)* Profile fields to return. Sample values: 'nickname', 'screen_name', 'sex', 'bdate' (birthdate), 'city', 'country', 'timezone', 'photo', 'photo_medium', 'photo_big', 'has_mobile', 'rate', 'contacts', 'education', 'online', 'counters'.
   ///
   /// `name_case` *(string)* Case for declension of user name and surname: , 'nom' — nominative (default) , 'gen' — genitive , 'dat' — dative , 'acc' — accusative , 'ins' — instrumental , 'abl' — prepositional
-  Future<dynamic> getSuggestions([Map<String, dynamic>? params]) async {
+  Future<Params> getSuggestions([Map<String, dynamic>? params]) async {
     return _api.request('friends.getSuggestions', {
       ...?params,
     });
@@ -279,7 +280,7 @@ class Friends {
   /// `offset` *(integer)* Offset needed to return a specific subset of friends.
   ///
   /// `count` *(integer)* Number of friends to return., default: 20, max: 1000
-  Future<dynamic> search([Map<String, dynamic>? params]) async {
+  Future<Params> search([Map<String, dynamic>? params]) async {
     return _api.request('friends.search', {
       ...?params,
     });

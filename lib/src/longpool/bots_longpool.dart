@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:vklib/src/api.dart';
-import 'package:vklib/src/longpool/types/message_new.dart';
+import 'package:vklib/src/longpool/objects//message_new.dart';
 import 'package:vklib/src/main.dart';
 
 class BotsLongPool {
@@ -13,7 +13,7 @@ class BotsLongPool {
   late int groupId;
 
   Map<String, Future<dynamic>> handlers = {};
-  Future<dynamic> Function(MessageNewContext)? _messageNew;
+  Future<dynamic> Function(MessageNewObject)? _messageNew;
 
   BotsLongPool(VkLib vk) {
     _vk = vk;
@@ -61,7 +61,7 @@ class BotsLongPool {
     handlers[type] = func;
   }
 
-  void messageNew(Future<dynamic> Function(MessageNewContext) func) {
+  void messageNew(Future<dynamic> Function(MessageNewObject) func) {
     _messageNew = func;
   }
 
@@ -73,9 +73,17 @@ class BotsLongPool {
           case 'message_new':
             {
               if (_messageNew != null) {
-                await _messageNew!(MessageNewContext(update));
-              } else {
-                await handlers[update['type']];
+                await _messageNew!(MessageNewObject(update));
+              } else if (handlers['message_new'] != null) {
+                await handlers['message_new'];
+              }
+            }
+            break;
+
+          default:
+            {
+              if (handlers['message_new'] != null) {
+                await handlers['message_new'];
               }
             }
         }

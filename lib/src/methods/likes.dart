@@ -1,4 +1,5 @@
 import '../api.dart';
+import '../params.dart';
 
 class Likes {
   final API _api;
@@ -16,7 +17,7 @@ class Likes {
   /// `item_id` *(integer)* Object ID.
   ///
   /// `access_key` *(string)* Access key required for an object owned by a private entity.
-  Future<dynamic> add([Map<String, dynamic>? params]) async {
+  Future<Params> add([Map<String, dynamic>? params]) async {
     return _api.request('likes.add', {
       ...?params,
     });
@@ -31,7 +32,7 @@ class Likes {
   /// `owner_id` *(integer)* ID of the user or community that owns the object.
   ///
   /// `item_id` *(integer)* Object ID.
-  Future<dynamic> delete([Map<String, dynamic>? params]) async {
+  Future<Params> delete([Map<String, dynamic>? params]) async {
     return _api.request('likes.delete', {
       ...?params,
     });
@@ -60,7 +61,7 @@ class Likes {
   /// `count` *(integer)* Number of user IDs to return (maximum '1000'). Default is '100' if 'friends_only' is set to '0', otherwise, the default is '10' if 'friends_only' is set to '1'.
   ///
   /// `skip_own` *(boolean)*
-  Future<dynamic> getList([Map<String, dynamic>? params]) async {
+  Future<Params> getList([Map<String, dynamic>? params]) async {
     return _api.request('likes.getList', {
       ...?params,
     });
@@ -77,7 +78,7 @@ class Likes {
   /// `owner_id` *(integer)* ID of the user or community that owns the object.
   ///
   /// `item_id` *(integer)* Object ID.
-  Future<dynamic> isLiked([Map<String, dynamic>? params]) async {
+  Future<Params> isLiked([Map<String, dynamic>? params]) async {
     return _api.request('likes.isLiked', {
       ...?params,
     });
