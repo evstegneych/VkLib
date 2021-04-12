@@ -34,11 +34,11 @@ import 'package:vklib/src/methods/utils.dart';
 import 'package:vklib/src/methods/video.dart';
 import 'package:vklib/src/methods/wall.dart';
 import 'package:vklib/src/methods/widgets.dart';
-import 'package:vklib/src/params.dart';
 
 import '../vklib.dart';
-import 'exception.dart';
+import 'exceptions/exception.dart';
 import 'methods/users.dart';
+import 'objects/other/params.dart';
 
 class API {
   final String _baseUrl = 'https://api.vk.com/method';

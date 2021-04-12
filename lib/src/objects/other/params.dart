@@ -2,36 +2,36 @@ import 'dart:convert';
 import 'dart:core';
 
 class Params {
-  Map<String, dynamic> _params = {};
+  Map<String, dynamic> _body = {};
 
   Params();
 
   Params.fromJson(String _json) {
-    _params = json.decode(_json);
+    _body = json.decode(_json);
   }
 
   Params.fromMap(Map<String, dynamic> _map) {
-    _params = _map;
+    _body = _map;
   }
 
   @override
-  String toString() => json.encode(_params);
+  String toString() => json.encode(_body);
 
-  Map<String, dynamic> get data => _params;
+  Map<String, dynamic> get data => _body;
 
   void addAll(Map<String, dynamic> other) {
-    _params.addAll(other);
+    _body.addAll(other);
   }
 
   void add(String key, dynamic value) {
-    _params[key] = value;
+    _body[key] = value;
   }
 
   dynamic get(String key) {
-    return _params[key];
+    return _body[key];
   }
 
   void remove(String key) {
-    _params.remove(key);
+    _body.remove(key);
   }
 }

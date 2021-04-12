@@ -1,7 +1,6 @@
-import 'package:vklib/src/params.dart';
-
 import 'api.dart';
-import 'language_type.dart' show LanguageType;
+import 'objects/other/language.dart' show LanguageType;
+import 'objects/other/params.dart';
 
 class VkLib {
   late String _access_token;
