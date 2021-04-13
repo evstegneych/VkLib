@@ -67,6 +67,7 @@ class BotsLongPool {
 
   void start() async {
     await updateLongPoolData();
+
     while (true) {
       for (var update in await receiver()) {
         switch (update['type']) {

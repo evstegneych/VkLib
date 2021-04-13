@@ -1,121 +1,70 @@
-class MessageNewObject {
+import 'package:vklib/src/objects/messages.dart';
+import 'package:vklib/src/objects/other/base_responses.dart';
+
+class MessageNewObject extends BaseApiResponse {
   static const String type = 'message_new';
-  late final Map<String, dynamic> _messageNew;
 
-  MessageNewObject(this._messageNew);
-
-  _MessageNewObject? get object => _MessageNewObject(_messageNew['object']);
-
-  @Deprecated('Use for version api < 5.80')
-  _Message? get message => _Message(_messageNew);
-}
-
-class _MessageNewObject {
-  late final Map<String, dynamic> _object;
-
-  _MessageNewObject(this._object);
-
-  _Message get message => _Message(_object['message']);
-
-  _ClientInfo get clientInfo => _ClientInfo(_object['client_info']);
-}
-
-class _ClientInfo {
-  late final Map<String, dynamic> _clientInfo;
-
-  _ClientInfo(object);
-
-  List<String>? get buttonActions => _clientInfo['button_actions'];
-
-  bool? get fromId => _clientInfo['keyboard'];
-
-  int? get InlineKeyboard => _clientInfo['inline_keyboard'];
-
-  int? get Carousel => _clientInfo['carousel'];
-
-  int? get langId => _clientInfo['lang_id'];
-}
-
-class _Message {
-  final Map<String, dynamic>? _message;
-
-  _Message(this._message);
-
-  int? get date => _message!['date'];
-
-  int? get fromId => _message!['from_id'];
-
-  int? get id => _message!['id'];
-
-  int? get out => _message!['out'];
-
-  int? get peerId => _message!['peer_id'];
-
-  String? get text => _message!['text'];
-
-  int? get conversationMessageId => _message!['conversation_message_id'];
-
-  List<_FwdMessage>? get fwdMessages {
-    var _fwdMessages = <_FwdMessage>[];
-    for (var item in _message!['fwd_messages'] ?? []) {
-      _fwdMessages.add(_FwdMessage(item));
-    }
-    return _fwdMessages;
+  MessageNewObject(Map<String, dynamic> _map) : super(_map) {
+    build();
   }
 
-  bool? get important => _message!['important'];
+  @override
+  Map<String, dynamic> get body => super.body;
 
-  int? get randomId => _message!['random_id'];
-
-  List<Map>? get attachments {
-    var _attachments = <Map>[];
-    for (var item in _message!['attachments']) {
-      _attachments.add(item);
-    }
-    return _attachments;
+  void build() {
+    object = _MessageNewObject(body['object']);
   }
 
-  bool? get isHidden => _message!['is_hidden'];
-
-  dynamic get conversationKeyboard => _message!['conversation_keyboard'];
+  _MessageNewObject? object;
 }
 
-class _FwdMessage {
-  final Map<String, dynamic>? _fwdMessage;
-
-  _FwdMessage(this._fwdMessage);
-
-  int? get date => _fwdMessage!['date'];
-
-  int? get fromId => _fwdMessage!['from_id'];
-
-  String? get text => _fwdMessage!['text'];
-
-  List<Map>? get attachments {
-    var _attachments = <Map>[];
-    for (var item in _fwdMessage!['attachments']) {
-      _attachments.add(item);
-    }
-    return _attachments;
+class _MessageNewObject extends BaseApiResponse {
+  _MessageNewObject(Map<String, dynamic> _map) : super(_map) {
+    build();
   }
 
-  List<_FwdMessage>? get fwdMessages {
-    var _fwdMessages = <_FwdMessage>[];
-    for (var item in _fwdMessage!['fwd_messages'] ?? []) {
-      _fwdMessages.add(_FwdMessage(item));
-    }
-    return _fwdMessages;
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  void build() {
+    message = MessagesMessage(body['message']);
+    clientInfo = _ClientInfo(body['client_info']);
   }
 
-  int? get conversationMessageId => _fwdMessage!['conversation_message_id'];
+  late MessagesMessage message;
 
-  int? get peerId => _fwdMessage!['peer_id'];
-
-  int? get id => _fwdMessage!['id'];
+  late _ClientInfo clientInfo;
 }
 
-// class Attachments {
-//   final Map<String, dynamic>? _attachments;
-//
-//   Attachments(this._attachments);
-// }
+class _ClientInfo extends BaseApiResponse {
+  _ClientInfo(Map<String, dynamic> _map) : super(_map) {
+    build();
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  void build() {
+    for (var item in body['button_actions']) {
+      buttonActions.add('$item');
+    }
+
+    fromId = body['keyboard'];
+
+    InlineKeyboard = body['inline_keyboard'];
+
+    Carousel = body['carousel'];
+
+    langId = body['lang_id'];
+  }
+
+  List<String> buttonActions = [];
+
+  bool? fromId;
+
+  bool? InlineKeyboard;
+
+  bool? Carousel;
+
+  int? langId;
+}

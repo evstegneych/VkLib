@@ -1,11 +1,7 @@
 import 'package:vklib/src/objects/other/base_responses.dart';
 
-class BaseMessagesMessage extends BaseResponse {
-  BaseMessagesMessage.fromMap(Map<String, dynamic> _map) : super.fromMap(_map) {
-    build();
-  }
-
-  BaseMessagesMessage.fromJson(String _json) : super.fromJson(_json) {
+class MessagesMessage extends BaseApiResponse {
+  MessagesMessage(Map<String, dynamic> _map) : super(_map) {
     build();
   }
 
@@ -22,8 +18,15 @@ class BaseMessagesMessage extends BaseResponse {
     conversationMessageId = body['conversation_message_id'];
 
     for (var item in body['fwd_messages'] ?? []) {
-      fwdMessages!.add(MessagesFwdMessage(item));
+      fwdMessages.add(MessagesFwdMessage(item));
     }
+    for (var item in body['attachments']) {
+      attachments.add(item);
+    }
+    important = body['important'];
+    randomId = body['random_id'];
+    isHidden = body['is_hidden'];
+    conversationKeyboard = body['conversation_keyboard'];
   }
 
   int? date;
@@ -40,83 +43,62 @@ class BaseMessagesMessage extends BaseResponse {
 
   int? conversationMessageId;
 
-  List<MessagesFwdMessage>? fwdMessages;
+  List<MessagesFwdMessage> fwdMessages = [];
+
+  List<Map> attachments = [];
+
+  bool? important;
+
+  int? randomId;
+
+  bool? isHidden;
+
+  dynamic conversationKeyboard;
 }
 
-class MessagesMessage {
-  final Map<String, dynamic>? _message;
-
-  MessagesMessage(this._message);
-
-  int? get date => _message!['date'];
-
-  int? get fromId => _message!['from_id'];
-
-  int? get id => _message!['id'];
-
-  int? get out => _message!['out'];
-
-  int? get peerId => _message!['peer_id'];
-
-  String? get text => _message!['text'];
-
-  int? get conversationMessageId => _message!['conversation_message_id'];
-
-  List<MessagesFwdMessage>? get fwdMessages {
-    var _fwdMessages = <MessagesFwdMessage>[];
-    for (var item in _message!['fwd_messages'] ?? []) {
-      _fwdMessages.add(MessagesFwdMessage(item));
-    }
-    return _fwdMessages;
+class MessagesFwdMessage extends BaseApiResponse {
+  MessagesFwdMessage(Map<String, dynamic> _map) : super(_map) {
+    build();
   }
 
-  bool? get important => _message!['important'];
+  @override
+  Map<String, dynamic> get body => super.body;
 
-  int? get randomId => _message!['random_id'];
+  void build() {
+    date = body['date'];
+    fromId = body['from_id'];
+    id = body['id'];
+    peerId = body['peer_id'];
+    text = body['text'];
+    conversationMessageId = body['conversation_message_id'];
 
-  List<Map>? get attachments {
-    var _attachments = <Map>[];
-    for (var item in _message!['attachments']) {
-      _attachments.add(item);
+    for (var item in body['fwd_messages'] ?? []) {
+      fwdMessages.add(MessagesFwdMessage(item));
     }
-    return _attachments;
+    for (var item in body['attachments']) {
+      attachments.add(item);
+    }
   }
 
-  bool? get isHidden => _message!['is_hidden'];
+  int? date;
 
-  dynamic get conversationKeyboard => _message!['conversation_keyboard'];
+  int? fromId;
+
+  String? text;
+
+  List<Map> attachments = [];
+
+  List<MessagesFwdMessage> fwdMessages = [];
+
+  int? conversationMessageId;
+
+  int? peerId;
+
+  int? id;
 }
 
-class MessagesFwdMessage {
-  final Map<String, dynamic>? _fwdMessage;
-
-  MessagesFwdMessage(this._fwdMessage);
-
-  int? get date => _fwdMessage!['date'];
-
-  int? get fromId => _fwdMessage!['from_id'];
-
-  String? get text => _fwdMessage!['text'];
-
-  List<Map>? get attachments {
-    var _attachments = <Map>[];
-    for (var item in _fwdMessage!['attachments']) {
-      _attachments.add(item);
-    }
-    return _attachments;
-  }
-
-  List<MessagesFwdMessage>? get fwdMessages {
-    var _fwdMessages = <MessagesFwdMessage>[];
-    for (var item in _fwdMessage!['fwd_messages'] ?? []) {
-      _fwdMessages.add(MessagesFwdMessage(item));
-    }
-    return _fwdMessages;
-  }
-
-  int? get conversationMessageId => _fwdMessage!['conversation_message_id'];
-
-  int? get peerId => _fwdMessage!['peer_id'];
-
-  int? get id => _fwdMessage!['id'];
-}
+// class Attachments {
+//   final Map<String, dynamic>? _attachments;
+//
+//   Attachments(this._attachments);
+// }
