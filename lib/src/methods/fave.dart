@@ -1,4 +1,4 @@
-import 'package:vklib/src/params.dart';
+import 'package:vklib/src/objects/other/params.dart';
 
 import '../api.dart';
 

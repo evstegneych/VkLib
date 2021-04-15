@@ -4,5 +4,8 @@ class APIException implements Exception {
 
   APIException(this.code, this.cause);
 
-  String get error => 'APIException [$code] $cause';
+  @override
+  String toString() {
+    return 'APIException [$code] $cause';
+  }
 }

@@ -131,9 +131,12 @@ class API {
     }
 
     for (var item in requests_params.data.entries) {
-      requests_params.data[item.key] = item.value.toString();
+      if (item.value is List) {
+        requests_params.data[item.key] = item.value.join(',');
+      } else {
+        requests_params.data[item.key] = item.value.toString();
+      }
     }
-
     var url = Uri.parse(_baseUrl + '/$method');
     var response = await http.post(
       url,
@@ -141,7 +144,7 @@ class API {
     );
 
     if (response.statusCode != 200) {
-      throw APIException(-1, response.statusCode.toString()).error;
+      throw APIException(-1, response.statusCode.toString());
     }
 
     var response_params = Params.fromJson(response.body);
@@ -151,7 +154,7 @@ class API {
       throw APIException(
         error['error_code'],
         error['error_msg'],
-      ).error;
+      );
     }
 
     return response_params;

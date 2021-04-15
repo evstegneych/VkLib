@@ -1,5 +1,24 @@
 import 'package:vklib/src/objects/other/base_responses.dart';
 
+class MessagesGetById extends BaseApiResponse {
+  MessagesGetById(Map<String, dynamic> _map) : super(_map) {
+    build();
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  void build() {
+    count = body['count'];
+    for (var item in body['items']) {
+      items.add(MessagesMessage(item));
+    }
+  }
+
+  late int count;
+  late List<MessagesMessage> items = [];
+}
+
 class MessagesMessage extends BaseApiResponse {
   MessagesMessage(Map<String, dynamic> _map) : super(_map) {
     build();

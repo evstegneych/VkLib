@@ -83,8 +83,8 @@ class BotsLongPool {
 
           default:
             {
-              if (handlers['message_new'] != null) {
-                await handlers['message_new'];
+              if (handlers[update['type']] != null) {
+                await handlers[update['type']];
               }
             }
         }

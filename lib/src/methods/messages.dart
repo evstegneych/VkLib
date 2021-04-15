@@ -1,5 +1,7 @@
+import 'package:vklib/src/objects/messages.dart';
+
 import '../api.dart';
-import '../params.dart';
+import '../objects/other/params.dart';
 
 class Messages {
   final API _api;
@@ -156,8 +158,7 @@ class Messages {
   /// `fields` *(array)* Profile fields to return.
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
-  Future<Params> getByConversationMessageId(
-      [Map<String, dynamic>? params]) async {
+  Future<Params> getByConversationMessageId([Map<String, dynamic>? params]) async {
     return _api.request('messages.getByConversationMessageId', {
       ...?params,
     });
@@ -176,10 +177,11 @@ class Messages {
   /// `fields` *(array)* Profile fields to return.
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
-  Future<Params> getById([Map<String, dynamic>? params]) async {
-    return _api.request('messages.getById', {
+  Future<MessagesGetById> getById([Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.getById', {
       ...?params,
     });
+    return MessagesGetById(response.get('response'));
   }
 
   /// Params:
@@ -383,8 +385,7 @@ class Messages {
   /// `group_id` *(integer)* Group ID.
   ///
   /// `user_id` *(integer)* User ID.
-  Future<Params> isMessagesFromGroupAllowed(
-      [Map<String, dynamic>? params]) async {
+  Future<Params> isMessagesFromGroupAllowed([Map<String, dynamic>? params]) async {
     return _api.request('messages.isMessagesFromGroupAllowed', {
       ...?params,
     });
@@ -408,8 +409,7 @@ class Messages {
   /// `answered` *(boolean)* '1' — to mark as answered, '0' — to remove the mark, default: 1
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
-  Future<Params> markAsAnsweredConversation(
-      [Map<String, dynamic>? params]) async {
+  Future<Params> markAsAnsweredConversation([Map<String, dynamic>? params]) async {
     return _api.request('messages.markAsAnsweredConversation', {
       ...?params,
     });
@@ -437,8 +437,7 @@ class Messages {
   /// `important` *(boolean)* '1' — to add a star (mark as important), '0' — to remove the star, default: 1
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
-  Future<Params> markAsImportantConversation(
-      [Map<String, dynamic>? params]) async {
+  Future<Params> markAsImportantConversation([Map<String, dynamic>? params]) async {
     return _api.request('messages.markAsImportantConversation', {
       ...?params,
     });
