@@ -2,25 +2,25 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:vklib/src/api.dart';
-import 'package:vklib/src/longpool/objects//message_new.dart';
+import 'package:vklib/src/longpoll/objects/message_new.dart';
 import 'package:vklib/src/main.dart';
 
-class BotsLongPool {
+class BotsLongPoll {
   late VkLib _vk;
   late API _api;
 
-  late Map<String, dynamic> longPool;
+  late Map<String, dynamic> longPoll;
   late int groupId;
 
   Map<String, Future<dynamic>> handlers = {};
   Future<dynamic> Function(MessageNewObject)? _messageNew;
 
-  BotsLongPool(VkLib vk) {
+  BotsLongPoll(VkLib vk) {
     _vk = vk;
     _api = vk.api;
   }
 
-  BotsLongPool.withGroupId(VkLib vk, int _groupId) {
+  BotsLongPoll.withGroupId(VkLib vk, int _groupId) {
     _vk = vk;
     _api = vk.api;
     groupId = _groupId;
@@ -31,17 +31,17 @@ class BotsLongPool {
     groupId = response.data['response'][0]['id'];
   }
 
-  String get longPoolUrl => '${longPool["server"]}'
-      '?act=a_check&key=${longPool["key"]}'
-      '&wait=25&ts=${longPool["ts"]}';
+  String get longPollUrl => '${longPoll["server"]}'
+      '?act=a_check&key=${longPoll["key"]}'
+      '&wait=25&ts=${longPoll["ts"]}';
 
-  Future<void> updateLongPoolData() async {
+  Future<void> updateLongPollData() async {
     var _longPool = await _api.groups.getLongPollServer({'group_id': groupId});
-    longPool = _longPool.data['response'];
+    longPoll = _longPool.data['response'];
   }
 
   Future<List<Map<String, dynamic>>> receiver() async {
-    var resp = await http.post(Uri.parse(longPoolUrl));
+    var resp = await http.post(Uri.parse(longPollUrl));
 
     if (resp.statusCode != 200) return [];
 
@@ -49,12 +49,12 @@ class BotsLongPool {
 
     if (response.containsKey('failed')) {
       if ([2, 3, 4].contains(response['failed'])) {
-        await updateLongPoolData();
+        await updateLongPollData();
       }
       return [];
     }
 
-    longPool['ts'] = response['ts'];
+    longPoll['ts'] = response['ts'];
 
     var updates = <Map<String, dynamic>>[];
 
@@ -77,7 +77,7 @@ class BotsLongPool {
   }
 
   void start() async {
-    await updateLongPoolData();
+    await updateLongPollData();
 
     while (true) {
       for (var update in await receiver()) {

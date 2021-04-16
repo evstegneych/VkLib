@@ -5,11 +5,10 @@ void main() async {
   load();
   var token = env['token'] ?? 'ass';
   var vk = VkLib(token: token);
-  var lp = BotsLongPool(vk);
+  var lp = BotsLongPoll(vk);
   await lp.getGroupId();
   lp.messageNew((MessageNewObject context) async {
-    print(
-        '${context.object!.message.fromId} - ${context.object!.message.text}');
+    print('${context.object!.message.fromId} - ${context.object.message.text}');
   });
 
   lp.start();

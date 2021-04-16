@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:test/test.dart';
 import 'package:vklib/src/objects/other/params.dart';
-import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPool;
+import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPoll;
 
 void main() {
   late VkLib vk;
@@ -55,7 +55,7 @@ void main() {
   });
   group('Test LP', () {
     test('BotsLongPool', () async {
-      var lp = BotsLongPool(vk)..groupId = 195607933;
+      var lp = BotsLongPoll(vk)..groupId = 195607933;
 
       lp.messageNew((MessageNewObject context) async {});
 

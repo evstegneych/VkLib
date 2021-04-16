@@ -15,7 +15,7 @@ class MessageNewObject extends BaseApiResponse {
     object = _MessageNewObject(body['object']);
   }
 
-  _MessageNewObject? object;
+  late _MessageNewObject object;
 }
 
 class _MessageNewObject extends BaseApiResponse {
