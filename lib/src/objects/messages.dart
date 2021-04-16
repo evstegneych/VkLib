@@ -9,6 +9,21 @@ class MessagesGetById extends BaseApiResponse {
   Map<String, dynamic> get body => super.body;
 
   void build() {
+    response = _MessagesGetById(body['response']);
+  }
+
+  late _MessagesGetById response;
+}
+
+class _MessagesGetById extends BaseApiResponse {
+  _MessagesGetById(Map<String, dynamic> _map) : super(_map) {
+    build();
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  void build() {
     count = body['count'];
     for (var item in body['items']) {
       items.add(MessagesMessage(item));

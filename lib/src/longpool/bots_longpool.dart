@@ -20,6 +20,17 @@ class BotsLongPool {
     _api = vk.api;
   }
 
+  BotsLongPool.withGroupId(VkLib vk, int _groupId) {
+    _vk = vk;
+    _api = vk.api;
+    groupId = _groupId;
+  }
+
+  Future<void> getGroupId() async {
+    var response = await _api.groups.getById();
+    groupId = response.data['response'][0]['id'];
+  }
+
   String get longPoolUrl => '${longPool["server"]}'
       '?act=a_check&key=${longPool["key"]}'
       '&wait=25&ts=${longPool["ts"]}';

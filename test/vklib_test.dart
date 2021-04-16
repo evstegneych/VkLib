@@ -47,7 +47,7 @@ void main() {
           'message_ids': [21176884, 21177928]
         },
       ).then((value) {
-        for (var item in value.items) {
+        for (var item in value.response.items) {
           print('${item.fromId}:${item.peerId} - ${item.text}');
         }
       });

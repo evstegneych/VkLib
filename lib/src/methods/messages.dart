@@ -178,10 +178,11 @@ class Messages {
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
   Future<MessagesGetById> getById([Map<String, dynamic>? params]) async {
-    var response = await _api.request('messages.getById', {
+    return _api.request('messages.getById', {
       ...?params,
+    }).then((value) {
+      return MessagesGetById(value.data);
     });
-    return MessagesGetById(response.get('response'));
   }
 
   /// Params:
