@@ -14,12 +14,12 @@ dependencies:
 
 ## Features
  ```Художественный фильм "Спиздили"```
- 
- - LongPool
-    - [x] Bots 
+
+- LongPoll
+    - [x] Bots
     - [ ] User
- 
- - Not added Methods
+
+- Not added Methods
     - VK Donut
     - Podcasts
     - LeadForms

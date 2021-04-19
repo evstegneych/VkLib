@@ -13,7 +13,7 @@ class BotsLongPoll {
   late int groupId;
 
   Map<String, Future<dynamic>> handlers = {};
-  Future<dynamic> Function(MessageNewObject)? _messageNew;
+  Future<void> Function(MessageNewObject)? _messageNew;
 
   BotsLongPoll(VkLib vk) {
     _vk = vk;

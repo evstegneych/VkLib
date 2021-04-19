@@ -8,7 +8,7 @@ void main() async {
   var lp = BotsLongPoll(vk);
   await lp.getGroupId();
   lp.messageNew((MessageNewObject context) async {
-    print('${context.object!.message.fromId} - ${context.object.message.text}');
+    print('${context.object.message.fromId} - ${context.object.message.text}');
   });
 
   lp.start();
