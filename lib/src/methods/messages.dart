@@ -1,5 +1,7 @@
+import 'package:vklib/src/objects/messages.dart';
+
 import '../api.dart';
-import '../params.dart';
+import '../objects/other/params.dart';
 
 class Messages {
   final API _api;
@@ -13,10 +15,12 @@ class Messages {
   /// `chat_id` *(integer)* Chat ID., max: 100000000
   ///
   /// `user_id` *(integer)* ID of the user to be added to the chat.
-  Future<Params> addChatUser([Map<String, dynamic>? params]) async {
-    return _api.request('messages.addChatUser', {
+  Future<MessagesAddChatUser> addChatUser(
+      [Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.addChatUser', {
       ...?params,
     });
+    return MessagesAddChatUser(response.data);
   }
 
   /// Allows sending messages from community to the current user.
@@ -26,10 +30,12 @@ class Messages {
   /// `group_id` *(integer)* Group ID.
   ///
   /// `key` *(string)*
-  Future<Params> allowMessagesFromGroup([Map<String, dynamic>? params]) async {
-    return _api.request('messages.allowMessagesFromGroup', {
+  Future<MessagesAllowMessagesFromGroup> allowMessagesFromGroup(
+      [Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.allowMessagesFromGroup', {
       ...?params,
     });
+    return MessagesAllowMessagesFromGroup(response.data);
   }
 
   /// Creates a chat with several participants.
@@ -39,10 +45,11 @@ class Messages {
   /// `user_ids` *(array)* IDs of the users to be added to the chat.
   ///
   /// `title` *(string)* Chat title.
-  Future<Params> createChat([Map<String, dynamic>? params]) async {
-    return _api.request('messages.createChat', {
+  Future<MessagesCreateChat> createChat([Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.createChat', {
       ...?params,
     });
+    return MessagesCreateChat(response.data);
   }
 
   /// Deletes one or more messages.
@@ -56,10 +63,11 @@ class Messages {
   /// `group_id` *(integer)* Group ID (for group messages with user access token)
   ///
   /// `delete_for_all` *(boolean)* '1' — delete message for for all.
-  Future<Params> delete([Map<String, dynamic>? params]) async {
-    return _api.request('messages.delete', {
+  Future<MessagesDelete> delete([Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.delete', {
       ...?params,
     });
+    return MessagesDelete(response.data);
   }
 
   /// Deletes a chat's cover picture.
@@ -84,10 +92,12 @@ class Messages {
   /// `peer_id` *(integer)* Destination ID. "For user: 'User ID', e.g. '12345'. For chat: '2000000000' + 'chat_id', e.g. '2000000001'. For community: '- community ID', e.g. '-12345'. "
   ///
   /// `group_id` *(integer)* Group ID (for group messages with user access token)
-  Future<Params> deleteConversation([Map<String, dynamic>? params]) async {
-    return _api.request('messages.deleteConversation', {
+  Future<MessagesDeleteConversation> deleteConversation(
+      [Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.deleteConversation', {
       ...?params,
     });
+    return MessagesDeleteConversation(response.data);
   }
 
   /// Denies sending message from community to the current user.
@@ -176,9 +186,11 @@ class Messages {
   /// `fields` *(array)* Profile fields to return.
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
-  Future<Params> getById([Map<String, dynamic>? params]) async {
+  Future<MessagesGetById> getById([Map<String, dynamic>? params]) {
     return _api.request('messages.getById', {
       ...?params,
+    }).then((value) {
+      return MessagesGetById(value.data);
     });
   }
 
@@ -189,10 +201,12 @@ class Messages {
   /// `link` *(string)* Invitation link.
   ///
   /// `fields` *(array)* Profile fields to return.
-  Future<Params> getChatPreview([Map<String, dynamic>? params]) async {
-    return _api.request('messages.getChatPreview', {
+  Future<MessageGetChatPreview> getChatPreview(
+      [Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.getChatPreview', {
       ...?params,
     });
+    return MessageGetChatPreview(response.data);
   }
 
   /// Returns a list of IDs of users participating in a chat.

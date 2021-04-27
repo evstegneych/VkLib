@@ -1,5 +1,5 @@
 import '../api.dart';
-import '../params.dart';
+import '../objects/other/params.dart';
 
 class Docs {
   final API _api;

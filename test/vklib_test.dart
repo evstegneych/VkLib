@@ -2,18 +2,20 @@ import 'dart:core';
 
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:test/test.dart';
-import 'package:vklib/src/params.dart';
-import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPool;
+import 'package:vklib/src/objects/other/params.dart';
+import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPoll;
 
 void main() {
   late VkLib vk;
-  var token;
-  final v = 5.130;
+  late VkLib vk_user;
+  final v = '5.130';
   load();
-  token = env['token'] ?? 'ass';
+  var token = env['token'] ?? 'ass';
+  var user_token = env['user_token'] ?? 'ass';
 
   setUp(() {
     vk = VkLib(token: token, v: v);
+    vk_user = VkLib(token: user_token, v: v);
   });
 
   group('Test VkLib class', () {
@@ -39,17 +41,29 @@ void main() {
         {'user_id': 229203735, 'message': 'Hello'},
       );
     });
+    test('messages.getById', () async {
+      await vk_user.api.messages.getById(
+        {
+          'message_ids': [21176884, 21177928]
+        },
+      ).then((value) {
+        for (var item in value.response.items) {
+          print('${item.fromId}:${item.peerId} - ${item.text}');
+        }
+      });
+    });
+    test('messages.getConversationMembers', () async {
+      await vk_user.api.messages
+          .getConversationMembers({'peer_id': 2000001400}).then((value) {
+        print('${value.toString()}');
+      });
+    });
   });
   group('Test LP', () {
-    test('messages.send', () async {
-      var lp = BotsLongPool(vk)..groupId = 195607933;
+    test('BotsLongPool', () async {
+      var lp = BotsLongPoll(vk)..groupId = 195607933;
 
-      await vk.api.account.setInfo();
-
-      lp.messageNew((MessageNewObject context) async {
-        print(
-            '${context.object!.message.fromId} - ${context.object!.message.text}');
-      });
+      lp.messageNew((MessageNewObject context) async {});
 
       lp.start();
     });

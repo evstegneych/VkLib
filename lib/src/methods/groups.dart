@@ -1,4 +1,4 @@
-import 'package:vklib/src/params.dart';
+import 'package:vklib/src/objects/other/params.dart';
 
 import '../api.dart';
 
@@ -424,7 +424,7 @@ class Groups {
   /// `group_id` *(string)* ID or screen name of the community.
   ///
   /// `fields` *(array)* Group fields to return.
-  Future<Params> getById([Map<String, dynamic>? params]) async {
+  Future<Params> getById([Map<String, dynamic>? params]) {
     return _api.request('groups.getById', {
       ...?params,
     });

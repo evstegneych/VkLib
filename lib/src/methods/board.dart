@@ -1,5 +1,6 @@
+import 'package:vklib/src/objects/other/params.dart';
+
 import '../api.dart';
-import '../params.dart';
 
 class Board {
   final API _api;
