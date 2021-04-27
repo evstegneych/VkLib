@@ -52,6 +52,12 @@ void main() {
         }
       });
     });
+    test('messages.getConversationMembers', () async {
+      await vk_user.api.messages
+          .getConversationMembers({'peer_id': 2000001400}).then((value) {
+        print('${value.toString()}');
+      });
+    });
   });
   group('Test LP', () {
     test('BotsLongPool', () async {

@@ -1,4 +1,54 @@
 import 'package:vklib/src/objects/other/base_responses.dart';
+import 'package:vklib/src/objects/users.dart';
+
+class MessagesGetConversationMembers extends BaseApiResponse {
+  MessagesGetConversationMembers(Map<String, dynamic> _map) : super(_map) {
+    response = _MessagesGetConversationMembers(body['response']);
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  late _MessagesGetConversationMembers response;
+}
+
+class _MessagesGetConversationMembers extends BaseApiResponse {
+  _MessagesGetConversationMembers(Map<String, dynamic> _map) : super(_map) {
+    for (var _item in body['items'] ?? []) {
+      items.add(_MessagesGetConversationMembersItems(_item));
+    }
+    count = body['count'];
+    for (var _profile in body['profiles'] ?? []) {
+      profiles.add(UsersUser(_profile));
+    }
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  late List<_MessagesGetConversationMembersItems> items;
+  late int count;
+  late List<UsersUser> profiles;
+  late List<dynamic> groups;
+}
+
+class _MessagesGetConversationMembersItems extends BaseApiResponse {
+  _MessagesGetConversationMembersItems(Map<String, dynamic> _map)
+      : super(_map) {
+    memberId = body['member_id'];
+    canKick = body['can_kick'];
+    invitedCode = body['invited_code'];
+    joinDate = body['join_date'];
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  late int memberId;
+  late bool canKick;
+  late int invitedCode;
+  late int joinDate;
+}
 
 class MessageGetChatPreview extends BaseApiResponse {
   MessageGetChatPreview(Map<String, dynamic> _map) : super(_map) {
