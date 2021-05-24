@@ -1,11 +1,12 @@
 import 'dart:core';
 
 import 'package:vklib/src/base/event.dart';
+import 'package:vklib/src/base/types.dart';
 
-class GroupEvent extends BaseEvent<Map<String, dynamic>> {
+class GroupEvent extends BaseEvent<Json, String?> {
   GroupEvent(content) : super(content);
 
-  Map<String, dynamic> get _content => super.content;
+  Json get _content => super.content;
 
   @override
   String? get type {
@@ -13,7 +14,7 @@ class GroupEvent extends BaseEvent<Map<String, dynamic>> {
   }
 
   @override
-  Map<String, dynamic> get object {
+  Json get object {
     return _content['object'] ?? {};
   }
 
@@ -22,7 +23,7 @@ class GroupEvent extends BaseEvent<Map<String, dynamic>> {
   }
 }
 
-class UserEvent extends BaseEvent<List<dynamic>> {
+class UserEvent extends BaseEvent<List<dynamic>, int?> {
   UserEvent(content) : super(content);
 
   List<dynamic> get _content => super.content ?? [];

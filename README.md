@@ -19,14 +19,14 @@ dependencies:
 ```Художественный фильм "Спиздили"```
 
 - LongPoll
-  - [x] Bots
-  - [ ] User
+    - [x] Bots
+    - [ ] User
 
 - Not added Methods
-  - VK Donut
-  - Podcasts
-  - LeadForms
-  - PrettyCards
+    - VK Donut
+    - Podcasts
+    - LeadForms
+    - PrettyCards
     - Store
     - AppWidgets
 

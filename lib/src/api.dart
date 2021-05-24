@@ -36,7 +36,7 @@ import 'package:vklib/src/methods/wall.dart';
 import 'package:vklib/src/methods/widgets.dart';
 
 import '../vklib.dart';
-import 'exceptions/exception.dart';
+import 'exception.dart';
 import 'methods/users.dart';
 import 'objects/other/params.dart';
 

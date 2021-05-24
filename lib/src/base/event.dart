@@ -1,7 +1,4 @@
-/// *[String]* or *[int]* type
-typedef EventType = dynamic;
-
-abstract class BaseEvent<T> {
+abstract class BaseEvent<T, EventType> {
   late T _content;
 
   BaseEvent(__content) {
