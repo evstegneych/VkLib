@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:test/test.dart';
+import 'package:vklib/src/event.dart';
 import 'package:vklib/src/objects/other/params.dart';
 import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPoll;
 
@@ -32,6 +33,23 @@ void main() {
       var params = Params.fromJson(testJson);
       expect(params.toString(), testJson);
     });
+
+    test('BaseEvent test', () {
+      var groupEvent = GroupEvent({
+        'object': {'123': 123},
+        'type': 'new_message',
+        'group_id': 123
+      });
+      print(groupEvent.content);
+      print(groupEvent.type);
+      print(groupEvent.object);
+      print(groupEvent.group_id);
+
+      // var userEvent = UserEvent([1, 2, {123: 2}]);
+      // print(userEvent.type);
+      // print(userEvent.object);
+      // print(userEvent.content);
+    });
   });
 
   group('Test API request', () {
@@ -44,7 +62,7 @@ void main() {
     test('messages.getById', () async {
       await vk_user.api.messages.getById(
         {
-          'message_ids': [21176884, 21177928]
+          'message_ids': [21176884, 21177928, 21177634, 15000000]
         },
       ).then((value) {
         for (var item in value.response.items) {
@@ -55,7 +73,8 @@ void main() {
     test('messages.getConversationMembers', () async {
       await vk_user.api.messages
           .getConversationMembers({'peer_id': 2000001400}).then((value) {
-        print('${value.toString()}');
+        print('${value.response.profiles[0].firstName} '
+            '${value.response.profiles[0].lastName} - ${value.response.profiles[0].online}');
       });
     });
   });

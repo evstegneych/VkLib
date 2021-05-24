@@ -1,5 +1,44 @@
 import 'package:vklib/src/objects/other/base_responses.dart';
 
+class MessagesGetConversations extends BaseApiResponse {
+  MessagesGetConversations(Map<String, dynamic> _map) : super(_map) {
+    response = _MessagesGetConversations(body['response']);
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  late _MessagesGetConversations response;
+}
+
+class _MessagesGetConversations extends BaseApiResponse {
+  _MessagesGetConversations(Map<String, dynamic> _map) : super(_map) {
+    count = body['count'];
+    for (var _item in body['items']) {
+      items.add(_MessagesGetConversationsItems(_item));
+    }
+    unreadCount = body['unread_count'];
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  late int count;
+  late List<_MessagesGetConversationsItems> items;
+  late int unreadCount;
+}
+
+class _MessagesGetConversationsItems extends BaseApiResponse {
+  _MessagesGetConversationsItems(Map<String, dynamic> _map) : super(_map) {
+    items = body['items'];
+  }
+
+  @override
+  Map<String, dynamic> get body => super.body;
+
+  late Map<String, dynamic> items;
+}
+
 class UsersUser extends BaseApiResponse {
   UsersUser(Map<String, dynamic> _map) : super(_map) {
     firstName = body['first_name'];
@@ -11,7 +50,7 @@ class UsersUser extends BaseApiResponse {
     screenName = body['screen_name'];
     photo50 = body['photo_50'];
     photo100 = body['photo_100'];
-    onlineInfo = _UsersUserOnlineInfo(body['response']);
+    onlineInfo = _UsersUserOnlineInfo(body['online_info']);
     online = body['online'];
   }
 
@@ -42,8 +81,8 @@ class _UsersUserOnlineInfo extends BaseApiResponse {
   @override
   Map<String, dynamic> get body => super.body;
 
-  late bool visible;
-  late int lastSeen;
-  late bool isOnline;
-  late bool isMobile;
+  bool? visible;
+  int? lastSeen;
+  bool? isOnline;
+  bool? isMobile;
 }

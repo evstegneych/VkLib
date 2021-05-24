@@ -1,4 +1,5 @@
 import 'package:vklib/src/objects/messages.dart';
+import 'package:vklib/src/objects/users.dart';
 
 import '../api.dart';
 import '../objects/other/params.dart';
@@ -186,12 +187,11 @@ class Messages {
   /// `fields` *(array)* Profile fields to return.
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
-  Future<MessagesGetById> getById([Map<String, dynamic>? params]) {
-    return _api.request('messages.getById', {
+  Future<MessagesGetById> getById([Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.getById', {
       ...?params,
-    }).then((value) {
-      return MessagesGetById(value.data);
     });
+    return MessagesGetById(response.data);
   }
 
   /// Params:
@@ -218,10 +218,12 @@ class Messages {
   /// `fields` *(array)* Profile fields to return.
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
-  Future<Params> getConversationMembers([Map<String, dynamic>? params]) async {
-    return _api.request('messages.getConversationMembers', {
+  Future<MessagesGetConversationMembers> getConversationMembers(
+      [Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.getConversationMembers', {
       ...?params,
     });
+    return MessagesGetConversationMembers(response.data);
   }
 
   /// Returns a list of the current user's conversations.
@@ -241,10 +243,12 @@ class Messages {
   /// `fields` *(array)* Profile and communities fields to return.
   ///
   /// `group_id` *(integer)* Group ID (for group messages with group access token)
-  Future<Params> getConversations([Map<String, dynamic>? params]) async {
-    return _api.request('messages.getConversations', {
+  Future<MessagesGetConversations> getConversations(
+      [Map<String, dynamic>? params]) async {
+    var response = await _api.request('messages.getConversations', {
       ...?params,
     });
+    return MessagesGetConversations(response.data);
   }
 
   /// Returns conversations by their IDs

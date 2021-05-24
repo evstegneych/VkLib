@@ -7,7 +7,7 @@ class VkLib {
   late String _v;
   late String _lang;
   late API api;
-  bool _test_mode = false;
+  late bool _test_mode;
 
   VkLib({
     required String token,

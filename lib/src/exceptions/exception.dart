@@ -1,11 +1,5 @@
-class APIException implements Exception {
-  String cause;
-  int code;
+import 'package:vklib/src/base/exception.dart';
 
-  APIException(this.code, this.cause);
-
-  @override
-  String toString() {
-    return 'APIException [$code] $cause';
-  }
+class APIException extends BaseException {
+  APIException(code, cause) : super('APIException', code, cause);
 }

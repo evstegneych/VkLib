@@ -26,10 +26,10 @@ class _MessagesGetConversationMembers extends BaseApiResponse {
   @override
   Map<String, dynamic> get body => super.body;
 
-  late List<_MessagesGetConversationMembersItems> items;
+  late List<_MessagesGetConversationMembersItems> items = [];
   late int count;
-  late List<UsersUser> profiles;
-  late List<dynamic> groups;
+  late List<UsersUser> profiles = [];
+  late List<dynamic> groups = [];
 }
 
 class _MessagesGetConversationMembersItems extends BaseApiResponse {
@@ -45,9 +45,10 @@ class _MessagesGetConversationMembersItems extends BaseApiResponse {
   Map<String, dynamic> get body => super.body;
 
   late int memberId;
-  late bool canKick;
-  late int invitedCode;
-  late int joinDate;
+  bool? canKick;
+  int? invitedCode;
+  int? invitedBy;
+  int? joinDate;
 }
 
 class MessageGetChatPreview extends BaseApiResponse {
@@ -105,7 +106,7 @@ class _MessageGetChatPreviewPreview extends BaseApiResponse {
 
   int? adminId;
   late int membersCount;
-  late List<int> members;
+  late List<int> members = [];
   late String title;
   late _MessageGetChatPreviewPreviewPhoto photo;
   late int localId;
