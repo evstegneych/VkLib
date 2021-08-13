@@ -1,12 +1,12 @@
 abstract class BaseEvent<T, EventType> {
   late T _content;
 
-  BaseEvent(__content) {
-    _content = __content;
+  BaseEvent(T __content) {
+    content = __content;
   }
 
-  set content(_content) {
-    _content = _content;
+  set content(__content) {
+    _content = __content;
   }
 
   T get content => _content;

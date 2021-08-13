@@ -1,6 +1,7 @@
-import 'api.dart';
-import 'objects/other/language.dart' show LanguageType;
-import 'objects/other/params.dart';
+import 'package:dotenv/dotenv.dart';
+import 'package:vklib/src/api.dart';
+import 'package:vklib/src/objects/other/language.dart' show LanguageType;
+import 'package:vklib/src/objects/other/params.dart';
 
 class VkLib {
   late String _access_token;
@@ -16,7 +17,12 @@ class VkLib {
     bool test_mode = false,
   }) {
     _test_mode = false;
-    _access_token = token;
+    if (token.startsWith('%')) {
+      load();
+      _access_token = env['token'] ?? 'unknown';
+    } else {
+      _access_token = token;
+    }
     _v = v;
     _lang = lang;
     api = API(this);

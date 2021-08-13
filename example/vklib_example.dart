@@ -1,15 +1,11 @@
-import 'package:dotenv/dotenv.dart';
 import 'package:vklib/vklib.dart';
 
 void main() async {
-  load();
-  var token = env['token'] ?? 'ass';
-  var vk = VkLib(token: token);
-  var lp = BotsLongPoll(vk);
-  await lp.getGroupId();
-  lp.messageNew((MessageNewObject context) async {
-    print('${context.object.message.fromId} - ${context.object.message.text}');
-  });
+  var vk = VkLib(token: '%token');
 
-  lp.start();
+  var lp = BotsLongPoll(vk.api);
+  lp.on('message_new', (el) async {
+    print(el.content);
+  });
+  await lp.start();
 }

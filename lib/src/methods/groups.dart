@@ -1,3 +1,4 @@
+import 'package:vklib/src/core/base/types.dart';
 import 'package:vklib/src/objects/other/params.dart';
 
 import '../api.dart';
@@ -435,8 +436,7 @@ class Groups {
   /// Params:
   ///
   /// `group_id` *(integer)* Community ID.
-  Future<Params> getCallbackConfirmationCode(
-      [Map<String, dynamic>? params]) async {
+  Future<Params> getCallbackConfirmationCode([Map<String, dynamic>? params]) async {
     return _api.request('groups.getCallbackConfirmationCode', {
       ...?params,
     });
@@ -531,7 +531,7 @@ class Groups {
   /// Params:
   ///
   /// `group_id` *(integer)* Community ID
-  Future<Params> getLongPollServer([Map<String, dynamic>? params]) async {
+  Future<Params> getLongPollServer([Json? params]) async {
     return _api.request('groups.getLongPollServer', {
       ...?params,
     });
@@ -542,7 +542,7 @@ class Groups {
   /// Params:
   ///
   /// `group_id` *(integer)* Community ID.
-  Future<Params> getLongPollSettings([Map<String, dynamic>? params]) async {
+  Future<Params> getLongPollSettings([Json? params]) async {
     return _api.request('groups.getLongPollSettings', {
       ...?params,
     });

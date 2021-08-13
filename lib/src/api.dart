@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
+import 'package:vklib/src/exception.dart';
 import 'package:vklib/src/methods/Streaming.dart';
 import 'package:vklib/src/methods/account.dart';
 import 'package:vklib/src/methods/ads.dart';
@@ -30,20 +31,25 @@ import 'package:vklib/src/methods/stats.dart';
 import 'package:vklib/src/methods/status.dart';
 import 'package:vklib/src/methods/storage.dart';
 import 'package:vklib/src/methods/stories.dart';
+import 'package:vklib/src/methods/users.dart';
 import 'package:vklib/src/methods/utils.dart';
 import 'package:vklib/src/methods/video.dart';
 import 'package:vklib/src/methods/wall.dart';
 import 'package:vklib/src/methods/widgets.dart';
+import 'package:vklib/src/objects/other/params.dart';
+import 'package:vklib/vklib.dart';
 
-import '../vklib.dart';
-import 'exception.dart';
-import 'methods/users.dart';
-import 'objects/other/params.dart';
+enum TokenOwner {
+  USER,
+  GROUP,
+  UNKNOWN,
+}
 
 class API {
   final String _baseUrl = 'https://api.vk.com/method';
-
+  late TokenOwner _token_owner;
   late VkLib _vk;
+  var clientSession = http.Client();
 
   late Account account;
   late Ads ads;
@@ -80,8 +86,9 @@ class API {
   late Wall wall;
   late Widgets widgets;
 
-  API(VkLib vk) {
+  API(VkLib vk, {token_owner = TokenOwner.UNKNOWN}) {
     _vk = vk;
+    _token_owner = token_owner;
 
     account = Account(this);
     ads = Ads(this);
@@ -118,6 +125,31 @@ class API {
     wall = Wall(this);
     widgets = Widgets(this);
   }
+
+  Future<TokenOwner> define_token_owner() async {
+    if (_token_owner != TokenOwner.UNKNOWN) {
+      return _token_owner;
+    }
+    var user = await users.get();
+    if (user.data['response'].length != 0) {
+      _token_owner = TokenOwner.USER;
+    } else {
+      _token_owner = TokenOwner.GROUP;
+    }
+    return _token_owner;
+  }
+
+  // async def define_token_owner(self) -> TokenOwner:
+  //   if self._token_owner != TokenOwner.UNKNOWN:
+  //       return self._token_owner
+  //   seemed_user = await self.use_cache().method("users.get")
+  //   if seemed_user:
+  //       self._token_owner = TokenOwner.USER
+  //   else:
+  //       self._token_owner = TokenOwner.GROUP
+  //
+  //   self._update_requests_delay()
+  //   return self._token_owner
 
   Future<Params> request(
     String method,

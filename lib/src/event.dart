@@ -1,7 +1,7 @@
 import 'dart:core';
 
-import 'package:vklib/src/base/event.dart';
-import 'package:vklib/src/base/types.dart';
+import 'package:vklib/src/core/base/event.dart';
+import 'package:vklib/src/core/base/types.dart';
 
 class GroupEvent extends BaseEvent<Json, String?> {
   GroupEvent(content) : super(content);
@@ -23,7 +23,7 @@ class GroupEvent extends BaseEvent<Json, String?> {
   }
 }
 
-class UserEvent extends BaseEvent<List<dynamic>, int?> {
+class UserEvent extends BaseEvent<List<dynamic>?, int?> {
   UserEvent(content) : super(content);
 
   List<dynamic> get _content => super.content ?? [];
