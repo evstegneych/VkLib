@@ -1,4 +1,4 @@
-import 'package:vklib/src/event.dart';
+import 'package:vklib/src/core/event.dart';
 
 typedef Json = Map<String, dynamic>;
 typedef JsonString = Map<String, String>;

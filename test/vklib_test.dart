@@ -2,7 +2,7 @@ import 'dart:core';
 
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:test/test.dart';
-import 'package:vklib/src/event.dart';
+import 'package:vklib/src/core/event.dart';
 import 'package:vklib/src/objects/other/params.dart';
 import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPoll;
 

@@ -1,4 +1,4 @@
-import 'package:vklib/src/api.dart';
+import 'package:vklib/src/core/api.dart';
 import 'package:vklib/src/core/base/longpoll.dart';
 import 'package:vklib/src/core/base/types.dart';
 import 'package:vklib/src/main.dart';

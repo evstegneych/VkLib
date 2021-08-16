@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:vklib/src/api.dart';
+import 'package:vklib/src/core/api.dart';
 import 'package:vklib/src/core/base/types.dart';
-import 'package:vklib/src/event.dart';
-import 'package:vklib/src/exception.dart';
+import 'package:vklib/src/core/event.dart';
+import 'package:vklib/src/core/exception.dart';
 
 abstract class BaseLongPoll {
   late JsonString _requests_query_params = {};
@@ -84,9 +84,8 @@ class BaseGroupLongPoll extends BaseLongPoll {
   @override
   Future<void> _setup() async {
     await _define_group_id();
-    var new_lp_settings =
-        await api.groups.getLongPollServer({'group_id': groupId});
-    var longPoll = new_lp_settings.data['response'];
+    var new_lp_settings = await api.groups.getLongPollServer(group_id: groupId);
+    var longPoll = new_lp_settings['response'];
 
     _server_url = '${longPoll["server"]}';
 
@@ -95,18 +94,19 @@ class BaseGroupLongPoll extends BaseLongPoll {
       'wait': _wait.toString(),
     };
     _requests_query_params
-        .addAll(new_lp_settings.data['response'].cast<String, String>());
+        .addAll(new_lp_settings['response'].cast<String, String>());
   }
 
   Future<void> _define_group_id() async {
     if (groupId == null) {
       var owner = await api.groups.getById();
       var token_owner = await api.define_token_owner();
+      print(owner);
       if (token_owner != TokenOwner.GROUP) {
         throw CoreException(
             'Cant use `GroupLongPoll` with user token without `group_id`');
       }
-      groupId = owner.data['response'][0]['id'];
+      groupId = owner['response'][0]['id'];
     }
   }
 
@@ -119,13 +119,13 @@ class BaseGroupLongPoll extends BaseLongPoll {
 
 class BaseUserLongPoll extends BaseLongPoll {
   int? _mode;
-  int? _version;
+  String? _version;
   int? _wait;
   late API _api;
 
   BaseUserLongPoll({
     required API api,
-    int? version,
+    String? version,
     int? mode,
     int wait = 25,
   }) : super(api.clientSession) {
@@ -138,15 +138,15 @@ class BaseUserLongPoll extends BaseLongPoll {
   @override
   Future<void> _setup() async {
     var new_lp_settings =
-        await _api.groups.getLongPollSettings({'version': _version});
-    var server_url = new_lp_settings.data['server'];
+        await _api.groups.getLongPollSettings(version: _version);
+    var server_url = new_lp_settings['server'];
     _server_url = 'https://$server_url';
     _requests_query_params = {
       'act': 'a_check',
       'wait': _wait.toString(),
       '_mode': _mode.toString(),
     };
-    _requests_query_params.addAll(new_lp_settings.data as JsonString);
+    _requests_query_params.addAll(new_lp_settings as JsonString);
   }
 
   Stream<UserEvent> runPolling() async* {

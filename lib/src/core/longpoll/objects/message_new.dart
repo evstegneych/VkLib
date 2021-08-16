@@ -1,5 +1,5 @@
-import 'package:vklib/src/objects/messages.dart';
-import 'package:vklib/src/objects/other/base_responses.dart';
+import 'package:vklib/src/core/objects/messages.dart';
+import 'package:vklib/src/core/objects/other/base_responses.dart';
 
 class MessageNewObject extends BaseApiResponse {
   static const String type = 'message_new';
