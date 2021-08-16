@@ -2,8 +2,6 @@
 
 VK SDK for Dart allows you to use the VK API easily.
 
-###### Inspired by [Dart-vkio](!https://github.com/nitreojs/dart-vkio) | [vk-io](https://github.com/negezor/vk-io) | vkquick
-
 ## Install
 
 Add to your pubspec.yaml
@@ -22,14 +20,6 @@ dependencies:
     - [x] Bots
     - [ ] User
 
-- Not added Methods
-    - VK Donut
-    - Podcasts
-    - LeadForms
-    - PrettyCards
-    - Store
-    - AppWidgets
-
 ## Usage
 
 ```dart
@@ -38,10 +28,8 @@ import 'package:vklib/vklib.dart';
 void main() async {
   var vk = VkLib(token: '<token>');
   await vk.api.messages.send(
-    {
-      'user_id': 1,
-      'message': 'Hello'
-    },
+      user_id: 1,
+      message: 'Hello',
   );
 }
 ```
