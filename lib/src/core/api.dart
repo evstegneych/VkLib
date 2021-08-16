@@ -56,6 +56,10 @@ class API {
   late Video video;
   late Wall wall;
   late Widgets widgets;
+  late Appwidgets appwidgets;
+  late Store store;
+  late Donut donut;
+  late Podcasts podcasts;
 
   API(String access_token,
       {String v = '5.130',
