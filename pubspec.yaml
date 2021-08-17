@@ -1,7 +1,6 @@
 name: vklib
-description: Simple asynchronous framework for VK API.
+description: Simple and cool framework for VK API.
 version: 0.2.2
-author: Waitrum Evstegney Chachlyk
 homepage: https://github.com/Waitrum/VkLib
 issue_tracker: https://github.com/Waitrum/VkLib/issues
 
@@ -10,7 +9,7 @@ environment:
 
 dependencies:
   http: ^0.13.1
-  dotenv: ^3.0.0-nullsafety.0
+  dotenv: ^3.0.0
 #  logger: ^1.0.0
 
 dev_dependencies:

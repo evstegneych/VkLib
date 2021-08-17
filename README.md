@@ -8,8 +8,7 @@ Add to your pubspec.yaml
 
 ```yaml
 dependencies:
-  VkLib:
-    git: git//:github.com/Waitrum/VkLib.git
+  VkLib: ^0.2.2
 ```
 
 ## Features
@@ -27,6 +26,7 @@ dependencies:
 - Optimization For Mobile Devices
 - Useful Bot API
 - UserLongPoll
+- Logger
 
 ## Usage
 

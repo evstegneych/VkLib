@@ -6,8 +6,8 @@ void main() async {
   var lp = BotsLongPoll(vk.api);
 
   lp.on(BotsEventsEnum.MessageNew, (event) async {
-    print(
-        '${event.object['message']['from_id']}: ${event.object['message']['text']}');
+    print('${event.object['message']['from_id']}:'
+        ' ${event.object['message']['text']}');
   });
 
   lp.start();
