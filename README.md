@@ -26,7 +26,7 @@ dependencies:
 import 'package:vklib/vklib.dart';
 
 void main() async {
-  var vk = VkLib(token: '<token>');
+  var vk = VkLib(token: '%token');
   await vk.api.messages.send(
       user_id: 1,
       message: 'Hello',
