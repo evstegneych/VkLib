@@ -17,8 +17,16 @@ dependencies:
 ```Художественный фильм "Спиздили"```
 
 - LongPoll
-    - [x] Bots
-    - [ ] User
+  - [x] Bots
+  - [ ] User
+
+## Todo
+
+- BotsLongPoll Context
+- Another Auth Method
+- Optimization For Mobile Devices
+- Useful Bot API
+- UserLongPoll
 
 ## Usage
 
@@ -27,10 +35,18 @@ import 'package:vklib/vklib.dart';
 
 void main() async {
   var vk = VkLib(token: '%token');
-  await vk.api.messages.send(
+
+  var lp = BotsLongPoll(vk.api);
+
+  lp.on(BotsEventsEnum.MessageNew, (event) async {
+    print(event.object);
+    await vk.api.messages.send(
       user_id: 1,
       message: 'Hello',
-  );
+    );
+  });
+
+  lp.start();
 }
 ```
 

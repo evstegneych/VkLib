@@ -3,9 +3,9 @@ import 'dart:core';
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:test/test.dart';
 import 'package:vklib/src/core/event.dart';
-import 'package:vklib/src/objects/other/params.dart';
 import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPoll;
 
+// todo: Когда нибудь сделать тесты
 void main() {
   late VkLib vk;
   late VkLib vk_user;
@@ -68,13 +68,6 @@ void main() {
         for (var item in value.response.items) {
           print('${item.fromId}:${item.peerId} - ${item.text}');
         }
-      });
-    });
-    test('messages.getConversationMembers', () async {
-      await vk_user.api.messages
-          .getConversationMembers({'peer_id': 2000001400}).then((value) {
-        print('${value.response.profiles[0].firstName} '
-            '${value.response.profiles[0].lastName} - ${value.response.profiles[0].online}');
       });
     });
   });
