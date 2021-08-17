@@ -99,13 +99,12 @@ class BaseGroupLongPoll extends BaseLongPoll {
 
   Future<void> _define_group_id() async {
     if (groupId == null) {
-      var owner = await api.groups.getById();
       var token_owner = await api.define_token_owner();
-      print(owner);
       if (token_owner != TokenOwner.GROUP) {
         throw CoreException(
             'Cant use `GroupLongPoll` with user token without `group_id`');
       }
+      var owner = await api.groups.getById();
       groupId = owner['response'][0]['id'];
     }
   }
@@ -146,7 +145,7 @@ class BaseUserLongPoll extends BaseLongPoll {
       'wait': _wait.toString(),
       '_mode': _mode.toString(),
     };
-    _requests_query_params.addAll(new_lp_settings as JsonString);
+    _requests_query_params.addAll(new_lp_settings.cast<String, String>());
   }
 
   Stream<UserEvent> runPolling() async* {

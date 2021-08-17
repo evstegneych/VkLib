@@ -113,7 +113,6 @@ class API {
       return _token_owner;
     }
     var user = await users.get();
-    print(user);
     if (user['response'].length != 0) {
       _token_owner = TokenOwner.USER;
     } else {
