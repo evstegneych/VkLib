@@ -1,5 +1,5 @@
 name: vklib
-description: Simple and cool framework for VK API.
+description: Simple framework for dart allows you to use the VK API easily.
 version: 0.2.2
 homepage: https://github.com/Waitrum/VkLib
 issue_tracker: https://github.com/Waitrum/VkLib/issues
