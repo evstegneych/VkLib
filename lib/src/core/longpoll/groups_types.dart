@@ -1,6 +1,8 @@
 class GroupLongPollEventsEnum {
   static EventGroupType get MessageNew => _MessageNewBotType();
 
+  static EventGroupType get MessageEvent => _MessageEventBotType();
+
   static EventGroupType get MessageEdit => _MessageEditBotType();
 
   static EventGroupType get MessageReply => _MessageReplyBotType();
@@ -27,6 +29,11 @@ abstract class EventGroupType {
 class _MessageNewBotType extends EventGroupType {
   @override
   String getName() => 'message_new';
+}
+
+class _MessageEventBotType extends EventGroupType {
+  @override
+  String getName() => 'message_event';
 }
 
 class _MessageEditBotType extends EventGroupType {

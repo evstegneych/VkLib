@@ -6,7 +6,7 @@ import 'package:vklib/src/core/base/types.dart';
 import 'package:vklib/src/core/exception.dart';
 import 'package:vklib/src/core/methods.dart';
 
-import 'objects/other/language.dart';
+import 'objects/language.dart';
 
 enum TokenOwner {
   USER,
