@@ -8,8 +8,7 @@ Add to your pubspec.yaml
 
 ```yaml
 dependencies:
-  VkLib:
-    git: git//:github.com/Waitrum/VkLib.git
+  VkLib: ^0.2.2
 ```
 
 ## Features
@@ -22,33 +21,8 @@ dependencies:
 
 ## Todo
 
-- BotsLongPoll Context
+- GroupLongPoll Context
 - Another Auth Method
-- Optimization For Mobile Devices
 - Useful Bot API
 - UserLongPoll
-
-## Usage
-
-```dart
-import 'package:vklib/vklib.dart';
-
-void main() async {
-  var vk = VkLib(token: '%token');
-
-  var lp = BotsLongPoll(vk.api);
-
-  lp.on(BotsEventsEnum.MessageNew, (event) async {
-    print(event.object);
-    await vk.api.messages.send(
-      user_id: 1,
-      message: 'Hello',
-    );
-  });
-
-  lp.start();
-}
-```
-
-
-
+- Logger

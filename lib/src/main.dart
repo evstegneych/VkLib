@@ -11,10 +11,10 @@ class VkLib {
     String lang = LanguageType.RU,
     bool test_mode = false,
   }) {
-    var _access_token = '';
+    String _access_token;
     if (token.startsWith('%')) {
       load();
-      _access_token = env['token'] ?? 'unknown';
+      _access_token = env[token.substring(1)] ?? 'unknown';
     } else {
       _access_token = token;
     }

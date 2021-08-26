@@ -3,7 +3,7 @@ import 'dart:core';
 import 'package:dotenv/dotenv.dart' show load, env;
 import 'package:test/test.dart';
 import 'package:vklib/src/core/event.dart';
-import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, BotsLongPoll;
+import 'package:vklib/vklib.dart' show VkLib, MessageNewObject, GroupLongPoll;
 
 // todo: Когда нибудь сделать тесты
 void main() {
@@ -73,7 +73,7 @@ void main() {
   });
   group('Test LP', () {
     test('BotsLongPool', () async {
-      var lp = BotsLongPoll(vk)..groupId = 195607933;
+      var lp = GroupLongPoll(vk)..groupId = 195607933;
 
       lp.messageNew((MessageNewObject context) async {});
 
