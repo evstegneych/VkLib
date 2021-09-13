@@ -24,15 +24,6 @@ void main() {
       expect(vk.version, v);
     });
 
-    test('ENV test', () {
-      assert(token is String);
-    });
-
-    test('Params test', () {
-      final testJson = '{"тест":123}';
-      var params = Params.fromJson(testJson);
-      expect(params.toString(), testJson);
-    });
 
     test('BaseEvent test', () {
       var groupEvent = GroupEvent({
@@ -40,10 +31,6 @@ void main() {
         'type': 'new_message',
         'group_id': 123
       });
-      print(groupEvent.content);
-      print(groupEvent.type);
-      print(groupEvent.object);
-      print(groupEvent.group_id);
 
       // var userEvent = UserEvent([1, 2, {123: 2}]);
       // print(userEvent.type);

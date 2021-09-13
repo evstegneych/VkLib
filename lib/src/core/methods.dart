@@ -23,8 +23,9 @@ class Account {
       String? new_password}) async {
     var _params = {};
     if (restore_sid != null) _params['restore_sid'] = restore_sid;
-    if (change_password_hash != null)
+    if (change_password_hash != null) {
       _params['change_password_hash'] = change_password_hash;
+    }
     if (old_password != null) _params['old_password'] = old_password;
     if (new_password != null) _params['new_password'] = new_password;
     return _api.request('account.changePassword', {
@@ -141,15 +142,18 @@ class Account {
     if (last_name != null) _params['last_name'] = last_name;
     if (maiden_name != null) _params['maiden_name'] = maiden_name;
     if (screen_name != null) _params['screen_name'] = screen_name;
-    if (cancel_request_id != null)
+    if (cancel_request_id != null) {
       _params['cancel_request_id'] = cancel_request_id;
+    }
     if (sex != null) _params['sex'] = sex;
     if (relation != null) _params['relation'] = relation;
-    if (relation_partner_id != null)
+    if (relation_partner_id != null) {
       _params['relation_partner_id'] = relation_partner_id;
+    }
     if (bdate != null) _params['bdate'] = bdate;
-    if (bdate_visibility != null)
+    if (bdate_visibility != null) {
       _params['bdate_visibility'] = bdate_visibility;
+    }
     if (home_town != null) _params['home_town'] = home_town;
     if (country_id != null) _params['country_id'] = country_id;
     if (city_id != null) _params['city_id'] = city_id;
@@ -321,8 +325,9 @@ class Ads {
     if (name != null) _params['name'] = name;
     if (lifetime != null) _params['lifetime'] = lifetime;
     if (target_pixel_id != null) _params['target_pixel_id'] = target_pixel_id;
-    if (target_pixel_rules != null)
+    if (target_pixel_rules != null) {
       _params['target_pixel_rules'] = target_pixel_rules;
+    }
     return _api.request('ads.createTargetGroup', {
       ..._params,
     });
@@ -666,17 +671,21 @@ class Ads {
     if (ad_id != null) _params['ad_id'] = ad_id;
     if (ad_format != null) _params['ad_format'] = ad_format;
     if (ad_platform != null) _params['ad_platform'] = ad_platform;
-    if (ad_platform_no_wall != null)
+    if (ad_platform_no_wall != null) {
       _params['ad_platform_no_wall'] = ad_platform_no_wall;
-    if (ad_platform_no_ad_network != null)
+    }
+    if (ad_platform_no_ad_network != null) {
       _params['ad_platform_no_ad_network'] = ad_platform_no_ad_network;
-    if (publisher_platforms != null)
+    }
+    if (publisher_platforms != null) {
       _params['publisher_platforms'] = publisher_platforms;
+    }
     if (link_url != null) _params['link_url'] = link_url;
     if (link_domain != null) _params['link_domain'] = link_domain;
     if (need_precise != null) _params['need_precise'] = need_precise;
-    if (impressions_limit_period != null)
+    if (impressions_limit_period != null) {
       _params['impressions_limit_period'] = impressions_limit_period;
+    }
     return _api.request('ads.getTargetingStats', {
       ..._params,
     });
@@ -785,8 +794,9 @@ class Ads {
     if (domain != null) _params['domain'] = domain;
     if (lifetime != null) _params['lifetime'] = lifetime;
     if (target_pixel_id != null) _params['target_pixel_id'] = target_pixel_id;
-    if (target_pixel_rules != null)
+    if (target_pixel_rules != null) {
       _params['target_pixel_rules'] = target_pixel_rules;
+    }
     return _api.request('ads.updateTargetGroup', {
       ..._params,
     });
@@ -1291,8 +1301,9 @@ class Board {
     if (group_id != null) _params['group_id'] = group_id;
     if (topic_id != null) _params['topic_id'] = topic_id;
     if (need_likes != null) _params['need_likes'] = need_likes;
-    if (start_comment_id != null)
+    if (start_comment_id != null) {
       _params['start_comment_id'] = start_comment_id;
+    }
     if (offset != null) _params['offset'] = offset;
     if (count != null) _params['count'] = count;
     if (extended != null) _params['extended'] = extended;
@@ -1816,8 +1827,9 @@ class Fave {
     if (offset != null) _params['offset'] = offset;
     if (count != null) _params['count'] = count;
     if (fields != null) _params['fields'] = fields;
-    if (is_from_snackbar != null)
+    if (is_from_snackbar != null) {
       _params['is_from_snackbar'] = is_from_snackbar;
+    }
     return _api.request('fave.get', {
       ..._params,
     });
@@ -2284,16 +2296,18 @@ class Groups {
     if (group_id != null) _params['group_id'] = group_id;
     if (title != null) _params['title'] = title;
     if (address != null) _params['address'] = address;
-    if (additional_address != null)
+    if (additional_address != null) {
       _params['additional_address'] = additional_address;
+    }
     if (country_id != null) _params['country_id'] = country_id;
     if (city_id != null) _params['city_id'] = city_id;
     if (metro_id != null) _params['metro_id'] = metro_id;
     if (latitude != null) _params['latitude'] = latitude;
     if (longitude != null) _params['longitude'] = longitude;
     if (phone != null) _params['phone'] = phone;
-    if (work_info_status != null)
+    if (work_info_status != null) {
       _params['work_info_status'] = work_info_status;
+    }
     if (timetable != null) _params['timetable'] = timetable;
     if (is_main_address != null) _params['is_main_address'] = is_main_address;
     return _api.request('groups.addAddress', {
@@ -2470,14 +2484,17 @@ class Groups {
     if (email != null) _params['email'] = email;
     if (phone != null) _params['phone'] = phone;
     if (rss != null) _params['rss'] = rss;
-    if (event_start_date != null)
+    if (event_start_date != null) {
       _params['event_start_date'] = event_start_date;
-    if (event_finish_date != null)
+    }
+    if (event_finish_date != null) {
       _params['event_finish_date'] = event_finish_date;
+    }
     if (event_group_id != null) _params['event_group_id'] = event_group_id;
     if (public_category != null) _params['public_category'] = public_category;
-    if (public_subcategory != null)
+    if (public_subcategory != null) {
       _params['public_subcategory'] = public_subcategory;
+    }
     if (public_date != null) _params['public_date'] = public_date;
     if (wall != null) _params['wall'] = wall;
     if (topics != null) _params['topics'] = topics;
@@ -2502,12 +2519,14 @@ class Groups {
     if (market_contact != null) _params['market_contact'] = market_contact;
     if (market_wiki != null) _params['market_wiki'] = market_wiki;
     if (obscene_filter != null) _params['obscene_filter'] = obscene_filter;
-    if (obscene_stopwords != null)
+    if (obscene_stopwords != null) {
       _params['obscene_stopwords'] = obscene_stopwords;
+    }
     if (obscene_words != null) _params['obscene_words'] = obscene_words;
     if (main_section != null) _params['main_section'] = main_section;
-    if (secondary_section != null)
+    if (secondary_section != null) {
       _params['secondary_section'] = secondary_section;
+    }
     if (country != null) _params['country'] = country;
     if (city != null) _params['city'] = city;
     return _api.request('groups.edit', {
@@ -2536,16 +2555,18 @@ class Groups {
     if (address_id != null) _params['address_id'] = address_id;
     if (title != null) _params['title'] = title;
     if (address != null) _params['address'] = address;
-    if (additional_address != null)
+    if (additional_address != null) {
       _params['additional_address'] = additional_address;
+    }
     if (country_id != null) _params['country_id'] = country_id;
     if (city_id != null) _params['city_id'] = city_id;
     if (metro_id != null) _params['metro_id'] = metro_id;
     if (latitude != null) _params['latitude'] = latitude;
     if (longitude != null) _params['longitude'] = longitude;
     if (phone != null) _params['phone'] = phone;
-    if (work_info_status != null)
+    if (work_info_status != null) {
       _params['work_info_status'] = work_info_status;
+    }
     if (timetable != null) _params['timetable'] = timetable;
     if (is_main_address != null) _params['is_main_address'] = is_main_address;
     return _api.request('groups.editAddress', {
@@ -2596,8 +2617,9 @@ class Groups {
     if (user_id != null) _params['user_id'] = user_id;
     if (role != null) _params['role'] = role;
     if (is_contact != null) _params['is_contact'] = is_contact;
-    if (contact_position != null)
+    if (contact_position != null) {
       _params['contact_position'] = contact_position;
+    }
     if (contact_phone != null) _params['contact_phone'] = contact_phone;
     if (contact_email != null) _params['contact_email'] = contact_email;
     return _api.request('groups.editManager', {
@@ -3004,83 +3026,112 @@ class Groups {
     if (message_allow != null) _params['message_allow'] = message_allow;
     if (message_edit != null) _params['message_edit'] = message_edit;
     if (message_deny != null) _params['message_deny'] = message_deny;
-    if (message_typing_state != null)
+    if (message_typing_state != null) {
       _params['message_typing_state'] = message_typing_state;
+    }
     if (photo_new != null) _params['photo_new'] = photo_new;
     if (audio_new != null) _params['audio_new'] = audio_new;
     if (video_new != null) _params['video_new'] = video_new;
     if (wall_reply_new != null) _params['wall_reply_new'] = wall_reply_new;
     if (wall_reply_edit != null) _params['wall_reply_edit'] = wall_reply_edit;
-    if (wall_reply_delete != null)
+    if (wall_reply_delete != null) {
       _params['wall_reply_delete'] = wall_reply_delete;
-    if (wall_reply_restore != null)
+    }
+    if (wall_reply_restore != null) {
       _params['wall_reply_restore'] = wall_reply_restore;
+    }
     if (wall_post_new != null) _params['wall_post_new'] = wall_post_new;
     if (wall_repost != null) _params['wall_repost'] = wall_repost;
     if (board_post_new != null) _params['board_post_new'] = board_post_new;
     if (board_post_edit != null) _params['board_post_edit'] = board_post_edit;
-    if (board_post_restore != null)
+    if (board_post_restore != null) {
       _params['board_post_restore'] = board_post_restore;
-    if (board_post_delete != null)
+    }
+    if (board_post_delete != null) {
       _params['board_post_delete'] = board_post_delete;
-    if (photo_comment_new != null)
+    }
+    if (photo_comment_new != null) {
       _params['photo_comment_new'] = photo_comment_new;
-    if (photo_comment_edit != null)
+    }
+    if (photo_comment_edit != null) {
       _params['photo_comment_edit'] = photo_comment_edit;
-    if (photo_comment_delete != null)
+    }
+    if (photo_comment_delete != null) {
       _params['photo_comment_delete'] = photo_comment_delete;
-    if (photo_comment_restore != null)
+    }
+    if (photo_comment_restore != null) {
       _params['photo_comment_restore'] = photo_comment_restore;
-    if (video_comment_new != null)
+    }
+    if (video_comment_new != null) {
       _params['video_comment_new'] = video_comment_new;
-    if (video_comment_edit != null)
+    }
+    if (video_comment_edit != null) {
       _params['video_comment_edit'] = video_comment_edit;
-    if (video_comment_delete != null)
+    }
+    if (video_comment_delete != null) {
       _params['video_comment_delete'] = video_comment_delete;
-    if (video_comment_restore != null)
+    }
+    if (video_comment_restore != null) {
       _params['video_comment_restore'] = video_comment_restore;
-    if (market_comment_new != null)
+    }
+    if (market_comment_new != null) {
       _params['market_comment_new'] = market_comment_new;
-    if (market_comment_edit != null)
+    }
+    if (market_comment_edit != null) {
       _params['market_comment_edit'] = market_comment_edit;
-    if (market_comment_delete != null)
+    }
+    if (market_comment_delete != null) {
       _params['market_comment_delete'] = market_comment_delete;
-    if (market_comment_restore != null)
+    }
+    if (market_comment_restore != null) {
       _params['market_comment_restore'] = market_comment_restore;
-    if (market_order_new != null)
+    }
+    if (market_order_new != null) {
       _params['market_order_new'] = market_order_new;
-    if (market_order_edit != null)
+    }
+    if (market_order_edit != null) {
       _params['market_order_edit'] = market_order_edit;
+    }
     if (poll_vote_new != null) _params['poll_vote_new'] = poll_vote_new;
     if (group_join != null) _params['group_join'] = group_join;
     if (group_leave != null) _params['group_leave'] = group_leave;
-    if (group_change_settings != null)
+    if (group_change_settings != null) {
       _params['group_change_settings'] = group_change_settings;
-    if (group_change_photo != null)
+    }
+    if (group_change_photo != null) {
       _params['group_change_photo'] = group_change_photo;
-    if (group_officers_edit != null)
+    }
+    if (group_officers_edit != null) {
       _params['group_officers_edit'] = group_officers_edit;
+    }
     if (user_block != null) _params['user_block'] = user_block;
     if (user_unblock != null) _params['user_unblock'] = user_unblock;
     if (lead_forms_new != null) _params['lead_forms_new'] = lead_forms_new;
     if (like_add != null) _params['like_add'] = like_add;
     if (like_remove != null) _params['like_remove'] = like_remove;
     if (message_event != null) _params['message_event'] = message_event;
-    if (donut_subscription_create != null)
+    if (donut_subscription_create != null) {
       _params['donut_subscription_create'] = donut_subscription_create;
-    if (donut_subscription_prolonged != null)
+    }
+    if (donut_subscription_prolonged != null) {
       _params['donut_subscription_prolonged'] = donut_subscription_prolonged;
-    if (donut_subscription_cancelled != null)
+    }
+    if (donut_subscription_cancelled != null) {
       _params['donut_subscription_cancelled'] = donut_subscription_cancelled;
-    if (donut_subscription_price_changed != null)
+    }
+    if (donut_subscription_price_changed != null) {
       _params['donut_subscription_price_changed'] =
           donut_subscription_price_changed;
-    if (donut_subscription_expired != null)
+    }
+    if (donut_subscription_expired != null) {
       _params['donut_subscription_expired'] = donut_subscription_expired;
-    if (donut_money_withdraw != null)
+    }
+    if (donut_money_withdraw != null) {
       _params['donut_money_withdraw'] = donut_money_withdraw;
-    if (donut_money_withdraw_error != null)
+    }
+    if (donut_money_withdraw_error != null) {
       _params['donut_money_withdraw_error'] = donut_money_withdraw_error;
+    }
     return _api.request('groups.setCallbackSettings', {
       ..._params,
     });
@@ -3149,78 +3200,105 @@ class Groups {
     if (message_allow != null) _params['message_allow'] = message_allow;
     if (message_deny != null) _params['message_deny'] = message_deny;
     if (message_edit != null) _params['message_edit'] = message_edit;
-    if (message_typing_state != null)
+    if (message_typing_state != null) {
       _params['message_typing_state'] = message_typing_state;
+    }
     if (photo_new != null) _params['photo_new'] = photo_new;
     if (audio_new != null) _params['audio_new'] = audio_new;
     if (video_new != null) _params['video_new'] = video_new;
     if (wall_reply_new != null) _params['wall_reply_new'] = wall_reply_new;
     if (wall_reply_edit != null) _params['wall_reply_edit'] = wall_reply_edit;
-    if (wall_reply_delete != null)
+    if (wall_reply_delete != null) {
       _params['wall_reply_delete'] = wall_reply_delete;
-    if (wall_reply_restore != null)
+    }
+    if (wall_reply_restore != null) {
       _params['wall_reply_restore'] = wall_reply_restore;
+    }
     if (wall_post_new != null) _params['wall_post_new'] = wall_post_new;
     if (wall_repost != null) _params['wall_repost'] = wall_repost;
     if (board_post_new != null) _params['board_post_new'] = board_post_new;
     if (board_post_edit != null) _params['board_post_edit'] = board_post_edit;
-    if (board_post_restore != null)
+    if (board_post_restore != null) {
       _params['board_post_restore'] = board_post_restore;
-    if (board_post_delete != null)
+    }
+    if (board_post_delete != null) {
       _params['board_post_delete'] = board_post_delete;
-    if (photo_comment_new != null)
+    }
+    if (photo_comment_new != null) {
       _params['photo_comment_new'] = photo_comment_new;
-    if (photo_comment_edit != null)
+    }
+    if (photo_comment_edit != null) {
       _params['photo_comment_edit'] = photo_comment_edit;
-    if (photo_comment_delete != null)
+    }
+    if (photo_comment_delete != null) {
       _params['photo_comment_delete'] = photo_comment_delete;
-    if (photo_comment_restore != null)
+    }
+    if (photo_comment_restore != null) {
       _params['photo_comment_restore'] = photo_comment_restore;
-    if (video_comment_new != null)
+    }
+    if (video_comment_new != null) {
       _params['video_comment_new'] = video_comment_new;
-    if (video_comment_edit != null)
+    }
+    if (video_comment_edit != null) {
       _params['video_comment_edit'] = video_comment_edit;
-    if (video_comment_delete != null)
+    }
+    if (video_comment_delete != null) {
       _params['video_comment_delete'] = video_comment_delete;
-    if (video_comment_restore != null)
+    }
+    if (video_comment_restore != null) {
       _params['video_comment_restore'] = video_comment_restore;
-    if (market_comment_new != null)
+    }
+    if (market_comment_new != null) {
       _params['market_comment_new'] = market_comment_new;
-    if (market_comment_edit != null)
+    }
+    if (market_comment_edit != null) {
       _params['market_comment_edit'] = market_comment_edit;
-    if (market_comment_delete != null)
+    }
+    if (market_comment_delete != null) {
       _params['market_comment_delete'] = market_comment_delete;
-    if (market_comment_restore != null)
+    }
+    if (market_comment_restore != null) {
       _params['market_comment_restore'] = market_comment_restore;
+    }
     if (poll_vote_new != null) _params['poll_vote_new'] = poll_vote_new;
     if (group_join != null) _params['group_join'] = group_join;
     if (group_leave != null) _params['group_leave'] = group_leave;
-    if (group_change_settings != null)
+    if (group_change_settings != null) {
       _params['group_change_settings'] = group_change_settings;
-    if (group_change_photo != null)
+    }
+    if (group_change_photo != null) {
       _params['group_change_photo'] = group_change_photo;
-    if (group_officers_edit != null)
+    }
+    if (group_officers_edit != null) {
       _params['group_officers_edit'] = group_officers_edit;
+    }
     if (user_block != null) _params['user_block'] = user_block;
     if (user_unblock != null) _params['user_unblock'] = user_unblock;
     if (like_add != null) _params['like_add'] = like_add;
     if (like_remove != null) _params['like_remove'] = like_remove;
     if (message_event != null) _params['message_event'] = message_event;
-    if (donut_subscription_create != null)
+    if (donut_subscription_create != null) {
       _params['donut_subscription_create'] = donut_subscription_create;
-    if (donut_subscription_prolonged != null)
+    }
+    if (donut_subscription_prolonged != null) {
       _params['donut_subscription_prolonged'] = donut_subscription_prolonged;
-    if (donut_subscription_cancelled != null)
+    }
+    if (donut_subscription_cancelled != null) {
       _params['donut_subscription_cancelled'] = donut_subscription_cancelled;
-    if (donut_subscription_price_changed != null)
+    }
+    if (donut_subscription_price_changed != null) {
       _params['donut_subscription_price_changed'] =
           donut_subscription_price_changed;
-    if (donut_subscription_expired != null)
+    }
+    if (donut_subscription_expired != null) {
       _params['donut_subscription_expired'] = donut_subscription_expired;
-    if (donut_money_withdraw != null)
+    }
+    if (donut_money_withdraw != null) {
       _params['donut_money_withdraw'] = donut_money_withdraw;
-    if (donut_money_withdraw_error != null)
+    }
+    if (donut_money_withdraw_error != null) {
       _params['donut_money_withdraw_error'] = donut_money_withdraw_error;
+    }
     return _api.request('groups.setLongPollSettings', {
       ..._params,
     });
@@ -3236,12 +3314,15 @@ class Groups {
     var _params = {};
     if (group_id != null) _params['group_id'] = group_id;
     if (messages != null) _params['messages'] = messages;
-    if (bots_capabilities != null)
+    if (bots_capabilities != null) {
       _params['bots_capabilities'] = bots_capabilities;
-    if (bots_start_button != null)
+    }
+    if (bots_start_button != null) {
       _params['bots_start_button'] = bots_start_button;
-    if (bots_add_to_chat != null)
+    }
+    if (bots_add_to_chat != null) {
       _params['bots_add_to_chat'] = bots_add_to_chat;
+    }
     return _api.request('groups.setSettings', {
       ..._params,
     });
@@ -3433,10 +3514,12 @@ class Market {
     if (photo_ids != null) _params['photo_ids'] = photo_ids;
     if (url != null) _params['url'] = url;
     if (dimension_width != null) _params['dimension_width'] = dimension_width;
-    if (dimension_height != null)
+    if (dimension_height != null) {
       _params['dimension_height'] = dimension_height;
-    if (dimension_length != null)
+    }
+    if (dimension_length != null) {
       _params['dimension_length'] = dimension_length;
+    }
     if (weight != null) _params['weight'] = weight;
     if (sku != null) _params['sku'] = sku;
     return _api.request('market.add', {
@@ -3492,8 +3575,9 @@ class Market {
     if (message != null) _params['message'] = message;
     if (attachments != null) _params['attachments'] = attachments;
     if (from_group != null) _params['from_group'] = from_group;
-    if (reply_to_comment != null)
+    if (reply_to_comment != null) {
       _params['reply_to_comment'] = reply_to_comment;
+    }
     if (sticker_id != null) _params['sticker_id'] = sticker_id;
     if (guid != null) _params['guid'] = guid;
     return _api.request('market.createComment', {
@@ -3611,8 +3695,9 @@ class Market {
     var _params = {};
     if (user_id != null) _params['user_id'] = user_id;
     if (order_id != null) _params['order_id'] = order_id;
-    if (merchant_comment != null)
+    if (merchant_comment != null) {
       _params['merchant_comment'] = merchant_comment;
+    }
     if (status != null) _params['status'] = status;
     if (track_number != null) _params['track_number'] = track_number;
     if (payment_status != null) _params['payment_status'] = payment_status;
@@ -3704,8 +3789,9 @@ class Market {
     if (owner_id != null) _params['owner_id'] = owner_id;
     if (item_id != null) _params['item_id'] = item_id;
     if (need_likes != null) _params['need_likes'] = need_likes;
-    if (start_comment_id != null)
+    if (start_comment_id != null) {
       _params['start_comment_id'] = start_comment_id;
+    }
     if (offset != null) _params['offset'] = offset;
     if (count != null) _params['count'] = count;
     if (sort != null) _params['sort'] = sort;
@@ -3898,8 +3984,9 @@ class Messages {
     var _params = {};
     if (chat_id != null) _params['chat_id'] = chat_id;
     if (user_id != null) _params['user_id'] = user_id;
-    if (visible_messages_count != null)
+    if (visible_messages_count != null) {
       _params['visible_messages_count'] = visible_messages_count;
+    }
     return _api.request('messages.addChatUser', {
       ..._params,
     });
@@ -3941,8 +4028,9 @@ class Messages {
     if (group_id != null) _params['group_id'] = group_id;
     if (delete_for_all != null) _params['delete_for_all'] = delete_for_all;
     if (peer_id != null) _params['peer_id'] = peer_id;
-    if (conversation_message_ids != null)
+    if (conversation_message_ids != null) {
       _params['conversation_message_ids'] = conversation_message_ids;
+    }
     return _api.request('messages.delete', {
       ..._params,
     });
@@ -4000,15 +4088,18 @@ class Messages {
     if (lat != null) _params['lat'] = lat;
     if (long != null) _params['long'] = long;
     if (attachment != null) _params['attachment'] = attachment;
-    if (keep_forward_messages != null)
+    if (keep_forward_messages != null) {
       _params['keep_forward_messages'] = keep_forward_messages;
+    }
     if (keep_snippets != null) _params['keep_snippets'] = keep_snippets;
     if (group_id != null) _params['group_id'] = group_id;
-    if (dont_parse_links != null)
+    if (dont_parse_links != null) {
       _params['dont_parse_links'] = dont_parse_links;
+    }
     if (message_id != null) _params['message_id'] = message_id;
-    if (conversation_message_id != null)
+    if (conversation_message_id != null) {
       _params['conversation_message_id'] = conversation_message_id;
+    }
     if (template != null) _params['template'] = template;
     if (keyboard != null) _params['keyboard'] = keyboard;
     return _api.request('messages.edit', {
@@ -4035,8 +4126,9 @@ class Messages {
       int? group_id}) async {
     var _params = {};
     if (peer_id != null) _params['peer_id'] = peer_id;
-    if (conversation_message_ids != null)
+    if (conversation_message_ids != null) {
       _params['conversation_message_ids'] = conversation_message_ids;
+    }
     if (extended != null) _params['extended'] = extended;
     if (fields != null) _params['fields'] = fields;
     if (group_id != null) _params['group_id'] = group_id;
@@ -4101,8 +4193,9 @@ class Messages {
     if (count != null) _params['count'] = count;
     if (filter != null) _params['filter'] = filter;
     if (extended != null) _params['extended'] = extended;
-    if (start_message_id != null)
+    if (start_message_id != null) {
       _params['start_message_id'] = start_message_id;
+    }
     if (fields != null) _params['fields'] = fields;
     if (group_id != null) _params['group_id'] = group_id;
     return _api.request('messages.getConversations', {
@@ -4142,8 +4235,9 @@ class Messages {
     if (count != null) _params['count'] = count;
     if (user_id != null) _params['user_id'] = user_id;
     if (peer_id != null) _params['peer_id'] = peer_id;
-    if (start_message_id != null)
+    if (start_message_id != null) {
       _params['start_message_id'] = start_message_id;
+    }
     if (rev != null) _params['rev'] = rev;
     if (extended != null) _params['extended'] = extended;
     if (fields != null) _params['fields'] = fields;
@@ -4173,8 +4267,9 @@ class Messages {
     if (fields != null) _params['fields'] = fields;
     if (group_id != null) _params['group_id'] = group_id;
     if (preserve_order != null) _params['preserve_order'] = preserve_order;
-    if (max_forwards_level != null)
+    if (max_forwards_level != null) {
       _params['max_forwards_level'] = max_forwards_level;
+    }
     return _api.request('messages.getHistoryAttachments', {
       ..._params,
     });
@@ -4192,8 +4287,9 @@ class Messages {
     var _params = {};
     if (count != null) _params['count'] = count;
     if (offset != null) _params['offset'] = offset;
-    if (start_message_id != null)
+    if (start_message_id != null) {
       _params['start_message_id'] = start_message_id;
+    }
     if (preview_length != null) _params['preview_length'] = preview_length;
     if (fields != null) _params['fields'] = fields;
     if (extended != null) _params['extended'] = extended;
@@ -4353,11 +4449,13 @@ class Messages {
     var _params = {};
     if (message_ids != null) _params['message_ids'] = message_ids;
     if (peer_id != null) _params['peer_id'] = peer_id;
-    if (start_message_id != null)
+    if (start_message_id != null) {
       _params['start_message_id'] = start_message_id;
+    }
     if (group_id != null) _params['group_id'] = group_id;
-    if (mark_conversation_as_read != null)
+    if (mark_conversation_as_read != null) {
       _params['mark_conversation_as_read'] = mark_conversation_as_read;
+    }
     return _api.request('messages.markAsRead', {
       ..._params,
     });
@@ -4369,8 +4467,9 @@ class Messages {
     var _params = {};
     if (peer_id != null) _params['peer_id'] = peer_id;
     if (message_id != null) _params['message_id'] = message_id;
-    if (conversation_message_id != null)
+    if (conversation_message_id != null) {
       _params['conversation_message_id'] = conversation_message_id;
+    }
     return _api.request('messages.pin', {
       ..._params,
     });
@@ -4481,8 +4580,9 @@ class Messages {
     if (long != null) _params['long'] = long;
     if (attachment != null) _params['attachment'] = attachment;
     if (reply_to != null) _params['reply_to'] = reply_to;
-    if (forward_messages != null)
+    if (forward_messages != null) {
       _params['forward_messages'] = forward_messages;
+    }
     if (forward != null) _params['forward'] = forward;
     if (sticker_id != null) _params['sticker_id'] = sticker_id;
     if (group_id != null) _params['group_id'] = group_id;
@@ -4490,10 +4590,12 @@ class Messages {
     if (template != null) _params['template'] = template;
     if (payload != null) _params['payload'] = payload;
     if (content_source != null) _params['content_source'] = content_source;
-    if (dont_parse_links != null)
+    if (dont_parse_links != null) {
       _params['dont_parse_links'] = dont_parse_links;
-    if (disable_mentions != null)
+    }
+    if (disable_mentions != null) {
       _params['disable_mentions'] = disable_mentions;
+    }
     if (intent != null) _params['intent'] = intent;
     if (subscribe_id != null) _params['subscribe_id'] = subscribe_id;
     return _api.request('messages.send', {
@@ -4642,8 +4744,9 @@ class Newsfeed {
     if (reposts != null) _params['reposts'] = reposts;
     if (start_time != null) _params['start_time'] = start_time;
     if (end_time != null) _params['end_time'] = end_time;
-    if (last_comments_count != null)
+    if (last_comments_count != null) {
       _params['last_comments_count'] = last_comments_count;
+    }
     if (start_from != null) _params['start_from'] = start_from;
     if (fields != null) _params['fields'] = fields;
     return _api.request('newsfeed.getComments', {
@@ -5239,10 +5342,12 @@ class Photos {
     if (description != null) _params['description'] = description;
     if (privacy_view != null) _params['privacy_view'] = privacy_view;
     if (privacy_comment != null) _params['privacy_comment'] = privacy_comment;
-    if (upload_by_admins_only != null)
+    if (upload_by_admins_only != null) {
       _params['upload_by_admins_only'] = upload_by_admins_only;
-    if (comments_disabled != null)
+    }
+    if (comments_disabled != null) {
       _params['comments_disabled'] = comments_disabled;
+    }
     return _api.request('photos.createAlbum', {
       ..._params,
     });
@@ -5265,8 +5370,9 @@ class Photos {
     if (message != null) _params['message'] = message;
     if (attachments != null) _params['attachments'] = attachments;
     if (from_group != null) _params['from_group'] = from_group;
-    if (reply_to_comment != null)
+    if (reply_to_comment != null) {
       _params['reply_to_comment'] = reply_to_comment;
+    }
     if (sticker_id != null) _params['sticker_id'] = sticker_id;
     if (access_key != null) _params['access_key'] = access_key;
     if (guid != null) _params['guid'] = guid;
@@ -5346,10 +5452,12 @@ class Photos {
     if (owner_id != null) _params['owner_id'] = owner_id;
     if (privacy_view != null) _params['privacy_view'] = privacy_view;
     if (privacy_comment != null) _params['privacy_comment'] = privacy_comment;
-    if (upload_by_admins_only != null)
+    if (upload_by_admins_only != null) {
       _params['upload_by_admins_only'] = upload_by_admins_only;
-    if (comments_disabled != null)
+    }
+    if (comments_disabled != null) {
       _params['comments_disabled'] = comments_disabled;
+    }
     return _api.request('photos.editAlbum', {
       ..._params,
     });
@@ -5447,8 +5555,9 @@ class Photos {
     if (offset != null) _params['offset'] = offset;
     if (count != null) _params['count'] = count;
     if (photo_sizes != null) _params['photo_sizes'] = photo_sizes;
-    if (no_service_albums != null)
+    if (no_service_albums != null) {
       _params['no_service_albums'] = no_service_albums;
+    }
     if (need_hidden != null) _params['need_hidden'] = need_hidden;
     if (skip_hidden != null) _params['skip_hidden'] = skip_hidden;
     return _api.request('photos.getAll', {
@@ -5515,8 +5624,9 @@ class Photos {
     if (owner_id != null) _params['owner_id'] = owner_id;
     if (photo_id != null) _params['photo_id'] = photo_id;
     if (need_likes != null) _params['need_likes'] = need_likes;
-    if (start_comment_id != null)
+    if (start_comment_id != null) {
       _params['start_comment_id'] = start_comment_id;
+    }
     if (offset != null) _params['offset'] = offset;
     if (count != null) _params['count'] = count;
     if (sort != null) _params['sort'] = sort;
@@ -6608,8 +6718,9 @@ class Stories {
     if (link_text != null) _params['link_text'] = link_text;
     if (link_url != null) _params['link_url'] = link_url;
     if (group_id != null) _params['group_id'] = group_id;
-    if (clickable_stickers != null)
+    if (clickable_stickers != null) {
       _params['clickable_stickers'] = clickable_stickers;
+    }
     return _api.request('stories.getPhotoUploadServer', {
       ..._params,
     });
@@ -6659,8 +6770,9 @@ class Stories {
     if (link_text != null) _params['link_text'] = link_text;
     if (link_url != null) _params['link_url'] = link_url;
     if (group_id != null) _params['group_id'] = group_id;
-    if (clickable_stickers != null)
+    if (clickable_stickers != null) {
       _params['clickable_stickers'] = clickable_stickers;
+    }
     return _api.request('stories.getVideoUploadServer', {
       ..._params,
     });
@@ -6905,14 +7017,17 @@ class Users {
     if (city != null) _params['city'] = city;
     if (country != null) _params['country'] = country;
     if (hometown != null) _params['hometown'] = hometown;
-    if (university_country != null)
+    if (university_country != null) {
       _params['university_country'] = university_country;
+    }
     if (university != null) _params['university'] = university;
     if (university_year != null) _params['university_year'] = university_year;
-    if (university_faculty != null)
+    if (university_faculty != null) {
       _params['university_faculty'] = university_faculty;
-    if (university_chair != null)
+    }
+    if (university_chair != null) {
       _params['university_chair'] = university_chair;
+    }
     if (sex != null) _params['sex'] = sex;
     if (status != null) _params['status'] = status;
     if (age_from != null) _params['age_from'] = age_from;
@@ -7082,8 +7197,9 @@ class Video {
     if (message != null) _params['message'] = message;
     if (attachments != null) _params['attachments'] = attachments;
     if (from_group != null) _params['from_group'] = from_group;
-    if (reply_to_comment != null)
+    if (reply_to_comment != null) {
       _params['reply_to_comment'] = reply_to_comment;
+    }
     if (sticker_id != null) _params['sticker_id'] = sticker_id;
     if (guid != null) _params['guid'] = guid;
     return _api.request('video.createComment', {
@@ -7256,8 +7372,9 @@ class Video {
     if (owner_id != null) _params['owner_id'] = owner_id;
     if (video_id != null) _params['video_id'] = video_id;
     if (need_likes != null) _params['need_likes'] = need_likes;
-    if (start_comment_id != null)
+    if (start_comment_id != null) {
       _params['start_comment_id'] = start_comment_id;
+    }
     if (offset != null) _params['offset'] = offset;
     if (count != null) _params['count'] = count;
     if (sort != null) _params['sort'] = sort;
@@ -7475,8 +7592,9 @@ class Wall {
     if (post_id != null) _params['post_id'] = post_id;
     if (from_group != null) _params['from_group'] = from_group;
     if (message != null) _params['message'] = message;
-    if (reply_to_comment != null)
+    if (reply_to_comment != null) {
       _params['reply_to_comment'] = reply_to_comment;
+    }
     if (attachments != null) _params['attachments'] = attachments;
     if (sticker_id != null) _params['sticker_id'] = sticker_id;
     if (guid != null) _params['guid'] = guid;
@@ -7540,13 +7658,16 @@ class Wall {
     if (place_id != null) _params['place_id'] = place_id;
     if (mark_as_ads != null) _params['mark_as_ads'] = mark_as_ads;
     if (close_comments != null) _params['close_comments'] = close_comments;
-    if (donut_paid_duration != null)
+    if (donut_paid_duration != null) {
       _params['donut_paid_duration'] = donut_paid_duration;
+    }
     if (poster_bkg_id != null) _params['poster_bkg_id'] = poster_bkg_id;
-    if (poster_bkg_owner_id != null)
+    if (poster_bkg_owner_id != null) {
       _params['poster_bkg_owner_id'] = poster_bkg_owner_id;
-    if (poster_bkg_access_hash != null)
+    }
+    if (poster_bkg_access_hash != null) {
       _params['poster_bkg_access_hash'] = poster_bkg_access_hash;
+    }
     if (copyright != null) _params['copyright'] = copyright;
     if (topic_id != null) _params['topic_id'] = topic_id;
     return _api.request('wall.edit', {
@@ -7633,8 +7754,9 @@ class Wall {
     var _params = {};
     if (posts != null) _params['posts'] = posts;
     if (extended != null) _params['extended'] = extended;
-    if (copy_history_depth != null)
+    if (copy_history_depth != null) {
       _params['copy_history_depth'] = copy_history_depth;
+    }
     if (fields != null) _params['fields'] = fields;
     return _api.request('wall.getById', {
       ..._params,
@@ -7675,8 +7797,9 @@ class Wall {
     if (owner_id != null) _params['owner_id'] = owner_id;
     if (post_id != null) _params['post_id'] = post_id;
     if (need_likes != null) _params['need_likes'] = need_likes;
-    if (start_comment_id != null)
+    if (start_comment_id != null) {
       _params['start_comment_id'] = start_comment_id;
+    }
     if (offset != null) _params['offset'] = offset;
     if (count != null) _params['count'] = count;
     if (sort != null) _params['sort'] = sort;
@@ -7684,8 +7807,9 @@ class Wall {
     if (extended != null) _params['extended'] = extended;
     if (fields != null) _params['fields'] = fields;
     if (comment_id != null) _params['comment_id'] = comment_id;
-    if (thread_items_count != null)
+    if (thread_items_count != null) {
       _params['thread_items_count'] = thread_items_count;
+    }
     return _api.request('wall.getComments', {
       ..._params,
     });
@@ -7761,10 +7885,12 @@ class Wall {
     if (guid != null) _params['guid'] = guid;
     if (mark_as_ads != null) _params['mark_as_ads'] = mark_as_ads;
     if (close_comments != null) _params['close_comments'] = close_comments;
-    if (donut_paid_duration != null)
+    if (donut_paid_duration != null) {
       _params['donut_paid_duration'] = donut_paid_duration;
-    if (mute_notifications != null)
+    }
+    if (mute_notifications != null) {
       _params['mute_notifications'] = mute_notifications;
+    }
     if (copyright != null) _params['copyright'] = copyright;
     if (topic_id != null) _params['topic_id'] = topic_id;
     return _api.request('wall.post', {
@@ -7839,8 +7965,9 @@ class Wall {
     if (message != null) _params['message'] = message;
     if (group_id != null) _params['group_id'] = group_id;
     if (mark_as_ads != null) _params['mark_as_ads'] = mark_as_ads;
-    if (mute_notifications != null)
+    if (mute_notifications != null) {
       _params['mute_notifications'] = mute_notifications;
+    }
     return _api.request('wall.repost', {
       ..._params,
     });
