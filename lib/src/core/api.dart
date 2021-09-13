@@ -158,16 +158,15 @@ class API {
       throw APIException(-1, response.statusCode.toString());
     }
 
-    var response_params = json.decode(response.body);
-    if (response_params['error'] != null) {
-      Map error = response_params['error'];
-
+    final decoded_response = json.decode(response.body);
+    if (decoded_response['error'] != null) {
+      Map error = decoded_response['error'];
       throw APIException(
         error['error_code'],
         error['error_msg'],
       );
     }
 
-    return response_params;
+    return decoded_response;
   }
 }
