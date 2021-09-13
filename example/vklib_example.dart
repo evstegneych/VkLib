@@ -7,13 +7,7 @@ void main() async {
   var lp = UserLongPoll(vk.api);
   print('Start polling');
   lp.on(UserLongPollEventsEnum.messageNew, (event) async {
-    print('${event.object[7]['from']}: ${event.object[6]}');
-    // if (event.object['message']['text'] == 'jopa') {
-    //   // await vk.api.messages.send(
-    //   //   user_id: event.object,
-    //   //   message: 'sam jopa',
-    //   // );
-    // }
+    print('${event.object[6]['from']}: ${event.object[5]}');
   });
 
   lp.start();
