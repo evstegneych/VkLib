@@ -18,11 +18,25 @@ dependencies:
 - LongPoll
   - [x] Bots
   - [ ] User
+- Api Methods
+-
+  - Parameters ✅
+-
+  - Responses => Json: Map<String, dynamic>
 
 ## Todo
 
-- GroupLongPoll Context
+- UserLongPoll
+-
+  - UserEventTypes
+- Logger
 - Another Auth Method
 - Useful Bot API
-- UserLongPoll
-- Logger
+-
+  - Context
+-
+  - Filters
+-
+  - Commands
+-
+  - etc

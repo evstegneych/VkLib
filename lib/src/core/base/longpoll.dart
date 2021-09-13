@@ -19,7 +19,7 @@ abstract class BaseLongPoll {
     return json.decode(response.body);
   }
 
-  Stream<Json> baseRunPolling() async* {
+  Stream<dynamic> baseRunPolling() async* {
     await _setup();
     while (true) {
       try {
@@ -38,11 +38,14 @@ abstract class BaseLongPoll {
           continue;
         }
         for (var update in response['updates']) {
-          yield update as Json;
+          yield update;
         }
       } catch (err) {
-        print(err);
+        print('Please put this  in issue');
+        rethrow;
       }
+
+      await Future.delayed(Duration(milliseconds: 100));
     }
   }
 
@@ -111,21 +114,21 @@ class BaseGroupLongPoll extends BaseLongPoll {
 
   Stream<GroupEvent> runPolling() async* {
     await for (var event in super.baseRunPolling()) {
-      yield GroupEvent(event);
+      yield GroupEvent(event as Json);
     }
   }
 }
 
 class BaseUserLongPoll extends BaseLongPoll {
-  int? _mode;
-  String? _version;
-  int? _wait;
+  late int _mode;
+  late int _version;
+  late int _wait;
   late API _api;
 
   BaseUserLongPoll({
     required API api,
-    String? version,
-    int? mode,
+    int version = 3,
+    int mode = 234,
     int wait = 25,
   }) : super(api.clientSession) {
     _version = version;
@@ -137,20 +140,23 @@ class BaseUserLongPoll extends BaseLongPoll {
   @override
   Future<void> _setup() async {
     var new_lp_settings =
-        await _api.groups.getLongPollSettings(version: _version);
-    var server_url = new_lp_settings['server'];
+        await _api.messages.getLongPollServer(lp_version: _version);
+    var server_url = new_lp_settings['response']['server'];
     _server_url = 'https://$server_url';
     _requests_query_params = {
       'act': 'a_check',
       'wait': _wait.toString(),
-      '_mode': _mode.toString(),
+      'mode': _mode.toString(),
+      'version': _version.toString()
     };
-    _requests_query_params.addAll(new_lp_settings.cast<String, String>());
+    new_lp_settings['response'].forEach((key, value) {
+      _requests_query_params[key] = value.toString();
+    });
   }
 
   Stream<UserEvent> runPolling() async* {
     await for (var event in super.baseRunPolling()) {
-      yield UserEvent(event);
+      yield UserEvent(event as List);
     }
   }
 }
