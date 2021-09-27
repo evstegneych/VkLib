@@ -4,7 +4,6 @@ enum Color {
   /// The white button, indicates secondary action
   ///
   /// Hex color #FFFFFF
-
   SECONDARY,
 
   /// The blue button, indicates the main action
@@ -23,23 +22,49 @@ enum Color {
   POSITIVE
 }
 
-List<String> _colors = ["secondary", "primary", "negative", "positive"];
+const List<String> _colors = ['secondary', 'primary', 'negative', 'positive'];
 
 typedef _Button = Map<String, dynamic>;
 
 String _serializePayload(_Button rawPayload) {
   final payload = jsonEncode(rawPayload);
-  if (payload.length > 255) throw RangeError('Maximum length of payload 255 characters');
+  if (payload.length > 255) {
+    throw RangeError('Maximum length of payload 255 characters');
+  }
 
   return payload;
 }
 
+/// Keyboard builder
 class KeyboardBuilder {
+  /// Usage
+  /// ```dart
+  /// var keyboard = KeyboardBuilder(isOneTime: true, isInline: false);
+  /// keyboard.textButton(label: 'label');
+  ///
+  /// keyboard.textButton(label: 'label2')
+  ///   .row()
+  ///   .textButton(label: 'label3');
+  ///
+  /// keyboard.textButton(label: 'label2');
+  /// keyboard.row();
+  /// keyboard.textButton(label: 'label3');
+  ///
+  /// await vk.api.messages.send(
+  ///   user_id: 1,
+  ///   message: 'Hello',
+  ///   keyboard: keyboard
+  /// );
+  /// ```
+  KeyboardBuilder({bool isOneTime = false, bool isInline = false})
+      : _isOneTime = isOneTime,
+        _isInline = isInline;
+
   /// Does the keyboard close after pressing the button
-  bool _isOneTime = false;
+  late bool _isOneTime;
 
   /// The keyboard must be attached to the message
-  bool _isInline = false;
+  late bool _isInline;
 
   /// Rows with all buttons
   List _rows = [];
@@ -59,11 +84,17 @@ class KeyboardBuilder {
   /// );
   /// ```
   KeyboardBuilder textButton({required String label, Color color = Color.SECONDARY, _Button payload = const {}}) {
-    if (label.length > 40) throw RangeError("Maximum length of label 40 characters");
+    if (label.length > 40) {
+      throw RangeError('Maximum length of label 40 characters');
+    }
 
     return _addButton({
-      "color": _colors[color.index],
-      "action": {"label": label, "payload": _serializePayload(payload), "type": "text"}
+      'color': _colors[color.index],
+      'action': {
+        'label': label,
+        'payload': _serializePayload(payload),
+        'type': 'text'
+      }
     });
   }
 
@@ -79,7 +110,12 @@ class KeyboardBuilder {
     if (label.length > 40) throw RangeError('Maximum length of label 40 characters');
 
     return _addWideButton({
-      "action": {"label": label, "payload": _serializePayload(payload), "link": url, "type": "open_link"}
+      'action': {
+        'label': label,
+        'payload': _serializePayload(payload),
+        'link': url,
+        'type': 'open_link'
+      }
     });
   }
 
@@ -93,7 +129,7 @@ class KeyboardBuilder {
   /// );
   /// ```
   KeyboardBuilder locationRequestButton({_Button payload = const {}}) => _addWideButton({
-        "action": {"payload": _serializePayload(payload), "type": "location"}
+    'action': {'payload': _serializePayload(payload), 'type': 'location'}
       });
 
   /// VK Pay button, occupies the entire keyboard width
@@ -109,9 +145,11 @@ class KeyboardBuilder {
   /// );
   /// ```
   KeyboardBuilder payButton<T>({required T hash}) {
-    final rawHash = hash is Map ? Uri.dataFromBytes(List.from(hash.entries)).toString() : hash;
-    
-    return _addWideButton({"hash": rawHash, "type": "vkpay"});
+    final rawHash = hash is Map
+        ? Uri.dataFromBytes(List.from(hash.entries)).toString()
+        : hash;
+
+    return _addWideButton({'hash': rawHash, 'type': 'vkpay'});
   }
 
   /// VK Apps button, occupies the entire keyboard width
@@ -126,7 +164,13 @@ class KeyboardBuilder {
   KeyboardBuilder applicationButton({required String label, required int appId, required int ownerId, String? hash}) {
     if (label.length > 40) throw RangeError('Maximum length of label 40 characters');
     return _addWideButton({
-      "action": {"label": label, "app_id": appId, "owner_id": ownerId, if (hash != null) "hash": hash, "type": "open_app"}
+      'action': {
+        'label': label,
+        'app_id': appId,
+        'owner_id': ownerId,
+        if (hash != null) 'hash': hash,
+        'type': 'open_app'
+      }
     });
   }
 
@@ -146,15 +190,21 @@ class KeyboardBuilder {
     if (label.length > 40) throw RangeError('Maximum length of label 40 characters');
 
     return _addButton({
-      "color": _colors[color.index],
-      "action": {"label": label, "payload": _serializePayload(payload), "type": "callback"}
+      'color': _colors[color.index],
+      'action': {
+        'label': label,
+        'payload': _serializePayload(payload),
+        'type': 'callback'
+      }
     });
   }
 
   /// Saves the current row of buttons in the general rows
   KeyboardBuilder row() {
-    if (_currentRow.length == 0) return this;
-    if (_currentRow.length > 5) throw RangeError("Max count of buttons at columns 5");
+    if (_currentRow.isEmpty) return this;
+    if (_currentRow.length > 5) {
+      throw RangeError('Max count of buttons at columns 5');
+    }
 
     _rows.add(_currentRow);
     _currentRow = [];
@@ -188,9 +238,7 @@ class KeyboardBuilder {
 
   /// Clones the builder with all the settings
   KeyboardBuilder clone() {
-    final builder = KeyboardBuilder();
-    builder.oneTime(_isOneTime);
-    builder.inline(_isInline);
+    final builder = KeyboardBuilder(isOneTime: _isOneTime, isInline: _isInline);
     builder._rows = [..._rows];
     builder._currentRow = [..._currentRow];
     return builder;
@@ -200,10 +248,14 @@ class KeyboardBuilder {
   @override
   String toString() {
     final maxRowsLength = _isInline ? 6 : 10;
-    if (_rows.length > maxRowsLength) throw RangeError("Max count of keyboard rows $maxRowsLength");
-    final buttons = _currentRow.length != 0 ? [..._rows, _currentRow] : _rows;
+    if (_rows.length > maxRowsLength) {
+      throw RangeError('Max count of keyboard rows $maxRowsLength');
+    }
+    final buttons = _currentRow.isNotEmpty ? [..._rows, _currentRow] : _rows;
 
-    return jsonEncode(_isInline ? {"buttons": buttons, "inline": true} : {"buttons": buttons, "one_time": _isOneTime});
+    return jsonEncode(_isInline
+        ? {'buttons': buttons, 'inline': true}
+        : {'buttons': buttons, 'one_time': _isOneTime});
   }
 
   /// Adds a button to the current row
@@ -221,108 +273,4 @@ class KeyboardBuilder {
 
     return this;
   }
-}
-
-class Keyboard {
-  /// Returns keyboard builder
-  static KeyboardBuilder builder() => KeyboardBuilder();
-
-  /// Assembles a builder of buttons
-  static KeyboardBuilder keyboard(List<dynamic> rows) {
-    final builder = KeyboardBuilder();
-
-    for (var row in rows) {
-      final List buttons = row is List ? row : [row];
-
-      for (var button in buttons) {
-        final options = button["options"];
-        final kind = button["kind"];
-
-        if (kind == 'text') {
-          builder.textButton(label: options["label"], payload: options["payload"], color: options["color"]);
-          continue;
-        }
-        if (kind == 'url') {
-          builder.urlButton(label: options["label"], url: options["url"], payload: options["payload"]);
-          continue;
-        }
-        if (kind == 'location_request') {
-          builder.locationRequestButton(payload: options["payload"]);
-          continue;
-        }
-        if (kind == 'vk_pay') {
-          builder.payButton(hash: button["options"]["hash"]);
-          continue;
-        }
-        if (kind == 'vk_application') {
-          builder.applicationButton(label: options["label"], appId: options["app_id"], ownerId: options["owner_id"], hash: options["hash"]);
-          continue;
-        }
-        if (kind == 'callback') {
-          builder.callbackButton(label: options["label"], payload: options["payload"], color: options["color"]);
-          continue;
-        }
-        throw RangeError('Unsupported type button');
-      }
-      builder.row();
-    }
-
-    return builder;
-  }
-
-  /// Text button, can be colored
-  static _Button textButton({required String label, Color color = Color.SECONDARY, _Button payload = const {}}) {
-    return {
-      "options": {
-        "label": label,
-        "payload": payload,
-        "color": color,
-      },
-      "kind": 'text'
-    };
-  }
-
-  /// URL button
-  static _Button urlButton({required String label, required String url, _Button payload = const {}}) {
-    return {
-      "options": {"label": label, "payload": payload, "link": url},
-      "kind": 'url'
-    };
-  }
-
-  /// User location request button, occupies the entire keyboard width
-  static _Button locationRequestButton({_Button payload = const {}}) {
-    return {
-      "options": {"payload": payload},
-      "kind": 'location_request'
-    };
-  }
-
-  /// VK Pay button, occupies the entire keyboard width
-  static _Button payButton({required dynamic hash}) {
-    return {
-      "options": {"hash": hash},
-      "kind": 'vk_pay'
-    };
-  }
-
-  /// VK Apps button, occupies the entire keyboard width
-  static _Button applicationButton({required String label, required int appId, required int ownerId, String? hash}) {
-    return {
-      "options": {
-        "label": label,
-        "app_id": appId,
-        "owner_id": ownerId,
-        if (hash != null) "hash": hash,
-      },
-      "kind": 'vk_application'
-    };
-  }
-
-  /// Allows without sending a message from the user
-  /// to receive a notification of a button click and perform the necessary action
-  static _Button callbackButton({required String label, _Button payload = const {}, Color color = Color.SECONDARY}) => {
-        "options": {"label": label, "payload": payload, "color": color},
-        "kind": 'callback'
-      };
 }
