@@ -2,9 +2,9 @@ import 'package:dotenv/dotenv.dart';
 import 'package:vklib/src/core/api.dart';
 import 'package:vklib/src/core/objects/language.dart' show LanguageType;
 
+/// Main class
 class VkLib {
-  late API api;
-
+  /// Creates a instance of VkLib
   VkLib({
     required String token,
     String v = '5.130',
@@ -20,4 +20,7 @@ class VkLib {
     }
     api = API(_access_token, v: v, lang: lang, test_mode: test_mode);
   }
+
+  /// Instance of API class
+  late API api;
 }

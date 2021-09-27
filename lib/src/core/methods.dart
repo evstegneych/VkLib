@@ -1,5 +1,6 @@
 import 'package:vklib/src/core/api.dart';
 import 'package:vklib/src/core/base/types.dart';
+import 'package:vklib/src/core/utils/keyboard.dart';
 
 class Account {
   final API _api;
@@ -4559,7 +4560,7 @@ class Messages {
       String? forward,
       int? sticker_id,
       int? group_id,
-      String? keyboard,
+      KeyboardBuilder? keyboard,
       String? template,
       String? payload,
       String? content_source,
@@ -4586,7 +4587,7 @@ class Messages {
     if (forward != null) _params['forward'] = forward;
     if (sticker_id != null) _params['sticker_id'] = sticker_id;
     if (group_id != null) _params['group_id'] = group_id;
-    if (keyboard != null) _params['keyboard'] = keyboard;
+    if (keyboard != null) _params['keyboard'] = keyboard.toString();
     if (template != null) _params['template'] = template;
     if (payload != null) _params['payload'] = payload;
     if (content_source != null) _params['content_source'] = content_source;

@@ -4,14 +4,9 @@ VK SDK for Dart allows you to use the VK API easily.
 
 ## Install
 
-Add to your pubspec.yaml
- 
-`Я могу забыть поменять версию?`
+[Pub Dev install](https://pub.dev/packages/vklib/install)
 
-```yaml
-dependencies:
-  VkLib: ^0.2.3
-```
+```(this is link)```
 
 ## Features
 
@@ -21,7 +16,9 @@ dependencies:
   - [x] Bots
   - [x] User
 
-- Api Methods
+- Build Keyboard easily
+
+- Api Methods typing
 -
   - Parameters ✅
 -
