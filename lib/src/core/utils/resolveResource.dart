@@ -50,21 +50,26 @@ Future<Json> resolveResource(dynamic resource, API api) async {
 
   resource = resource.toString().trim();
 
-  if (_onlyNumberRe.hasMatch(resource))
+  if (_onlyNumberRe.hasMatch(resource)) {
     return _resolveTargetResource(
         _transformNumberResourceToTarget(int.parse(resource)));
+  }
 
-  if (_systemMentionRe.hasMatch(resource))
+  if (_systemMentionRe.hasMatch(resource)) {
     return _resolveTargetResource(_transformMentionResourceToTarget(resource));
+  }
 
-  if (_parseOwnerResourceRe.hasMatch(resource))
+  if (_parseOwnerResourceRe.hasMatch(resource)) {
     return _resolveOwnerResource(resource);
+  }
 
-  if (_parseTargetResourceRe.hasMatch(resource))
+  if (_parseTargetResourceRe.hasMatch(resource)) {
     return _resolveTargetResource(resource);
+  }
 
-  if (!_isVKUrlRe.hasMatch(resource))
+  if (!_isVKUrlRe.hasMatch(resource)) {
     return _resolveSlugResource(resource, api);
+  }
 
   final resourceUrl =
       !_isHttpsRe.hasMatch(resource) ? 'https://$resource' : resource;
@@ -77,14 +82,17 @@ Future<Json> resolveResource(dynamic resource, API api) async {
 
   final search = raw.queryParameters['w'] ?? raw.queryParameters['z'];
 
-  if (search != null && _parseOwnerResourceRe.hasMatch(search))
+  if (search != null && _parseOwnerResourceRe.hasMatch(search)) {
     return _resolveOwnerResource(search);
+  }
 
-  if (_parseOwnerResourceRe.hasMatch(pathname))
+  if (_parseOwnerResourceRe.hasMatch(pathname)) {
     return _resolveOwnerResource(pathname);
+  }
 
-  if (_parseTargetResourceRe.hasMatch(pathname))
+  if (_parseTargetResourceRe.hasMatch(pathname)) {
     return _resolveTargetResource(pathname);
+  }
 
   return _resolveSlugResource(pathname, api);
 }
