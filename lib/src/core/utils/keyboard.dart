@@ -83,7 +83,10 @@ class KeyboardBuilder {
   ///   color: Color.SECONDARY
   /// );
   /// ```
-  KeyboardBuilder textButton({required String label, Color color = Color.SECONDARY, _Button payload = const {}}) {
+  KeyboardBuilder textButton(
+      {required String label,
+      Color color = Color.SECONDARY,
+      _Button payload = const {}}) {
     if (label.length > 40) {
       throw RangeError('Maximum length of label 40 characters');
     }
@@ -106,8 +109,13 @@ class KeyboardBuilder {
   ///  url: "https://coffee.mania/buy"
   /// );
   /// ```
-  KeyboardBuilder urlButton({required String label, required String url, _Button payload = const {}}) {
-    if (label.length > 40) throw RangeError('Maximum length of label 40 characters');
+  KeyboardBuilder urlButton(
+      {required String label,
+      required String url,
+      _Button payload = const {}}) {
+    if (label.length > 40) {
+      throw RangeError('Maximum length of label 40 characters');
+    }
 
     return _addWideButton({
       'action': {
@@ -128,8 +136,9 @@ class KeyboardBuilder {
   ///  }
   /// );
   /// ```
-  KeyboardBuilder locationRequestButton({_Button payload = const {}}) => _addWideButton({
-    'action': {'payload': _serializePayload(payload), 'type': 'location'}
+  KeyboardBuilder locationRequestButton({_Button payload = const {}}) =>
+      _addWideButton({
+        'action': {'payload': _serializePayload(payload), 'type': 'location'}
       });
 
   /// VK Pay button, occupies the entire keyboard width
@@ -161,8 +170,14 @@ class KeyboardBuilder {
   ///  ownerId: -157525928
   /// );
   /// ```
-  KeyboardBuilder applicationButton({required String label, required int appId, required int ownerId, String? hash}) {
-    if (label.length > 40) throw RangeError('Maximum length of label 40 characters');
+  KeyboardBuilder applicationButton(
+      {required String label,
+      required int appId,
+      required int ownerId,
+      String? hash}) {
+    if (label.length > 40) {
+      throw RangeError('Maximum length of label 40 characters');
+    }
     return _addWideButton({
       'action': {
         'label': label,
@@ -186,8 +201,13 @@ class KeyboardBuilder {
   ///  }
   /// );
   /// ```
-  KeyboardBuilder callbackButton({required String label, _Button payload = const {}, Color color = Color.SECONDARY}) {
-    if (label.length > 40) throw RangeError('Maximum length of label 40 characters');
+  KeyboardBuilder callbackButton(
+      {required String label,
+      _Button payload = const {},
+      Color color = Color.SECONDARY}) {
+    if (label.length > 40) {
+      throw RangeError('Maximum length of label 40 characters');
+    }
 
     return _addButton({
       'color': _colors[color.index],

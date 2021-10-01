@@ -4156,6 +4156,23 @@ class Messages {
     });
   }
 
+  /// Returns information about the conversation.
+  Future<Json> getChat({
+    int? chat_id,
+    List<String>? chat_ids,
+    int? name_case,
+    List<String>? fields,
+  }) async {
+    var _params = {};
+    if (chat_id != null) _params['chat_id'] = chat_id;
+    if (chat_ids != null) _params['chat_ids'] = chat_ids;
+    if (name_case != null) _params['name_case'] = name_case;
+    if (fields != null) _params['fields'] = fields;
+    return _api.request('messages.getChat', {
+      ..._params,
+    });
+  }
+
   /// None
   Future<Json> getChatPreview(
       {int? peer_id, String? link, List<dynamic>? fields}) async {

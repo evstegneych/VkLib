@@ -5,8 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:vklib/src/core/base/types.dart';
 import 'package:vklib/src/core/exception.dart';
 import 'package:vklib/src/core/methods.dart';
-
-import 'objects/language.dart';
+import 'package:vklib/utils.dart';
 
 enum TokenOwner {
   USER,
@@ -14,6 +13,7 @@ enum TokenOwner {
   UNKNOWN,
 }
 
+/// Main api class
 class API {
   final String _baseUrl = 'https://api.vk.com/method';
   late TokenOwner _token_owner;
@@ -61,6 +61,7 @@ class API {
   late Donut donut;
   late Podcasts podcasts;
 
+  /// Main api class
   API(String access_token,
       {String v = '5.130',
       String lang = LanguageType.RU,
@@ -108,6 +109,7 @@ class API {
     widgets = Widgets(this);
   }
 
+  /// Define token owner
   Future<TokenOwner> define_token_owner() async {
     if (_token_owner != TokenOwner.UNKNOWN) {
       return _token_owner;
@@ -121,6 +123,7 @@ class API {
     return _token_owner;
   }
 
+  /// Default Options
   Json get defaultOptions {
     return {
       'access_token': _access_token,
@@ -130,6 +133,7 @@ class API {
     };
   }
 
+  /// Make request to the VK API
   Future<Json> request(
     String method,
     Map<String, dynamic> data,

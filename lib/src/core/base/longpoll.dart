@@ -6,31 +6,35 @@ import 'package:vklib/src/core/base/types.dart';
 import 'package:vklib/src/core/event.dart';
 import 'package:vklib/src/core/exception.dart';
 
+/// Base class of longPoll
 abstract class BaseLongPoll {
   late JsonString _requests_query_params = {};
   late String _server_url;
   late final http.Client _requestsSession;
+  bool _isOn = true;
 
   BaseLongPoll(this._requestsSession);
 
+  /// Setup. Hi Yan
   Future<void> _setup();
 
+  /// Decode response body
   Json _parseJsonBody(http.Response response) {
     return json.decode(response.body);
   }
 
+  /// Base longPoll loop
   Stream<dynamic> baseRunPolling() async* {
     await _setup();
-    while (true) {
+    while (_isOn) {
+      await Future.delayed(Duration(milliseconds: 150));
       try {
         var _response = await _getNewRequest();
-        Json response;
+        var response = _parseJsonBody(_response);
         if (_response.headers.containsKey('x-next-ts')) {
           _requests_query_params.update(
               'ts', (value) => _response.headers['x-next-ts']!);
-          response = _parseJsonBody(_response);
         } else {
-          response = _parseJsonBody(_response);
           await _resolveFailed(response);
           continue;
         }
@@ -41,14 +45,20 @@ abstract class BaseLongPoll {
           yield update;
         }
       } catch (err) {
-        print('Please put this  in issue');
+        print('Please put this in issue');
+        closeSession();
         rethrow;
       }
-
-      await Future.delayed(Duration(milliseconds: 100));
     }
   }
 
+  /// turn off the longPoll
+  void close() {
+    _isOn = false;
+    closeSession();
+  }
+
+  /// ResolveFailed
   Future<void> _resolveFailed(Json response) async {
     if (response['failed'] == 1) {
       _requests_query_params.update('ts', (value) => response['ts']);
@@ -59,22 +69,26 @@ abstract class BaseLongPoll {
     }
   }
 
+  /// GetNewRequest
   Future<http.Response> _getNewRequest() {
     var url = Uri.parse(_server_url);
     return _requestsSession
         .get(Uri.https(url.authority, url.path, _requests_query_params));
   }
 
+  /// CloseSession
   void closeSession() {
     _requestsSession.close();
   }
 }
 
+/// Group LongPoll
 class BaseGroupLongPoll extends BaseLongPoll {
   int? groupId;
   int? _wait;
   late API api;
 
+  /// Group LongPoll
   BaseGroupLongPoll({
     required this.api,
     int? group_id,
@@ -100,6 +114,7 @@ class BaseGroupLongPoll extends BaseLongPoll {
         .addAll(new_lp_settings['response'].cast<String, String>());
   }
 
+  /// Define group id
   Future<void> _define_group_id() async {
     if (groupId == null) {
       var token_owner = await api.define_token_owner();
@@ -112,6 +127,7 @@ class BaseGroupLongPoll extends BaseLongPoll {
     }
   }
 
+  /// Start polling
   Stream<GroupEvent> runPolling() async* {
     await for (var event in super.baseRunPolling()) {
       yield GroupEvent(event as Json);
@@ -119,12 +135,14 @@ class BaseGroupLongPoll extends BaseLongPoll {
   }
 }
 
+/// User LongPoll
 class BaseUserLongPoll extends BaseLongPoll {
   late int _mode;
   late int _version;
   late int _wait;
   late API _api;
 
+  /// User LongPoll
   BaseUserLongPoll({
     required API api,
     int version = 3,
@@ -154,6 +172,7 @@ class BaseUserLongPoll extends BaseLongPoll {
     });
   }
 
+  /// Start polling
   Stream<UserEvent> runPolling() async* {
     await for (var event in super.baseRunPolling()) {
       yield UserEvent(event as List);

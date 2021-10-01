@@ -1,6 +1,6 @@
 import 'package:dotenv/dotenv.dart';
 import 'package:vklib/src/core/api.dart';
-import 'package:vklib/src/core/objects/language.dart' show LanguageType;
+import 'package:vklib/utils.dart';
 
 /// Main class
 class VkLib {
