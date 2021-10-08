@@ -155,16 +155,15 @@ class API {
     );
 
     if (response.statusCode != 200) {
-      throw APIException(-1, response.statusCode.toString());
+      throw APIException(-1, response.statusCode.toString(), const {
+        "error": {"code": -1, "message": "The server did not return 200 status code!"}
+      });
     }
 
     final decoded_response = json.decode(response.body);
     if (decoded_response['error'] != null) {
       Map error = decoded_response['error'];
-      throw APIException(
-        error['error_code'],
-        error['error_msg'],
-      );
+      throw APIException(error['error_code'], error['error_msg'], error);
     }
 
     return decoded_response;
