@@ -52,7 +52,7 @@ abstract class BaseLongPoll {
   Future<void> _resolveFailed(Json response) async {
     if (response['failed'] == 1) {
       _requests_query_params.update('ts', (value) => response['ts']);
-    } else if ([2, 3].contains(response['failed'])) {
+    } else if ((const [2, 3]).contains(response['failed'])) {
       await _setup();
     } else {
       throw CoreException('Invalid longpoll version');
