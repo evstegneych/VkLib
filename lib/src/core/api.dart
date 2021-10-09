@@ -165,10 +165,7 @@ class API {
     final decoded_response = json.decode(response.body);
     if (decoded_response['error'] != null) {
       Map error = decoded_response['error'];
-      throw APIException(
-        error['error_code'],
-        error['error_msg'],
-      );
+      throw VKException(error.cast<String, dynamic>());
     }
 
     return decoded_response;
