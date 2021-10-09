@@ -159,7 +159,7 @@ class API {
     );
 
     if (response.statusCode != 200) {
-      throw APIException(-1, response.statusCode.toString());
+      throw CoreException('Request is broken - ${response.statusCode}');
     }
 
     final decoded_response = json.decode(response.body);

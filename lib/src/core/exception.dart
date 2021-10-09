@@ -8,9 +8,9 @@ class VKException extends BaseException {
       : super('VKException', object['error_code'], object['error_msg']);
 }
 
-class APIException extends BaseException {
-  APIException(code, cause) : super('APIException', code, cause);
-}
+// class APIException extends BaseException {
+//   APIException(code, cause) : super('APIException', code, cause);
+// }
 
 class CoreException extends BaseException {
   CoreException(cause) : super('CoreException', 0, cause);
