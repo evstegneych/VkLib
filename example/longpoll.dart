@@ -8,7 +8,7 @@ void main() async {
   lp.messageNew((event) async {
     await vk.api.messages.send(
       user_id: event.message.fromId,
-      message: 'Hello',
+      message: event.message.text,
     );
   });
 
