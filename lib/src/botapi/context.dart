@@ -2,11 +2,52 @@ import 'package:vklib/src/core/api.dart';
 import 'package:vklib/src/core/longpoll/group_lp_objects/message_new.dart';
 import 'package:vklib/src/core/utils/keyboard.dart';
 
+class ContextArgs {
+  ContextArgs(this._objects);
+
+  late final List<String> _objects;
+
+  List<String> get objects => _objects;
+
+  String? operator [](int index) {
+    if (_objects.isEmpty || _objects.length < index + 1 || index < 0) {
+      return null;
+    } else {
+      return _objects[index];
+    }
+  }
+
+  T? get<T>(int index, {Function(Object err)? onError}) {
+    try {
+      var arg = this[index - 1]!;
+      if (T == int) {
+        return int.parse(arg) as T;
+      } else if (T == double) {
+        return double.parse(arg) as T;
+      } else if (T == num) {
+        return num.parse(arg) as T;
+      } else {
+        return arg as T;
+      }
+    } catch (err) {
+      if (onError == null) {
+        rethrow;
+      }
+      return onError(err);
+    }
+  }
+}
+
 class MessageNewContext extends MessageNewObject {
-  MessageNewContext({required MessageNewObject event, required API api})
+  MessageNewContext(
+      {required MessageNewObject event,
+      required API api,
+      List<String> args = const []})
       : api = api,
+        args = ContextArgs(args),
         super.fromMap(event.body);
   late API api;
+  late final ContextArgs args;
 
   Future<int> answer({
     int? user_id,

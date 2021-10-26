@@ -1,3 +1,5 @@
-mixin BaseHandler {
-  late Future<dynamic> Function(int) handler;
+class BaseHandler<T> {
+  BaseHandler(this.handler);
+
+  late T handler;
 }

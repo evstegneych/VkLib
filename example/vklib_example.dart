@@ -5,10 +5,19 @@ void main() async {
   final vklib = VkLib(token: '%token');
 
   vklib.router.command(
-    pattern: 'команда',
-    func: (ctx) async {
+    pattern: 'р',
+    handler: (ctx) async {
+      var arg = ctx.args.get<int>(
+        1,
+        onError: (err) {
+          print('onError: $err');
+        },
+      );
+
+      print('$arg = ${arg.runtimeType}');
+
       await ctx.answer(
-        message: 'jopa',
+        message: 'jopa = ${ctx.args.objects.join(', ')}',
       );
     },
   );

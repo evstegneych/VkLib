@@ -1,3 +1,4 @@
+import 'package:vklib/src/botapi/base/base_handler.dart';
 import 'package:vklib/src/botapi/context.dart';
 import 'package:vklib/src/botapi/filters.dart';
 import 'package:vklib/src/core/api.dart';
@@ -11,21 +12,21 @@ enum BotCommandType {
 
 typedef botCommandFuncType<T> = T Function(MessageNewContext ctx);
 
-class BotCommand {
+class BotCommand extends BaseHandler<botCommandFuncType> {
   BotCommand({
     required this.pattern,
-    required this.func,
+    required botCommandFuncType handler,
     required this.api,
     this.type = BotCommandType.command,
     this.filters = const [],
     this.prefixes = const [],
-  }) : args = [];
+  })  : args = [],
+        super(handler);
 
   late BotCommandType type;
   late String pattern;
   late API api;
   late List<filterType> filters;
-  late botCommandFuncType func;
   late List<String> args;
   late List<String> prefixes;
 
@@ -99,7 +100,7 @@ class BotCommand {
 
   Future<void> execute(MessageNewObject event) async {
     if (_resolveEvent(event)) {
-      func(MessageNewContext(event: event, api: api));
+      handler(MessageNewContext(event: event, api: api, args: args));
     }
   }
 }

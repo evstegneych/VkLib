@@ -19,13 +19,13 @@ class BotRouter {
 
   void justText({
     required String pattern,
-    required botCommandFuncType func,
+    required botCommandFuncType handler,
     List<String> prefixes = const [],
     List<filterType> filters = const [],
   }) {
     commands.add(BotCommand(
       pattern: pattern,
-      func: func,
+      handler: handler,
       api: api,
       filters: filters + this.filters,
       type: BotCommandType.justText,
@@ -35,13 +35,13 @@ class BotRouter {
 
   void command({
     required String pattern,
-    required botCommandFuncType func,
+    required botCommandFuncType handler,
     List<String> prefixes = const [],
     List<filterType> filters = const [],
   }) {
     commands.add(BotCommand(
       pattern: pattern,
-      func: func,
+      handler: handler,
       api: api,
       filters: filters + this.filters,
       type: BotCommandType.command,
@@ -51,13 +51,13 @@ class BotRouter {
 
   void commandRegExp({
     required String pattern,
-    required botCommandFuncType func,
+    required botCommandFuncType handler,
     List<String> prefixes = const [],
     List<filterType> filters = const [],
   }) {
     commands.add(BotCommand(
       pattern: pattern,
-      func: func,
+      handler: handler,
       api: api,
       filters: filters + this.filters,
       type: BotCommandType.regExp,
