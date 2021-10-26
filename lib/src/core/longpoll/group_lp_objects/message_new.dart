@@ -1,12 +1,16 @@
 import 'package:vklib/src/core/base/types.dart';
 import 'package:vklib/src/core/event.dart';
-import 'package:vklib/src/core/longpoll/group_context/base_context.dart';
+import 'package:vklib/src/core/longpoll/group_lp_objects/base_lp_object.dart';
 
-class MessageNewContext extends BaseContext {
-  late final Map<String, dynamic> _object;
+class MessageNewObject extends BaseLpObject {
+  late final Json _object;
 
-  MessageNewContext(GroupEvent _messageNew)
+  MessageNewObject(GroupEvent _messageNew)
       : _object = _messageNew.object,
+        super('message_new');
+
+  MessageNewObject.fromMap(Json event)
+      : _object = event,
         super('message_new');
 
   Json get body => _object;
@@ -48,6 +52,8 @@ class MessageNewContext extends BaseContext {
 
 class Message {
   final Map<String, dynamic> _message;
+
+  Json get body => _message;
 
   Message(this._message);
 

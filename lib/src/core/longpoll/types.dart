@@ -26,17 +26,17 @@ class BaseEventType<T> {
 }
 
 class GroupLongPollEventsEnum {
-  static BaseEventType get MessageNew => BaseEventType('message_new');
+  static BaseEventType get messageNew => BaseEventType('message_new');
 
-  static BaseEventType get MessageEvent => BaseEventType('message_event');
+  static BaseEventType get messageEvent => BaseEventType('message_event');
 
-  static BaseEventType get MessageEdit => BaseEventType('message_edit');
+  static BaseEventType get messageEdit => BaseEventType('message_edit');
 
-  static BaseEventType get MessageReply => BaseEventType('message_reply');
+  static BaseEventType get messageReply => BaseEventType('message_reply');
 
-  static BaseEventType get MessageAllow => BaseEventType('message_allow');
+  static BaseEventType get messageAllow => BaseEventType('message_allow');
 
-  static BaseEventType get MessageDeny => BaseEventType('message_deny');
+  static BaseEventType get messageDeny => BaseEventType('message_deny');
 }
 
 class UserLongPollEventsEnum {

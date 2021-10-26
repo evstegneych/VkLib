@@ -1,5 +1,7 @@
 import 'package:dotenv/dotenv.dart';
+import 'package:vklib/src/botapi/bot_router.dart';
 import 'package:vklib/src/core/api.dart';
+import 'package:vklib/src/core/longpoll/group_longpoll.dart';
 import 'package:vklib/utils.dart';
 
 /// Main class
@@ -19,8 +21,26 @@ class VkLib {
       _access_token = token;
     }
     api = API(_access_token, v: v, lang: lang, test_mode: test_mode);
+    botRoutes = [BotRouter(api: api)];
   }
 
   /// Instance of API class
   late API api;
+
+  /// List Routes
+  late List<BotRouter> botRoutes;
+
+  /// Get main router
+  BotRouter get router => botRoutes[0];
+
+  void run() async {
+    var lp = GroupLongPoll(api);
+    lp.messageNew((event) async {
+      botRoutes.forEach((element) {
+        element.handleEvent(event);
+      });
+    });
+    print('start');
+    lp.start();
+  }
 }

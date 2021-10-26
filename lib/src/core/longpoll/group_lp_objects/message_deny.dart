@@ -1,18 +1,16 @@
 import 'package:vklib/src/core/base/types.dart';
 import 'package:vklib/src/core/event.dart';
 
-import 'base_context.dart';
+import 'base_lp_object.dart';
 
-class MessageAllowContext extends BaseContext {
+class MessageDenyObject extends BaseLpObject {
   late final Json _object;
 
-  MessageAllowContext(GroupEvent _messageNew)
+  MessageDenyObject(GroupEvent _messageNew)
       : _object = _messageNew.object,
-        super('message_allow');
+        super('message_deny');
 
   Json get body => _object;
 
   int get userId => _object['user_id'];
-
-  String get key => _object['key'];
 }

@@ -1,7 +1,7 @@
-class BaseContext {
+class BaseLpObject {
   late final String type;
 
-  BaseContext(this.type);
+  BaseLpObject(this.type);
 
   @override
   bool operator ==(Object other) {
