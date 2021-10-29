@@ -1,5 +1,6 @@
 library vklib;
 
+export 'package:vklib/src/botapi/filters.dart' show BotFilters;
 export 'package:vklib/src/core/api.dart';
 export 'package:vklib/src/core/base/types.dart';
 export 'package:vklib/src/core/exception.dart';

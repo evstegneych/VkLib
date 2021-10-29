@@ -13,15 +13,15 @@ class BotRouter {
 
   late String name;
   late List<String> prefixes;
-  late List<filterType> filters;
+  late List<BaseFilter> filters;
   late API api;
   late List<BotCommand> commands;
 
   void justText({
-    required String pattern,
+    required List<String> pattern,
     required botCommandFuncType handler,
     List<String> prefixes = const [],
-    List<filterType> filters = const [],
+    List<BaseFilter> filters = const [],
   }) {
     commands.add(BotCommand(
       pattern: pattern,
@@ -34,10 +34,10 @@ class BotRouter {
   }
 
   void command({
-    required String pattern,
+    required List<String> pattern,
     required botCommandFuncType handler,
     List<String> prefixes = const [],
-    List<filterType> filters = const [],
+    List<BaseFilter> filters = const [],
   }) {
     commands.add(BotCommand(
       pattern: pattern,
@@ -50,10 +50,10 @@ class BotRouter {
   }
 
   void commandRegExp({
-    required String pattern,
+    required List<String> pattern,
     required botCommandFuncType handler,
     List<String> prefixes = const [],
-    List<filterType> filters = const [],
+    List<BaseFilter> filters = const [],
   }) {
     commands.add(BotCommand(
       pattern: pattern,

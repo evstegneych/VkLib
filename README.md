@@ -35,6 +35,4 @@ VK SDK for Dart allows you to use the VK API easily.
 -
   - Filters
 -
-  - Commands
--
   - etc

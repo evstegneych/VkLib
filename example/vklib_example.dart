@@ -5,7 +5,8 @@ void main() async {
   final vklib = VkLib(token: '%token');
 
   vklib.router.command(
-    pattern: 'р',
+    pattern: ['р', 'h'],
+    // filters: [BotFilters.chatOnly(), BotFilters.ignoreBots()],
     handler: (ctx) async {
       var arg = ctx.args.get<int>(
         1,

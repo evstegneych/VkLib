@@ -24,9 +24,9 @@ class BotCommand extends BaseHandler<botCommandFuncType> {
         super(handler);
 
   late BotCommandType type;
-  late String pattern;
+  late List<String> pattern;
   late API api;
-  late List<filterType> filters;
+  late List<BaseFilter> filters;
   late List<String> args;
   late List<String> prefixes;
 
@@ -59,47 +59,59 @@ class BotCommand extends BaseHandler<botCommandFuncType> {
     if (!_p && prefixes.isNotEmpty) {
       return false;
     }
-    if (text.startsWith(pattern)) {
-      text = text.substring(pattern.length);
-      if (!text.startsWith(' ') && text.isNotEmpty) {
-        return false;
+    for (var singlePattern in pattern) {
+      if (text.startsWith(singlePattern)) {
+        text = text.substring(singlePattern.length);
+        if (!text.startsWith(' ') && text.isNotEmpty) {
+          return false;
+        }
+        args = text.trim().split(' ');
+        return true;
       }
-      args = text.trim().split(' ');
-      return true;
     }
     return false;
   }
 
   bool _resolveRegExp(MessageNewObject event) {
-    if (event.message.text != null) {
-      var find = RegExp(pattern).firstMatch(event.message.text!);
-      if (find == null) {
-        return false;
+    for (var singlePattern in pattern) {
+      var find = RegExp(singlePattern).firstMatch(event.message.text!);
+      if (find != null) {
+        for (var i = 1; i <= find.groupCount; i++) {
+          args.add(find.group(i) ?? 'never');
+        }
+        return true;
       }
-      for (var i = 1; i <= find.groupCount; i++) {
-        args.add(find.group(i) ?? 'never');
-      }
-      return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   bool _resolveJustText(MessageNewObject event) {
-    if (prefixes.isNotEmpty) {
-      for (var prefix in prefixes) {
-        if ('$prefix$pattern' == event.message.text) {
+    for (var singlePattern in pattern) {
+      if (prefixes.isNotEmpty) {
+        for (var prefix in prefixes) {
+          if ('$prefix$singlePattern' == event.message.text) {
+            return true;
+          }
+        }
+      } else {
+        if (singlePattern == event.message.text) {
           return true;
         }
       }
-      return false;
-    } else {
-      return pattern == event.message.text;
     }
+    return false;
   }
 
   Future<void> execute(MessageNewObject event) async {
+    if (event.message.text == null) {
+      return;
+    }
     if (_resolveEvent(event)) {
+      var toRunFilters = filters.map((e) => e.execute(event));
+      var runFilters = await Future.wait(toRunFilters);
+      if (runFilters.contains(false)) {
+        return;
+      }
       handler(MessageNewContext(event: event, api: api, args: args));
     }
   }
