@@ -9,16 +9,19 @@ import 'group_lp_objects/message_deny.dart';
 
 typedef _baseHandlerType<T> = LongPollEventHandler<StandartGroupCommand<T>>;
 
-typedef MessageEditContext = MessageNewObject;
-typedef MessageReplyContext = MessageNewObject;
+typedef MessageEditObject = MessageNewObject;
+typedef MessageReplyObject = MessageNewObject;
+
+typedef _MessageHandlerType = _baseHandlerType<MessageNewObject>;
 
 typedef _MessageNewHandlerType = _baseHandlerType<MessageNewObject>;
 typedef _MessageAllowHandlerType = _baseHandlerType<MessageAllowObject>;
 typedef _MessageDenyHandlerType = _baseHandlerType<MessageDenyObject>;
-typedef _MessageEditHandlerType = _baseHandlerType<MessageEditContext>;
-typedef _MessageReplyHandlerType = _baseHandlerType<MessageReplyContext>;
+typedef _MessageEditHandlerType = _baseHandlerType<MessageEditObject>;
+typedef _MessageReplyHandlerType = _baseHandlerType<MessageReplyObject>;
 
 class GroupLongPoll extends BaseGroupLongPoll {
+  _MessageHandlerType? _messageHandler;
   _MessageNewHandlerType? _messageNewHandler;
   _MessageAllowHandlerType? _messageAllowHandler;
   _MessageDenyHandlerType? _messageDenyHandler;
@@ -30,33 +33,34 @@ class GroupLongPoll extends BaseGroupLongPoll {
   GroupLongPoll.withGroupId(API api, int _groupId)
       : super(api: api, group_id: _groupId);
 
+  void message(StandartGroupCommand<MessageNewObject> func) {
+    _messageHandler = LongPollEventHandler(func);
+  }
+
   void messageNew(StandartGroupCommand<MessageNewObject> func) {
-    _messageNewHandler =
-        LongPollEventHandler(GroupLongPollEventsEnum.messageNew, func);
+    _messageNewHandler = LongPollEventHandler(func);
   }
 
   void messageAllow(Future<void> Function(MessageAllowObject) func) {
-    _messageAllowHandler =
-        LongPollEventHandler(GroupLongPollEventsEnum.messageAllow, func);
+    _messageAllowHandler = LongPollEventHandler(func);
   }
 
   void messageDeny(Future<void> Function(MessageDenyObject) func) {
-    _messageDenyHandler =
-        LongPollEventHandler(GroupLongPollEventsEnum.messageDeny, func);
+    _messageDenyHandler = LongPollEventHandler(func);
   }
 
-  void messageEdit(Future<void> Function(MessageEditContext) func) {
-    _messageEditHandler =
-        LongPollEventHandler(GroupLongPollEventsEnum.messageEdit, func);
+  void messageEdit(Future<void> Function(MessageEditObject) func) {
+    _messageEditHandler = LongPollEventHandler(func);
   }
 
-  void messageReply(Future<void> Function(MessageReplyContext) func) {
-    _messageReplyHandler =
-        LongPollEventHandler(GroupLongPollEventsEnum.messageReply, func);
+  void messageReply(Future<void> Function(MessageReplyObject) func) {
+    _messageReplyHandler = LongPollEventHandler(func);
   }
 
   void start() async {
     await for (var event in super.runPolling()) {
+      await _messageHandler?.callback(MessageNewObject(event));
+
       switch (event.content['type']) {
         case 'message_new':
           await _messageNewHandler?.callback(MessageNewObject(event));
@@ -71,11 +75,11 @@ class GroupLongPoll extends BaseGroupLongPoll {
           break;
 
         case 'message_edit':
-          await _messageEditHandler?.callback(MessageEditContext(event));
+          await _messageEditHandler?.callback(MessageEditObject(event));
           break;
 
         case 'message_reply':
-          await _messageReplyHandler?.callback(MessageReplyContext(event));
+          await _messageReplyHandler?.callback(MessageReplyObject(event));
           break;
       }
     }

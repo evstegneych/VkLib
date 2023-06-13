@@ -12,7 +12,7 @@ class UserLongPoll extends BaseUserLongPoll {
     if (handlers[type.getName()] == null) {
       handlers[type.getName()] = [];
     }
-    handlers[type.getName()]!.add(LongPollEventHandler(type, func));
+    handlers[type.getName()]!.add(LongPollEventHandler(func, type));
   }
 
   void start() async {

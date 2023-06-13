@@ -21,26 +21,38 @@ class VkLib {
       _access_token = token;
     }
     api = API(_access_token, v: v, lang: lang, test_mode: test_mode);
-    botRoutes = [BotRouter(api: api)];
+    _botRoutes = [BotRouter(api: api)];
+    _longPool = GroupLongPoll(api);
   }
 
   /// Instance of API class
   late API api;
 
   /// List Routes
-  late List<BotRouter> botRoutes;
+  late List<BotRouter> _botRoutes;
+
+  /// LongPool
+  late GroupLongPoll _longPool;
 
   /// Get main router
-  BotRouter get router => botRoutes[0];
+  BotRouter get router => _botRoutes[0];
+
+  void addRouter(BotRouter router) {
+    _botRoutes.add(router);
+  }
+
+  void addAllRouter(Iterable<BotRouter> router) {
+    _botRoutes.addAll(router);
+  }
 
   void run() async {
-    var lp = GroupLongPoll(api);
-    lp.messageNew((event) async {
-      botRoutes.forEach((element) {
+    _longPool.message((event) async {
+      _botRoutes.forEach((element) {
         element.handleEvent(event);
       });
     });
+
     print('start');
-    lp.start();
+    _longPool.start();
   }
 }

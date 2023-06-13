@@ -1,8 +1,8 @@
 class LongPollEventHandler<T> {
   late T callback;
-  late BaseEventType type;
+  late BaseEventType? type;
 
-  LongPollEventHandler(this.type, this.callback);
+  LongPollEventHandler(this.callback, [this.type]);
 }
 
 class BaseEventType<T> {

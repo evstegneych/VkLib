@@ -10,27 +10,37 @@ enum BotCommandType {
   justText,
 }
 
-typedef botCommandFuncType<T> = T Function(MessageNewContext ctx);
+typedef botCommandHandlerType<T> = T Function(MessageNewContext ctx);
 
-class BotCommand extends BaseHandler<botCommandFuncType> {
+class BotCommand extends BaseHandler<botCommandHandlerType> {
   BotCommand({
-    required this.pattern,
-    required botCommandFuncType handler,
+    required dynamic pattern,
+    required botCommandHandlerType handler,
     required this.api,
     this.type = BotCommandType.command,
-    this.filters = const [],
+    required this.filters,
     this.prefixes = const [],
   })  : args = [],
-        super(handler);
+        pattern = [],
+        super(handler) {
+    if (pattern is String) {
+      this.pattern = [pattern];
+    } else if (pattern is List<String>) {
+      this.pattern = pattern;
+    }
+  }
 
   late BotCommandType type;
   late List<String> pattern;
   late API api;
-  late List<BaseFilter> filters;
+  late BaseFilter filters;
   late List<String> args;
   late List<String> prefixes;
 
-  bool _resolveEvent(MessageNewObject event) {
+  bool _canHandle(MessageNewObject event) {
+    if (event.type != 'message_new') {
+      return false;
+    }
     switch (type) {
       case BotCommandType.command:
         return _resolveCommand(event);
@@ -106,13 +116,12 @@ class BotCommand extends BaseHandler<botCommandFuncType> {
     if (event.message.text == null) {
       return;
     }
-    if (_resolveEvent(event)) {
-      var toRunFilters = filters.map((e) => e.execute(event));
-      var runFilters = await Future.wait(toRunFilters);
-      if (runFilters.contains(false)) {
-        return;
-      }
-      handler(MessageNewContext(event: event, api: api, args: args));
+    if (!_canHandle(event)) {
+      return;
     }
+    if (!(await filters.execute(event))) {
+      return;
+    }
+    handler(MessageNewContext(event: event, api: api, args: args));
   }
 }
