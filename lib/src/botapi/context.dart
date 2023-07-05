@@ -20,11 +20,11 @@ class ContextArgs {
   T? get<T>(int index, {Function(Object err)? onError}) {
     try {
       var arg = this[index - 1]!;
-      if (T == int) {
+      if (T is int) {
         return int.parse(arg) as T;
-      } else if (T == double) {
+      } else if (T is double) {
         return double.parse(arg) as T;
-      } else if (T == num) {
+      } else if (T is num) {
         return num.parse(arg) as T;
       } else {
         return arg as T;

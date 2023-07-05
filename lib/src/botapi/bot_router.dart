@@ -1,4 +1,4 @@
-import 'package:vklib/src/botapi/command.dart';
+import 'package:vklib/src/botapi/base/base_handler.dart';
 import 'package:vklib/src/botapi/filters.dart';
 import 'package:vklib/src/botapi/handlers.dart';
 import 'package:vklib/src/core/api.dart';
@@ -10,15 +10,13 @@ class BotRouter {
     this.name = 'VkLib Bot',
     this.prefixes = const [],
     this.filters,
-  })  : commands = [],
-        eventHandlers = [];
+  });
 
   late String name;
   late List<String> prefixes;
   late BaseFilter? filters;
   late API api;
-  late List<BotCommand> commands;
-  late List<EventHandler> eventHandlers;
+  late List<BaseHandler> handlers = [];
 
   void setFilters(BaseFilter filter) {
     filters = filter;
@@ -29,9 +27,9 @@ class BotRouter {
     BaseFilter? filters,
     required botEventHandlerType handler,
   }) {
-    eventHandlers.add(EventHandler(
-      handler,
+    handlers.add(EventMessageHandler(
       eventType,
+      handler: handler,
       filters: _makeNotNullFilter(filters, filter2: this.filters),
     ));
   }
@@ -42,12 +40,11 @@ class BotRouter {
     BaseFilter? filters,
     required botCommandHandlerType handler,
   }) {
-    commands.add(BotCommand(
+    handlers.add(JustTextMessageHandler(
       pattern: pattern,
       handler: handler,
       api: api,
       filters: _makeNotNullFilter(filters, filter2: this.filters),
-      type: BotCommandType.justText,
       prefixes: prefixes + this.prefixes,
     ));
   }
@@ -58,12 +55,11 @@ class BotRouter {
     BaseFilter? filters,
     required botCommandHandlerType handler,
   }) {
-    commands.add(BotCommand(
+    handlers.add(CommandMessageHandler(
       pattern: pattern,
       handler: handler,
       api: api,
       filters: _makeNotNullFilter(filters, filter2: this.filters),
-      type: BotCommandType.command,
       prefixes: prefixes + this.prefixes,
     ));
   }
@@ -74,22 +70,18 @@ class BotRouter {
     BaseFilter? filters,
     required botCommandHandlerType handler,
   }) {
-    commands.add(BotCommand(
+    handlers.add(RegExpMessageHandler(
       pattern: pattern,
       handler: handler,
       api: api,
       filters: _makeNotNullFilter(filters, filter2: this.filters),
-      type: BotCommandType.regExp,
     ));
   }
 
   void handleEvent(MessageNewObject event) {
-    commands.forEach((element) {
-      element.execute(event);
-    });
-    eventHandlers.forEach((element) {
-      element.execute(event);
-    });
+    for (final el in handlers) {
+      el.execute(event);
+    }
   }
 
   BaseFilter _makeNotNullFilter(BaseFilter? filter1, {BaseFilter? filter2}) {

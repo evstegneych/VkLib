@@ -5,11 +5,11 @@ homepage: https://github.com/Waitrum/VkLib
 issue_tracker: https://github.com/Waitrum/VkLib/issues
 
 environment:
-  sdk: '>=2.13.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  http: ^0.13.1
-  dotenv: ^3.0.0
+  http: ^1.1.0
+  dotenv: ^4.1.0
 #  logger: ^1.0.0
 
 dev_dependencies:

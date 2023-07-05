@@ -7,19 +7,19 @@ class BaseFilter {
 
   filterType filter;
 
-  Future<bool> execute(MessageNewObject obj) async {
+  Future<bool> compute(MessageNewObject obj) async {
     return filter(obj) as bool;
   }
 
   BaseFilter operator |(BaseFilter? other) {
-    if (other == null){
+    if (other == null) {
       return this;
     }
     return FilterOr(this, other);
   }
 
   BaseFilter operator &(BaseFilter? other) {
-       if (other == null){
+    if (other == null) {
       return this;
     }
     return FilterAnd(this, other);
@@ -34,8 +34,8 @@ class FilterOr extends BaseFilter {
   late BaseFilter filter2;
 
   @override
-  Future<bool> execute(MessageNewObject obj) async {
-    return await super.execute(obj) || await filter2.execute(obj);
+  Future<bool> compute(MessageNewObject obj) async {
+    return await super.compute(obj) || await filter2.compute(obj);
   }
 }
 
@@ -47,8 +47,8 @@ class FilterAnd extends BaseFilter {
   late BaseFilter filter2;
 
   @override
-  Future<bool> execute(MessageNewObject obj) async {
-    return await super.execute(obj) && await filter2.execute(obj);
+  Future<bool> compute(MessageNewObject obj) async {
+    return await super.compute(obj) && await filter2.compute(obj);
   }
 }
 
