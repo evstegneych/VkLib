@@ -6,45 +6,39 @@ import 'package:vklib/src/core/longpoll/group_lp_objects/message_new.dart';
 
 class BotRouter {
   BotRouter({
-    required this.api,
+    required API api,
     this.name = 'VkLib Bot',
     this.prefixes = const [],
-    this.filters,
-  });
+    this.filters = const [],
+  }) : _api = api;
 
   late String name;
   late List<String> prefixes;
-  late BaseFilter? filters;
-  late API api;
-  late List<BaseHandler> handlers = [];
-
-  void setFilters(BaseFilter filter) {
-    filters = filter;
-  }
+  late Iterable<BaseFilter> filters;
+  late final API _api;
+  late final List<BaseHandler> _handlers = [];
 
   void onEvent(
     String eventType, {
-    BaseFilter? filters,
+    Iterable<BaseFilter> filters = const [],
     required botEventHandlerType handler,
   }) {
-    handlers.add(EventMessageHandler(
+    _handlers.add(EventMessageHandler(
       eventType,
       handler: handler,
-      filters: _makeNotNullFilter(filters, filter2: this.filters),
+      filters: filters,
     ));
   }
 
   void justText({
-    required dynamic pattern,
     List<String> prefixes = const [],
-    BaseFilter? filters,
+    Iterable<BaseFilter> filters = const [],
     required botCommandHandlerType handler,
   }) {
-    handlers.add(JustTextMessageHandler(
-      pattern: pattern,
+    _handlers.add(JustTextMessageHandler(
       handler: handler,
-      api: api,
-      filters: _makeNotNullFilter(filters, filter2: this.filters),
+      api: _api,
+      filters: filters,
       prefixes: prefixes + this.prefixes,
     ));
   }
@@ -52,14 +46,14 @@ class BotRouter {
   void command({
     required dynamic pattern,
     List<String> prefixes = const [],
-    BaseFilter? filters,
+    Iterable<BaseFilter> filters = const [],
     required botCommandHandlerType handler,
   }) {
-    handlers.add(CommandMessageHandler(
+    _handlers.add(CommandMessageHandler(
       pattern: pattern,
       handler: handler,
-      api: api,
-      filters: _makeNotNullFilter(filters, filter2: this.filters),
+      api: _api,
+      filters: filters,
       prefixes: prefixes + this.prefixes,
     ));
   }
@@ -67,30 +61,29 @@ class BotRouter {
   void commandRegExp({
     required dynamic pattern,
     List<String> prefixes = const [],
-    BaseFilter? filters,
+    Iterable<BaseFilter> filters = const [],
     required botCommandHandlerType handler,
   }) {
-    handlers.add(RegExpMessageHandler(
+    _handlers.add(RegExpMessageHandler(
       pattern: pattern,
       handler: handler,
-      api: api,
-      filters: _makeNotNullFilter(filters, filter2: this.filters),
+      api: _api,
+      filters: filters,
     ));
   }
 
   void handleEvent(MessageNewObject event) {
-    for (final el in handlers) {
+    for (final el in _handlers) {
       el.execute(event);
     }
   }
 
-  BaseFilter _makeNotNullFilter(BaseFilter? filter1, {BaseFilter? filter2}) {
-    if (filter1 != null && filter2 != null) {
-      return filter1 & filter2;
+  @override
+  String toString() {
+    var str = 'BotRouter $name:\n';
+    for (final el in _handlers) {
+      str += el.toString() + '\n';
     }
-    if (filter1 == null && filter2 == null) {
-      return BotFilters.alwaysTrue;
-    }
-    return filter1 ?? filter2!;
+    return str;
   }
 }

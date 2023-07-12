@@ -1,6 +1,5 @@
 import 'package:vklib/src/botapi/base/base_handler.dart';
 import 'package:vklib/src/botapi/context.dart';
-import 'package:vklib/src/botapi/filters.dart';
 import 'package:vklib/src/core/longpoll/group_lp_objects/message_new.dart';
 import 'package:vklib/vklib.dart';
 
@@ -92,18 +91,9 @@ final class JustTextMessageHandler extends BaseHandler<botCommandHandlerType> {
   JustTextMessageHandler({
     required super.handler,
     required super.filters,
-    required dynamic pattern,
     required this.api,
     this.prefixes = const [],
-  }) {
-    if (pattern is String) {
-      this.pattern = [pattern];
-    } else if (pattern is List<String>) {
-      this.pattern = pattern;
-    } else {
-      throw CoreException('Pattern must be String or List<String>');
-    }
-  }
+  });
 
   late List<String> pattern;
   late API api;

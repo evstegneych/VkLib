@@ -2,8 +2,10 @@ import 'package:vklib/vklib.dart';
 
 // Тестовый файл лол)
 void main() async {
-  final vklib = VkLib(token: '%token');
-  vklib.router.setFilters(BotFilters.alwaysTrue);
+  final vklib = VkLib(token: '%token')
+    ..router.name = 'Test Bot'
+    ..router.prefixes = ['!']
+    ..router.filters = [BotFilters.ignoreBots];
 
   vklib.router.onEvent(
     'message_new',
@@ -14,7 +16,7 @@ void main() async {
 
   vklib.router.command(
     pattern: ['р', 'h'],
-    filters: BotFilters.chatOnly & BotFilters.ignoreBots,
+    filters: [BotFilters.chatOnly, BotFilters.ignoreBots],
     handler: (ctx) async {
       var arg = ctx.args.get<int>(
         1,
@@ -30,6 +32,6 @@ void main() async {
       );
     },
   );
-
-  vklib.run();
+  print(vklib.router);
+  // vklib.run();
 }

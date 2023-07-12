@@ -5,12 +5,15 @@ abstract base class BaseHandler<T> {
   BaseHandler({required this.handler, required this.filters});
 
   late T handler;
-  late BaseFilter? filters;
-
-  bool _canHandle(MessageNewObject event);
+  late Iterable<BaseFilter> filters;
 
   Future<bool> computeFilters(MessageNewObject event) async {
-    return await filters?.compute(event) ?? true;
+    for (var filter in filters) {
+      if (!await filter.compute(event)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   Future<void> execute(MessageNewObject event);
