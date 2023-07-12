@@ -3,13 +3,29 @@ import 'package:vklib/src/core/longpoll/group_lp_objects/message_new.dart';
 import 'package:vklib/src/core/utils/keyboard.dart';
 import 'package:vklib/src/core/exception.dart';
 
-class ContextArgs {
-  ContextArgs(this._objects);
+abstract base class MessageArgs<T> {
+  MessageArgs(this._objects);
 
-  late final List<String> _objects;
+  String? operator [](int index);
 
-  List<String> get objects => _objects;
+  K? maybeGet<K>(Object key);
 
+  K get<K>(Object key);
+
+  late final T _objects;
+
+  T get objects => _objects;
+
+  Never _argumentNotFound(dynamic key) {
+    throw CoreException('Argument $key not found');
+  }
+}
+
+final class DefaultArgs extends MessageArgs<List<String>> {
+  DefaultArgs(super._objects);
+  DefaultArgs.empty() : super([]);
+
+  @override
   String? operator [](int index) {
     if (_objects.isEmpty || _objects.length < index + 1 || index < 0) {
       return null;
@@ -18,7 +34,8 @@ class ContextArgs {
     }
   }
 
-  T? maybeGet<T>(int index) {
+  @override
+  T? maybeGet<T>(covariant int index) {
     try {
       var arg = this[index - 1]!;
       if (T is int) {
@@ -35,12 +52,48 @@ class ContextArgs {
     }
   }
 
-  T get<T>(int index) {
+  @override
+  T get<T>(covariant int index) {
     return maybeGet<T>(index) ?? _argumentNotFound(index);
   }
+}
 
-  static Never _argumentNotFound(int index) {
-    throw CoreException('Argument $index not found');
+final class PayloadArgs extends MessageArgs<Map<String, String>> {
+  PayloadArgs(super._objects);
+
+  @override
+  String? operator [](int index) {
+    if (_objects.isEmpty || _objects.length < index + 1 || index < 0) {
+      return null;
+    } else {
+      return _objects[index];
+    }
+  }
+
+  @override
+  T? maybeGet<T>(covariant String key) {
+    try {
+      var arg = _objects[key];
+      if (arg == null) {
+        return null;
+      }
+      if (T is int) {
+        return int.parse(arg) as T;
+      } else if (T is double) {
+        return double.parse(arg) as T;
+      } else if (T is num) {
+        return num.parse(arg) as T;
+      } else {
+        return arg as T;
+      }
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  T get<T>(covariant String key) {
+    return maybeGet<T>(key) ?? _argumentNotFound(key);
   }
 }
 
@@ -48,12 +101,11 @@ class MessageNewContext extends MessageNewObject {
   MessageNewContext({
     required MessageNewObject event,
     required this.api,
-    List<String> args = const [],
-  })  : args = ContextArgs(args),
-        super.fromMap(event.body);
+    required this.args,
+  }) : super.fromMap(event.body);
 
   final API api;
-  final ContextArgs args;
+  final MessageArgs args;
 
   Future<int> answer({
     int? user_id,

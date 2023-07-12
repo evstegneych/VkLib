@@ -82,7 +82,8 @@ final class CommandMessageHandler extends BaseHandler<botCommandHandlerType> {
   @override
   Future<void> execute(MessageNewObject event) async {
     if (_canHandle(event) && await computeFilters(event)) {
-      handler(MessageNewContext(event: event, api: api, args: args));
+      handler(
+          MessageNewContext(event: event, api: api, args: DefaultArgs(args)));
     }
   }
 }
@@ -123,7 +124,8 @@ final class JustTextMessageHandler extends BaseHandler<botCommandHandlerType> {
   @override
   Future<void> execute(MessageNewObject event) async {
     if (_canHandle(event) && await computeFilters(event)) {
-      handler(MessageNewContext(event: event, api: api, args: args));
+      handler(
+          MessageNewContext(event: event, api: api, args: DefaultArgs.empty()));
     }
   }
 }
@@ -132,44 +134,67 @@ final class RegExpMessageHandler extends BaseHandler<botCommandHandlerType> {
   RegExpMessageHandler({
     required super.handler,
     required super.filters,
-    required dynamic pattern,
+    required this.pattern,
     required this.api,
     this.prefixes = const [],
-  }) {
-    if (pattern is String) {
-      this.pattern = [pattern];
-    } else if (pattern is List<String>) {
-      this.pattern = pattern;
-    } else {
-      throw CoreException('Pattern must be String or List<String>');
-    }
-  }
+  });
 
-  late List<String> pattern;
-  late API api;
-  late List<String> args = [];
-  late List<String> prefixes;
+  final String pattern;
+  final API api;
+  final List<String> group = [];
+  final List<String> prefixes;
 
   bool _canHandle(MessageNewObject event) {
     if (event.message.text == null) {
       return false;
     }
-    for (var singlePattern in pattern) {
-      var find = RegExp(singlePattern).firstMatch(event.message.text!);
-      if (find != null) {
-        for (var i = 1; i <= find.groupCount; i++) {
-          args.add(find.group(i) ?? 'never');
-        }
-        return true;
+    var find = RegExp(pattern).firstMatch(event.message.text!);
+    if (find != null) {
+      for (var i = 0; i <= find.groupCount; i++) {
+        group.add(find.group(i)!);
       }
+      return true;
     }
+
     return false;
   }
 
   @override
   Future<void> execute(MessageNewObject event) async {
     if (_canHandle(event) && await computeFilters(event)) {
-      handler(MessageNewContext(event: event, api: api, args: args));
+      handler(
+          MessageNewContext(event: event, api: api, args: DefaultArgs(group)));
     }
+  }
+}
+
+final class PayloadHandler extends BaseHandler<botCommandHandlerType> {
+  PayloadHandler({
+    required super.handler,
+    required super.filters,
+    required this.payload,
+    required this.api,
+  });
+
+  final Map<String, String> payload;
+  final API api;
+
+  @override
+  Future<void> execute(MessageNewObject event) async {
+    if (event.message.payload == null) {
+      return;
+    }
+    for (final v in payload.entries) {
+      if (event.message.payload![v.key] != v.value) {
+        return;
+      }
+    }
+    handler(
+      MessageNewContext(
+        event: event,
+        api: api,
+        args: PayloadArgs(payload),
+      ),
+    );
   }
 }
