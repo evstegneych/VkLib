@@ -1,6 +1,7 @@
 import 'package:dotenv/dotenv.dart';
 import 'package:vklib/src/botapi/bot_router.dart';
 import 'package:vklib/src/core/api.dart';
+import 'package:vklib/src/core/exception.dart';
 import 'package:vklib/src/core/longpoll/group_longpoll.dart';
 import 'package:vklib/utils.dart';
 
@@ -15,8 +16,12 @@ class VkLib {
   }) {
     String _access_token;
     if (token.startsWith('%')) {
-      load();
-      _access_token = env[token.substring(1)] ?? 'unknown';
+      final env = DotEnv()..load();
+      final _token = env[token.substring(1)];
+      if (_token == null) {
+        throw CoreException('Token(${token.substring(1)}) in .env is empty');
+      }
+      _access_token = env[token.substring(1)]!;
     } else {
       _access_token = token;
     }
@@ -52,7 +57,6 @@ class VkLib {
       });
     });
 
-    print('start');
     _longPool.start();
   }
 }

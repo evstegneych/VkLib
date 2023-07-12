@@ -1,4 +1,4 @@
-import 'package:vklib/src/botapi/command.dart';
+import 'package:vklib/src/botapi/base/base_handler.dart';
 import 'package:vklib/src/botapi/filters.dart';
 import 'package:vklib/src/botapi/handlers.dart';
 import 'package:vklib/src/core/api.dart';
@@ -6,48 +6,39 @@ import 'package:vklib/src/core/longpoll/group_lp_objects/message_new.dart';
 
 class BotRouter {
   BotRouter({
-    required this.api,
+    required API api,
     this.name = 'VkLib Bot',
     this.prefixes = const [],
-    this.filters,
-  })  : commands = [],
-        eventHandlers = [];
+    this.filters = const [],
+  }) : _api = api;
 
   late String name;
   late List<String> prefixes;
-  late BaseFilter? filters;
-  late API api;
-  late List<BotCommand> commands;
-  late List<EventHandler> eventHandlers;
-
-  void setFilters(BaseFilter filter) {
-    filters = filter;
-  }
+  late Iterable<BaseFilter> filters;
+  late final API _api;
+  late final List<BaseHandler> _handlers = [];
 
   void onEvent(
     String eventType, {
-    BaseFilter? filters,
+    Iterable<BaseFilter> filters = const [],
     required botEventHandlerType handler,
   }) {
-    eventHandlers.add(EventHandler(
-      handler,
+    _handlers.add(EventMessageHandler(
       eventType,
-      filters: _makeNotNullFilter(filters, filter2: this.filters),
+      handler: handler,
+      filters: filters,
     ));
   }
 
   void justText({
-    required dynamic pattern,
     List<String> prefixes = const [],
-    BaseFilter? filters,
+    Iterable<BaseFilter> filters = const [],
     required botCommandHandlerType handler,
   }) {
-    commands.add(BotCommand(
-      pattern: pattern,
+    _handlers.add(JustTextMessageHandler(
       handler: handler,
-      api: api,
-      filters: _makeNotNullFilter(filters, filter2: this.filters),
-      type: BotCommandType.justText,
+      api: _api,
+      filters: filters,
       prefixes: prefixes + this.prefixes,
     ));
   }
@@ -55,15 +46,14 @@ class BotRouter {
   void command({
     required dynamic pattern,
     List<String> prefixes = const [],
-    BaseFilter? filters,
+    Iterable<BaseFilter> filters = const [],
     required botCommandHandlerType handler,
   }) {
-    commands.add(BotCommand(
+    _handlers.add(CommandMessageHandler(
       pattern: pattern,
       handler: handler,
-      api: api,
-      filters: _makeNotNullFilter(filters, filter2: this.filters),
-      type: BotCommandType.command,
+      api: _api,
+      filters: filters,
       prefixes: prefixes + this.prefixes,
     ));
   }
@@ -71,34 +61,29 @@ class BotRouter {
   void commandRegExp({
     required dynamic pattern,
     List<String> prefixes = const [],
-    BaseFilter? filters,
+    Iterable<BaseFilter> filters = const [],
     required botCommandHandlerType handler,
   }) {
-    commands.add(BotCommand(
+    _handlers.add(RegExpMessageHandler(
       pattern: pattern,
       handler: handler,
-      api: api,
-      filters: _makeNotNullFilter(filters, filter2: this.filters),
-      type: BotCommandType.regExp,
+      api: _api,
+      filters: filters,
     ));
   }
 
   void handleEvent(MessageNewObject event) {
-    commands.forEach((element) {
-      element.execute(event);
-    });
-    eventHandlers.forEach((element) {
-      element.execute(event);
-    });
+    for (final el in _handlers) {
+      el.execute(event);
+    }
   }
 
-  BaseFilter _makeNotNullFilter(BaseFilter? filter1, {BaseFilter? filter2}) {
-    if (filter1 != null && filter2 != null) {
-      return filter1 & filter2;
+  @override
+  String toString() {
+    var str = 'BotRouter $name:\n';
+    for (final el in _handlers) {
+      str += el.toString() + '\n';
     }
-    if (filter1 == null && filter2 == null) {
-      return BotFilters.alwaysTrue;
-    }
-    return filter1 ?? filter2!;
+    return str;
   }
 }
