@@ -15,23 +15,19 @@ void main() async {
   );
 
   vklib.router.command(
-    pattern: ['р', 'h'],
+    pattern: ['test', 'тест'],
     filters: [BotFilters.chatOnly, BotFilters.ignoreBots],
     handler: (ctx) async {
-      var arg = ctx.args.get<int>(
-        1,
-        onError: (err) {
-          print('onError: $err');
-        },
-      );
+      final arg = ctx.args.maybeGet<int>(1);
 
       print('$arg = ${arg.runtimeType}');
 
       await ctx.answer(
-        message: 'jopa = ${ctx.args.objects.join(', ')}',
+        message: 'Аргументы = ${ctx.args.objects.join(', ')}',
       );
     },
   );
+  
   print(vklib.router);
   // vklib.run();
 }

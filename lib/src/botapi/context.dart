@@ -1,6 +1,7 @@
 import 'package:vklib/src/core/api.dart';
 import 'package:vklib/src/core/longpoll/group_lp_objects/message_new.dart';
 import 'package:vklib/src/core/utils/keyboard.dart';
+import 'package:vklib/src/core/exception.dart';
 
 class ContextArgs {
   ContextArgs(this._objects);
@@ -17,7 +18,7 @@ class ContextArgs {
     }
   }
 
-  T? get<T>(int index, {Function(Object err)? onError}) {
+  T? maybeGet<T>(int index) {
     try {
       var arg = this[index - 1]!;
       if (T is int) {
@@ -29,25 +30,30 @@ class ContextArgs {
       } else {
         return arg as T;
       }
-    } catch (err) {
-      if (onError == null) {
-        rethrow;
-      }
-      return onError(err);
+    } catch (_) {
+      return null;
     }
+  }
+
+  T get<T>(int index) {
+    return maybeGet<T>(index) ?? _argumentNotFound(index);
+  }
+
+  static Never _argumentNotFound(int index) {
+    throw CoreException('Argument $index not found');
   }
 }
 
 class MessageNewContext extends MessageNewObject {
-  MessageNewContext(
-      {required MessageNewObject event,
-      required API api,
-      List<String> args = const []})
-      : api = api,
-        args = ContextArgs(args),
+  MessageNewContext({
+    required MessageNewObject event,
+    required this.api,
+    List<String> args = const [],
+  })  : args = ContextArgs(args),
         super.fromMap(event.body);
-  late API api;
-  late final ContextArgs args;
+
+  final API api;
+  final ContextArgs args;
 
   Future<int> answer({
     int? user_id,
